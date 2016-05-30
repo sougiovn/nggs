@@ -1,0 +1,12 @@
+<div class="modal-header">
+    <i class="fa fa-exclamation-circle fa-2x text-warning pull-left"></i>
+    <h4 class="modal-title">{{ vm.title }}</h4>
+</div>
+<div class="modal-body bg-warning">
+    <p>
+        {{ vm.message }}
+    </p>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" type="button" ng-click="vm.close()">{{ vm.closeButtonLabel }}</button>
+</div>

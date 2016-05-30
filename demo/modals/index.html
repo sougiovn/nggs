@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" type="text/css" href="../../lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/font-awesome/css/font-awesome.min.css" />
+
+        <style>
+            ol {
+                counter-reset: item;
+            }
+            ol > li {
+                counter-increment: item;
+            }
+            ol ol > li {
+                display: block;
+            }
+            ol ol > li:before {
+                content: counters(item, ".") ". ";
+                margin-left: -20px;
+            }
+        </style>
+
+        <title>fm.modals - Demo</title>
+    </head>
+    <body ng-cloak>
+        <br />
+        <div class="container" ng-controller="fmModalsDemoController as vm">
+            <div class="jumbotron">
+                <h1>fm.modals</h1>
+                <p>
+                    fm.modals is a engine for generating modal using
+                    <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a>,
+                    <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> and
+                    <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> libraries.
+                </p>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p>
+                        <ol>
+                            <li><a href="#intro">Intro</a>
+                                <ol>
+                                    <li><a href="#intro-prebuilt">Pre-built modals</a></li>
+                                    <li><a href="#intro-generating">Generating modals</a></li>
+                                </ol>
+                            </li>
+                            <li><a href="#configuring">Configuring</a></li>
+                        </ol>
+                    </p>
+                </div>
+            </div>
+
+            <h2 id="intro">1. Intro</h2>
+            <p>
+                The <code>fm.modal</code> comes with a provider(<code>fmModalsConfigProvider</code>),
+                a factory(<code>fmModalsFactory</code>) and a controller(<code>fmModalsCommonController</code>)
+                for common usage of basics templates which comes by default: <code>info</code>,
+                <code>success</code>, <code>warning</code>, <code>error</code> and <code>confirm</code>.
+            </p>
+
+            <p>
+                The <code>fmModalsFactory</code> offers you 6 methods, 5 of them offers pre-built modals:
+                <code>info()</code>, <code>success()</code>, <code>warning()</code>,
+                <code>error()</code>, <code>confirm()</code> and the other one is where the magic comes: <code>generate()</code>.
+            </p>
+
+            <h2 id="intro-prebuilt">1.1 Pre-built modals</h2>
+            <p>
+                Check them out!
+            </p>
+            <button type="button" class="btn btn-info" ng-click="vm.info()">info()</button>
+            <button type="button" class="btn btn-success" ng-click="vm.success()">success()</button>
+            <button type="button" class="btn btn-warning" ng-click="vm.warning()">warning()</button>
+            <button type="button" class="btn btn-danger" ng-click="vm.error()">error()</button>
+            <button type="button" class="btn btn-default" ng-click="vm.confirm()">confirm()</button>
+
+            <br /><br />
+
+            <p>
+                There are 4 ways for invoke those methods:
+            </p>
+            <h4><code>fmModalsFactory.info('title', 'message', {options});</code></h4>
+            <p>
+                Passing by parameter the <code>title</code>, the <code>message</code> and the <code>options</code> of the modal.
+            </p>
+
+            <h4><code>fmModalsFactory.info('message', {options});</code></h4>
+            <p>
+                Omitting the <code>title</code>, then using the default <code>title</code> set for the type of modal and passing the <code>message</code> and the <code>options</code> of the modal.
+            </p>
+
+            <h4><code>fmModalsFactory.info('title', 'message');</code></h4>
+            <p>
+                Omitting the <code>options</code>, then using the default <code>options</code> set for the type of modal and passing the <code>title</code> and the <code>message</code> of the modal.
+            </p>
+
+            <h4><code>fmModalsFactory.info('message');</code></h4>
+            <p>
+                Omitting the <code>title</code> and the <code>options</code>, then using the defaults <code>title</code> and <code>options</code> set for the type of modal and passing the <code>message</code> of the modal.
+            </p>
+
+            <h5>Examples</h5>
+<pre>
+fmModalsFactory.info('info title', 'info message', { size: 'sm', backdrop: true });
+fmModalsFactory.error('error message', { size: 'lg', backdrop: 'static' });
+fmModalsFactory.success('success title', 'success message');
+fmModalsFactory.confirm('confirm message');</pre>
+
+            <blockquote>
+                The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
+            </blockquote>
+            <blockquote>
+                All the default modals uses the <code>generate()</code> method.
+            </blockquote>
+
+            <h2 id="intro-generating">1.2 Generating modals</h2>
+            <p>
+                The <code>generate()</code> method create a new custom modal from any template you have which follows the
+                <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> template, but it's configurable following the options given by the <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library.
+            </p>
+
+            <h4><code>fmModalsFactory.generate('template url', 'controller name', {inputs}, {options})</code></h4>
+            <p>
+                The <code>template url</code> must be a valid path for a <code>.html</code> file or a cached one. <br />
+                The <code>controller name</code> must represent a valid controller already created/loaded on the application. <br />
+                The <code>inputs</code> object is the object responsible for delivering data from your controller to the modal controller. <br />
+                The <code>options</code> object uses the options set on <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library for modal creation. <br />
+                You may omit the <code>inputs</code> and <code>options</code>, then the default <code>options</code> will be used.
+            </p>
+
+            <p>
+                Check it out!
+            </p>
+            <button type="button" class="btn btn-primary" ng-click="vm.custom()">generate()</button>
+
+            <br />
+            <br />
+            <p>
+                Take a look at that custom modal. <br />
+            </p>
+<pre>
+var inputs = {
+    message: 'custom message'
+};
+var options = {
+    size: 'sm',
+    backdrop: true
+};
+fmModalsFactory.generate('custom.html', 'fmModalsDemoCustomController', inputs, options);</pre>
+            <p>
+                Here the template was created using the <code>ng-template</code> directive, but you may use a <code>.html</code> file in your file system either.
+            </p>
+<pre>
+&lt;script type="text/ng-template" id="custom.html"&gt;
+    &lt;div class="modal-header"&gt;
+        &lt;h4 class="modal-title"&gt;My custom modal&lt;/h4&gt;
+    &lt;/div>
+    &lt;div class="modal-body"&gt;
+        <code>{{</code> vm.message <code>}}</code>
+    &lt;/div&gt;
+&lt;/script&gt;</pre>
+            <blockquote>
+                Using <code>ng-template</code> directive to create template will register the template by it's id to the <code>$templateCache</code> service offered by angular.
+            </blockquote>
+            <p>
+                Now the controller responsible for the modal.
+            </p>
+<pre>
+fmModalsDemo.controller('fmModalsDemoCustomController', fmModalsDemoCustomController);
+fmModalsDemoCustomController.$inject = ['$uibModalInstance', 'inputs'];
+function fmModalsDemoCustomController($uibModalInstance, inputs) {
+    var vm = this;
+    vm.message = inputs.message;
+}
+</pre>
+            <blockquote>
+                The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
+            </blockquote>
+
+            <h2 id="configuring">2. Configuring</h2>
+        </div>
+
+        <script type="text/ng-template" id="custom.html">
+            <div class="modal-header">
+                <h4 class="modal-title">My custom modal</h4>
+            </div>
+            <div class="modal-body">
+                {{ vm.message }}
+            </div>
+        </script>
+
+        <script src="../../lib/requirejs/require.min.js"></script>
+        <script>
+            require.config({
+                baseUrl: '../../lib/',
+                paths: {
+                    jquery: 'jquery/jquery.min',
+                    angular: 'angular/angular.min',
+                    'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
+                    'fm.modals': '../demo/modals/ng-dev-fm-modals.min',
+                    fmModalsDemo: '../demo/modals/fmModalsDemo'
+                },
+                shim: {
+                    jquery: { export: '$' },
+                    angular: { export: 'angular', deps: ['jquery'] },
+                    'ui.bootstrap': { deps: ['angular'] },
+                    'fm.modals': { deps: ['angular', 'ui.bootstrap'] },
+                    fmModalsDemo: { deps: ['angular', 'ui.bootstrap', 'fm.modals'] }
+                }
+            });
+            require(['jquery', 'angular', 'ui.bootstrap', 'fm.modals', 'fmModalsDemo'],
+                function() {
+                    angular.bootstrap(document, ['fmModalsDemo']);
+                }
+            );
+        </script>
+    </body>
+</html>
