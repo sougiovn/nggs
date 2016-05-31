@@ -32,7 +32,7 @@
             <div class="jumbotron">
                 <h1>fm.modals</h1>
                 <p>
-                    fm.modals is a engine for generating modal using
+                    fm.modals is a factory for generating modal using
                     <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a>,
                     <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> and
                     <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> libraries.
@@ -49,7 +49,12 @@
                                     <li><a href="#intro-generating">Generating modals</a></li>
                                 </ol>
                             </li>
-                            <li><a href="#configuring">Configuring</a></li>
+                            <li><a href="#configuring">Configuring</a>
+                                <ol>
+                                    <li><a href="#configuring-default-options">Default options</a></li>
+                                    <li><a href="#configuring-pre-built-modals">Pre-built modals</a></li>
+                                </ol>
+                            </li>
                         </ol>
                     </p>
                 </div>
@@ -64,7 +69,7 @@
             </p>
 
             <p>
-                The <code>fmModalsFactory</code> offers you 6 methods, 5 of them offers pre-built modals:
+                The <code>fmModalsFactory</code> offers 6 methods, 5 of them are pre-built modals:
                 <code>info()</code>, <code>success()</code>, <code>warning()</code>,
                 <code>error()</code>, <code>confirm()</code> and the other one is where the magic comes: <code>generate()</code>.
             </p>
@@ -82,7 +87,7 @@
             <br /><br />
 
             <p>
-                There are 4 ways for invoke those methods:
+                There are 4 ways for invoking those methods:
             </p>
             <h4><code>fmModalsFactory.info('title', 'message', {options});</code></h4>
             <p>
@@ -183,6 +188,74 @@ function fmModalsDemoCustomController($uibModalInstance, inputs) {
             </blockquote>
 
             <h2 id="configuring">2. Configuring</h2>
+            <p>
+                There are a few interesting configurations for you.
+            </p>
+
+            <h2 id="configuring-default-options">2.1 Default options</h2>
+            <p>
+                It's possible to configure a bunch of options with default values,
+                any option you pass by parameter in methods willl overwrite it.
+            </p>
+
+<pre>
+fmModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
+    .setBackdrop(true/false/'static')                       // default: true
+    .setBackdropClass('string')                             // no default
+    .setBindToController(true/false)                        // default: false
+    .setControllerAs('string')                              // no default
+    .setKeyboard(true/false)                                // default: true,
+    .setOpenedClass('string')                               // default: 'modal-open'
+    .setSize('string')                                      // default: 'md'
+    .setWindowClass('string')                               // no default
+    .setWindowTemplateUrl('string')                         // no default
+    .setWindowTopClass('string');                           // no default</pre>
+
+            <h2 id="configuring-pre-built-modals">2.2 Pre-built modals</h2>
+            <p>
+                I thought it'd be nice to let you configure the pre-built modals in the case you need/want to customize one of them, or at least set a default configuration for them.
+
+                It's possible to configure a default title for all info modals you invoke,
+                change the template setting the url to your template, change the controller by changing it's name and
+                even change the label for the close buttons.
+            </p>
+
+<pre>
+// Info
+fmModalsConfigProvider.info.setTitle('string')      // no default
+    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
+    .setControllerName('string')                    // default: 'fmModalsCommonController'
+    .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
+    .setCloseButtonLabel('string');                 // default: 'Ok'
+
+// Success
+fmModalsConfigProvider.success.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
+    .setControllerName('string')                    // default: 'fmModalsCommonController'
+    .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
+    .setCloseButtonLabel('string');                 // default: 'Ok'
+
+// Warning
+fmModalsConfigProvider.warning.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
+    .setControllerName('string')                    // default: 'fmModalsCommonController'
+    .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
+    .setCloseButtonLabel('string');                 // default: 'Ok'
+
+// Error
+fmModalsConfigProvider.error.setTitle('string')     // no default
+    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
+    .setControllerName('string')                    // default: 'fmModalsCommonController'
+    .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
+    .setCloseButtonLabel('string');                 // default: 'Ok'
+
+// Confirm
+fmModalsConfigProvider.confirm.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
+    .setControllerName('string')                    // default: 'fmModalsCommonController'
+    .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
+    .setCancelButtonLabel('string')                 // default: 'Cancel'
+    .setConfirmButtonLabel('string');               // default: 'Confirm'</pre>
         </div>
 
         <script type="text/ng-template" id="custom.html">

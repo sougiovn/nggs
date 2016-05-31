@@ -220,7 +220,7 @@
                     controllerAs: 'vm'
                 },
                 cancelButtonLabel: 'Cancel',
-                confirmButtonLabel: 'Ok'
+                confirmButtonLabel: 'Confirm'
             }
         };
 
