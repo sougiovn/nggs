@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" type="text/css" href="../../lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../lib/font-awesome/css/font-awesome.min.css" />
+
+        <style>
+            ol {
+                counter-reset: item;
+            }
+            ol > li {
+                counter-increment: item;
+            }
+            ol ol > li {
+                display: block;
+            }
+            ol ol > li:before {
+                content: counters(item, ".") ". ";
+                margin-left: -20px;
+            }
+        </style>
+
+        <title>fm.props - Demo</title>
+    </head>
+    <body ng-cloak>
+        <br />
+        <div class="container" ng-controller="fmModalsDemoController as vm">
+            <div class="jumbotron">
+                <h1>fm.props</h1>
+                <p>
+                    fm.props is component for loading properties to the application, it works as well as a <b>Session</b>.
+                </p>
+            </div>
+        </div>
+
+        <script type="text/ng-template" id="custom.html">
+            <div class="modal-header">
+                <h4 class="modal-title">My custom modal</h4>
+            </div>
+            <div class="modal-body">
+                {{ vm.message }}
+            </div>
+        </script>
+
+        <script src="../../lib/requirejs/require.min.js"></script>
+        <script>
+            require.config({
+                baseUrl: '../../lib/',
+                paths: {
+                    jquery: 'jquery/jquery.min',
+                    angular: 'angular/angular.min',
+                    'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
+                    'fm.modals': '../demo/modals/ng-dev-fm-modals.min',
+                    fmModalsDemo: '../demo/modals/fmModalsDemo'
+                },
+                shim: {
+                    jquery: { export: '$' },
+                    angular: { export: 'angular', deps: ['jquery'] },
+                    'ui.bootstrap': { deps: ['angular'] },
+                    'fm.modals': { deps: ['angular', 'ui.bootstrap'] },
+                    fmModalsDemo: { deps: ['angular', 'ui.bootstrap', 'fm.modals'] }
+                }
+            });
+            require(['jquery', 'angular', 'ui.bootstrap', 'fm.modals', 'fmModalsDemo'],
+                function() {
+                    angular.bootstrap(document, ['fmModalsDemo']);
+                }
+            );
+        </script>
+    </body>
+</html>
