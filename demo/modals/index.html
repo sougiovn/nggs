@@ -83,37 +83,61 @@
             <button type="button" class="btn btn-warning" ng-click="vm.warning()">warning()</button>
             <button type="button" class="btn btn-danger" ng-click="vm.error()">error()</button>
             <button type="button" class="btn btn-default" ng-click="vm.confirm()">confirm()</button>
-
-            <br /><br />
-
-            <p>
-                There are 4 ways for invoking those methods:
+            <p class="help-block">
+                The pre-built modals only closes by clicking on their buttons('OK', 'Cancel', 'Confirm').
             </p>
-            <h4><code>fmModalsFactory.info('title', 'message', {options});</code></h4>
+
+            <h3>There are 4 ways for invoking those methods:</h3>
+
             <p>
                 Passing by parameter the <code>title</code>, the <code>message</code> and the <code>options</code> of the modal.
             </p>
+            <h4><code>fmModalsFactory.type('title', 'message', {options});</code></h4>
+            <p class="help-block">Example:</p>
+<pre>
+fmModalsFactory.info('info title', 'info message', { size: 'lg', backdrop: true });
+fmModalsFactory.success('success title', 'success message', { size: 'lg', backdrop: true });
+fmModalsFactory.warning('warning title', 'warning message', { size: 'lg', backdrop: true });
+fmModalsFactory.error('error title', 'error message', { size: 'lg', backdrop: true });
+fmModalsFactory.confirm('confirm title', 'confirm message', { size: 'lg', backdrop: true });</pre>
 
-            <h4><code>fmModalsFactory.info('message', {options});</code></h4>
+            <br />
             <p>
                 Omitting the <code>title</code>, then using the default <code>title</code> set for the type of modal and passing the <code>message</code> and the <code>options</code> of the modal.
             </p>
+            <h4><code>fmModalsFactory.type('message', {options});</code></h4>
+            <p class="help-block">Example:</p>
+<pre>
+fmModalsFactory.info('info message', { size: 'lg', backdrop: true });
+fmModalsFactory.success('success message', { size: 'lg', backdrop: true });
+fmModalsFactory.warning('warning message', { size: 'lg', backdrop: true });
+fmModalsFactory.error('error message', { size: 'lg', backdrop: true });
+fmModalsFactory.confirm('confirm message', { size: 'lg', backdrop: true });</pre>
 
-            <h4><code>fmModalsFactory.info('title', 'message');</code></h4>
+            <br />
             <p>
                 Omitting the <code>options</code>, then using the default <code>options</code> set for the type of modal and passing the <code>title</code> and the <code>message</code> of the modal.
             </p>
+            <h4><code>fmModalsFactory.type('title', 'message');</code></h4>
+            <p class="help-block">Example:</p>
+            <pre>
+fmModalsFactory.info('info title', 'info message');
+fmModalsFactory.success('success title', 'success message');
+fmModalsFactory.warning('warning title', 'warning message');
+fmModalsFactory.error('error title', 'error message');
+fmModalsFactory.confirm('confirm title', 'confirm message');</pre>
 
-            <h4><code>fmModalsFactory.info('message');</code></h4>
+            <br />
             <p>
                 Omitting the <code>title</code> and the <code>options</code>, then using the defaults <code>title</code> and <code>options</code> set for the type of modal and passing the <code>message</code> of the modal.
             </p>
-
-            <h5>Examples</h5>
+            <h4><code>fmModalsFactory.type('message');</code></h4>
+            <p class="help-block">Example:</p>
 <pre>
-fmModalsFactory.info('info title', 'info message', { size: 'sm', backdrop: true });
-fmModalsFactory.error('error message', { size: 'lg', backdrop: 'static' });
-fmModalsFactory.success('success title', 'success message');
+fmModalsFactory.info('info message');
+fmModalsFactory.success('success message');
+fmModalsFactory.warning('warning message');
+fmModalsFactory.error('error message');
 fmModalsFactory.confirm('confirm message');</pre>
 
             <blockquote>
