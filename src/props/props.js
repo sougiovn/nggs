@@ -11,13 +11,14 @@
             return provider;
         };
 
-        if(angular.isDefined(window.fmPropsConfig)) {
-            for(var i in window.fmPropsConfig) {
+        if(angular.isDefined(window.fmProps)) {
+            for(var i in window.fmProps) {
                 Object.defineProperty(provider, i, {
-                    value: window.fmPropsConfig[i],
+                    value: window.fmProps[i],
                     writable: false
                 });
             }
+            console.log(provider);
         }
 
         Object.defineProperty(provider, 'set', {

@@ -28,23 +28,80 @@
     </head>
     <body ng-cloak>
         <br />
-        <div class="container" ng-controller="fmModalsDemoController as vm">
+        <div class="container" ng-controller="fmPropsDemoController as vm">
             <div class="jumbotron">
                 <h1>fm.props</h1>
                 <p>
-                    fm.props is component for loading properties to the application, it works as well as a <b>Session</b>.
+                    fm.props is component for loading properties to the application, it works as well as a session object.
                 </p>
             </div>
-        </div>
 
-        <script type="text/ng-template" id="custom.html">
-            <div class="modal-header">
-                <h4 class="modal-title">My custom modal</h4>
-            </div>
-            <div class="modal-body">
-                {{ vm.message }}
-            </div>
-        </script>
+            <blockquote>
+                My motivation for this component was try to imitate the loading of properties files on the application's
+                bootstrap just like the backend of my projects with Java. <br />
+                After developing it I realized that it may be used as a Session object between the lifetime of the app.
+                <small>gigio</small>
+            </blockquote>
+
+            <h2>Using as properties loader</h2>
+            <p>
+                To load the properties you may use 2 ways: setting the properties in a <code>.js</code> file or using <code>.set()</code> in runtime.
+            </p>
+
+            <h4>From <code>.js</code> file</h4>
+            <p>
+                On a <code>.js</code> file you create an object in the <code>window</code> object, from the browser.
+            </p>
+            <p class="help-block">Example:</p>
+<pre>
+window.fmProps = {
+    apiKey: '23HGDRThgvhcgjhjh3123ZghvzgGGkjl',
+    anyOtherProp: 'util'
+}</pre>
+
+            <h4>On runtime</h4>
+            <p class="help-block">Example:</p>
+            <p>
+                On the runtime you just need to use the <code>.set()</code> passing an object,
+                then the attributes will be set on the <code>fmProps</code>.
+            </p>
+<pre>
+var props = {
+    anyProp: 1,
+    anyProps: '23'
+};
+
+fmPropsProvider.set(props);
+</pre>
+            <blockquote>
+                Loading from a <code>.js</code> file or using the <code>.set()</code> method
+                will create a readonly attribute on the <code>fmProps</code>.
+            </blockquote>
+
+            <h2>Using as session</h2>
+            <p>
+                You just need to set an attribute to the <code>fmProps</code>,
+                but be aware that if there is an attribute with same name it will throw an error
+                if it was set by loading <code>.js</code> file or <code>.set()</code> method else if it was
+                created like a session attribute it will be overwrited.
+            </p>
+            <p class="help-block">Example:</p>
+<pre>
+fmProps.sessionAttr = 'This is for the session';</pre>
+
+            <h2>Result</h2>
+            <p>
+                As result we have an object with several objects,
+                some of then readonly like an application property and others working as session values.
+            </p>
+<pre>{
+    apiKey: '23HGDRThgvhcgjhjh3123ZghvzgGGkjl',
+    anyOtherProp: 'util'
+    anyProp: 1,
+    anyProps: '23'
+    sessionAttr: "This is for the session"
+}</pre>
+        </div>
 
         <script src="../../lib/requirejs/require.min.js"></script>
         <script>
@@ -53,21 +110,20 @@
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
-                    'fm.modals': '../demo/modals/ng-dev-fm-modals.min',
-                    fmModalsDemo: '../demo/modals/fmModalsDemo'
+                    'fm.props': '../demo/props/ng-dev-fm-props.min',
+                    fmPropsDemo: '../demo/props/fmPropsDemo',
+                    props: '../demo/props/config-properties'
                 },
                 shim: {
                     jquery: { export: '$' },
                     angular: { export: 'angular', deps: ['jquery'] },
-                    'ui.bootstrap': { deps: ['angular'] },
-                    'fm.modals': { deps: ['angular', 'ui.bootstrap'] },
-                    fmModalsDemo: { deps: ['angular', 'ui.bootstrap', 'fm.modals'] }
+                    'fm.props': { deps: ['angular'] },
+                    fmPropsDemo: { deps: ['angular', 'fm.props', 'props'] }
                 }
             });
-            require(['jquery', 'angular', 'ui.bootstrap', 'fm.modals', 'fmModalsDemo'],
+            require(['jquery', 'angular', 'fm.props', 'fmPropsDemo', 'props'],
                 function() {
-                    angular.bootstrap(document, ['fmModalsDemo']);
+                    angular.bootstrap(document, ['fmPropsDemo']);
                 }
             );
         </script>
