@@ -60,74 +60,81 @@
                     }
                     resolve(protocol, method, url, args);
                 } else {
-                    console.error('Invalid method');
+                    throw Error('Invalid method');
                 }
             } else {
-                console.error('You must at least pass the method and url as parameter');
+                throw Error('You must at least pass the method and url as parameter');
             }
         }
 
-        function resolve(hostP, metodo, urle, args) {
-            var method = metodo.indexOf('@') > -1 ? metodo.toUpperCase().substring(1, metodo.length) : metodo.toUpperCase();
-            var url = urle;
-            var host = hostP;
+        function resolve(host, method, url, args) {
             host += host.charAt(host.length-1) != '/' ? url.length > 0 ? url.charAt(0) != '/' ? '/' : '' : '' : '';
-            var params = undefined;
-            var hasParams = false;
+            method = method.indexOf('@') > -1 ? method.toUpperCase().substring(1, method.length) : method.toUpperCase();
             var config = {
             	method: method,
             	url: host + url
             };
             if(url.indexOf(':') > -1) {
-            	hasParams = true;
+                var parameters = {};
             	var paramReg = /(:[A-z]+)/g;
-            	var prms = [];
-            	var p;
+                var params = [];
+            	var param;
             	do {
-            		p = paramReg.exec(url);
-            		if(p) {
-            			prms.push(p[0]);
+            		param = paramReg.exec(url);
+            		if(param) {
+            			params.push(param[0]);
             		}
-            	} while(p);
-            	params = {};
-            	for(p in prms) {
-            		params[prms[p].replace(/:/, '')] = prms[p];
+            	} while(param);
+
+            	for(param in params) {
+            		parameters[params[param].replace(/:/, '')] = params[param];
             	}
-            }
-            if(hasParams) {
-            	for(p in params) {
-            		url = url.replace(params[p], args[0][p]);
-            	}
+
+                if(args[0] !== undefined) {
+                    for(param in parameters) {
+                        if(args[0][param] !== undefined) {
+                            url = url.replace(parameters[param], args[0][param]);
+                        } else {
+                            throw Error('Url parameter \''+parameters[param]+'\' wasn\'t found');
+                        }
+                	}
+                } else {
+                    throw Error('No url parameter was passed as parameter');
+                }
+
             	if(args[1] !== undefined) {
             		if(method == 'GET') {
-            			url += queryParam(args[1]);
+            			url += queryParams(args[1]);
             		} else {
             			config.data = args[1];
             			if(args[2] !== undefined) {
-            				url += queryParam(args[2]);
+            				url += queryParams(args[2]);
             			}
             		}
             	}
             } else {
             	if(args[0] !== undefined) {
             		if(method == 'GET') {
-            			url += queryParam(args[0]);
+            			url += queryParams(args[0]);
             		} else {
             			config.data = args[0];
             			if(args[1] !== undefined) {
-            				url += queryParam(args[1]);
+            				url += queryParams(args[1]);
             			}
             		}
             	}
             }
+
             config.url = host + url;
+
             return $http(config);
-            function queryParam(args) {
+
+            function queryParams(args) {
             	var prefix = '?';
             	var query = args;
             	var queryParams = '';
-            	for(var p in query) {
-            		queryParams += prefix + p + '='+ query[p];
+            	for(var param in query) {
+            		queryParams += prefix + param + '='+ query[param];
             		prefix = '&';
             	}
             	return queryParams;

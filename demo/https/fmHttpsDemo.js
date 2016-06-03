@@ -13,21 +13,12 @@ define([
             var baseUrl = 'http://localhost:8000/api';
             var urls = [
                 'get@get=/test',
-                test,
-                function lala() {
-                    console.log('aiiaia');
-                },{
-                    lol: 'lol'
-                }
+                'post@post=/test/:cod'
             ];
 
             var factory = fmHttpsFactory.resolve(baseUrl, urls);
 
             return factory;
-
-            function test() {
-                console.log('lalala test');
-            }
         }
 
         fmHttpsDemo.controller('fmHttpsDemoController', fmHttpsDemoController);
@@ -35,11 +26,12 @@ define([
         function fmHttpsDemoController(fmHttpsDemoFactory, fmHttpsFactory) {
             var vm = this;
 
-            fmHttpsDemoFactory.test();
-            fmHttpsDemoFactory.lala();
             fmHttpsDemoFactory.get({ pagina: 1, tamanho: 10 });
-            fmHttpsFactory.resolveHttps('get', 'http://localhost:8000/api/test', { pagina: 1 });
-            fmHttpsFactory.resolveHttps('post', 'http://localhost:8000/api/test', { pagina: 1 }, {tamanho: 10});
+            fmHttpsDemoFactory.post({cod: 1}, { data: 'pacote' }, { query: 'lalala' });
+            fmHttpsFactory.resolveHttps('get', 'api/test', { pagina: 1 });
+            fmHttpsFactory.resolveHttps('post', 'api/test/:pagina', { pagina: 1 }, {tamanho: 10});
+            fmHttpsDemoFactory.get({ pagina: 1, tamanho: 10 });
+            fmHttpsDemoFactory.post({cod: 1}, { data: 'pacote' }, { query: 'lalala' });
         }
     }
 );

@@ -58,7 +58,7 @@
                 defaults.animation = animation;
                 return provider.defaults;
             } else {
-                console.error('setAnimation() expects a boolean as parameter');
+                throw Error('setAnimation() expects a boolean as parameter');
             }
         }
         function getDefaultBackdrop() {
@@ -72,7 +72,7 @@
                 defaults.backdrop = backdrop;
                 return provider.defaults;
             } else {
-                console.error('setBackdrop() expects one of those values as parameter: true, false and \'static\'');
+                throw Error('setBackdrop() expects one of those values as parameter: true, false and \'static\'');
             }
         }
         function getDefaultBackdropClass() {
@@ -83,7 +83,7 @@
                 defaults.backdropClass = backdropClass;
                 return provider.defaults;
             } else {
-                console.error('setBackdropClass() expects a string as parameter');
+                throw Error('setBackdropClass() expects a string as parameter');
             }
         }
         function getDefaultBindToController() {
@@ -94,7 +94,7 @@
                 defaults.bindToController = bindToController;
                 return provider.defaults;
             } else {
-                console.error('setBindToController() expects a boolan as parameter');
+                throw Error('setBindToController() expects a boolan as parameter');
             }
         }
         function getDefaultControllerAs() {
@@ -105,7 +105,7 @@
                 defaults.controllerAs = controllerAs;
                 return provider.defaults;
             } else {
-                console.error('setControllerAs() expects a string as parameter');
+                throw Error('setControllerAs() expects a string as parameter');
             }
         }
         function getDefaultKeyboard() {
@@ -116,7 +116,7 @@
                 defaults.keyboard = keyboard;
                 return provider.defaults;
             } else {
-                console.error('setKeyboard() expects a boolean as parameter');
+                throw Error('setKeyboard() expects a boolean as parameter');
             }
         }
         function getDefaultOpenedClass() {
@@ -127,7 +127,7 @@
                 defaults.openedClass = openedClass;
                 return provider.defaults;
             } else {
-                console.error('setOpenedClass() expects a string as parameter');
+                throw Error('setOpenedClass() expects a string as parameter');
             }
         }
         function getDefaultSize() {
@@ -138,7 +138,7 @@
                 defaults.size = size;
                 return provider.defaults;
             } else {
-                console.error('setSize() expects a string as parameter');
+                throw Error('setSize() expects a string as parameter');
             }
         }
         function getDefaultWindowClass() {
@@ -149,7 +149,7 @@
                 defaults.windowClass = windowClass;
                 return provider.defaults;
             } else {
-                console.error('setWindowClass() expects a string as parameter');
+                throw Error('setWindowClass() expects a string as parameter');
             }
         }
         function getDefaultWindowTemplateUrl() {
@@ -160,7 +160,7 @@
                 defaults.windowTemplateUrl = windowTemplateUrl;
                 return provider.defaults;
             } else {
-                console.error('setWindowTemplateUrl() expects a string as parameter');
+                throw Error('setWindowTemplateUrl() expects a string as parameter');
             }
         }
         function getDefaultWindowTopClass() {
@@ -171,7 +171,7 @@
                 defaults.windowTopClass = windowTopClass;
                 return provider.defaults;
             } else {
-                console.error('setWindowTopClass() expects a string as parameter');
+                throw Error('setWindowTopClass() expects a string as parameter');
             }
         }
 
@@ -414,7 +414,7 @@
                 config[configType][buttonLabel] = buttonLabelValue;
                 return provider[configType];
             } else {
-                console.error('method for setting button label expects a string parameter');
+                throw Error('method for setting button label expects a string parameter');
             }
         }
         function setConfig(configType, configP) {
@@ -422,18 +422,18 @@
                 if(angular.isDefined(configP.templateUrl)) {
                     setTemplateUrl(configType, configP.templateUrl);
                 } else {
-                    console.error('set() expects an object with an attribute: templateUrl');
+                    throw Error('set() expects an object with an attribute: templateUrl');
                 }
                 if(angular.isDefined(configP.controllerName)) {
                     setControllerName(configType, configP.controllerName);
                 } else {
-                    console.error('set() expects an object with an attribute: controllerName');
+                    throw Error('set() expects an object with an attribute: controllerName');
                 }
                 if(angular.isDefined(configP.title)) {
                     setTitle(configType, configP.title);
                 }
             } else {
-                console.error('set() expects an object with the attributes: templateUrl and controllerName');
+                throw Error('set() expects an object with the attributes: templateUrl and controllerName');
             }
         }
         function getControllerName(configType) {
@@ -444,7 +444,7 @@
                 config[configType].controllerName = angular.copy(controllerName);
                 return provider[configType];
             } else {
-                console.error('setControllerName() expects a string as parameter');
+                throw Error('setControllerName() expects a string as parameter');
             }
         }
         function getTemplateUrl(configType) {
@@ -455,7 +455,7 @@
                 config[configType].templateUrl = angular.copy(templateUrl);
                 return provider[configType];
             } else {
-                console.error('setTemplateUrl() expects a string as parameter');
+                throw Error('setTemplateUrl() expects a string as parameter');
             }
         }
         function getOptions(configType) {
@@ -466,7 +466,7 @@
                 config[configType].options = angular.copy(options);
                 return provider[configType];
             } else {
-                console.error('setOptions() expects an object as parameter');
+                throw Error('setOptions() expects an object as parameter');
             }
         }
         function getTitle(configType) {
@@ -477,7 +477,7 @@
                 config[configType].title = angular.copy(title);
                 return provider[configType];
             } else {
-                console.error('setTitle() expects a string as parameter');
+                throw Error('setTitle() expects a string as parameter');
             }
         }
     }

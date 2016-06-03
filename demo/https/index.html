@@ -32,14 +32,13 @@
             <div class="jumbotron">
                 <h1>fm.https</h1>
                 <p>
-                    fm.https is component for loading properties to the application, it works as well as a session object.
+                    fm.https is a component for easy generation of methods for accessing <b>REST APIs</b> using angular's <b>$http</b> service.
                 </p>
             </div>
 
             <blockquote>
-                My motivation for this component was try to imitate the loading of properties files on the application's
-                bootstrap just like the backend of my projects with Java. <br />
-                After developing it I realized that it may be used as a Session object between the lifetime of the app.
+                My motivation for this component was the <a href="http://projects.spring.io/spring-data/" target="_blank">Spring Data</a>
+                framework for Java, and it's easy way for generating data access methods by creating an <b>Repository</b> interface with declarative methods, <a href="http://spring.io/guides/gs/accessing-data-jpa/#_create_simple_queries">take a look!</a>
                 <small>gigio</small>
             </blockquote>
         </div>
@@ -51,8 +50,8 @@
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    'fm.https': '../demo/https/ng-dev-fm-https.min',
-                    //'fm.https': '../src/https/https',
+                    //'fm.https': '../demo/https/ng-dev-fm-https.min',
+                    'fm.https': '../src/https/https',
                     fmHttpsDemo: '../demo/https/fmHttpsDemo'
                 },
                 shim: {
