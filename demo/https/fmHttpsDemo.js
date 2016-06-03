@@ -7,6 +7,12 @@ define([
 
         var fmHttpsDemo = angular.module('fmHttpsDemo', ['fm.https']);
 
+        fmHttpsDemo.config(fmHttpsDemoConfig);
+        fmHttpsDemoConfig.$inject = ['$locationProvider'];
+        function fmHttpsDemoConfig($locationProvider) {
+            $locationProvider.html5Mode({ enabled: true, requireBase: false });
+        }
+
         fmHttpsDemo.factory('fmHttpsDemoFactory', fmHttpsDemoFactory);
         fmHttpsDemoFactory.$inject = ['fmHttpsFactory'];
         function fmHttpsDemoFactory(fmHttpsFactory) {
@@ -22,16 +28,16 @@ define([
         }
 
         fmHttpsDemo.controller('fmHttpsDemoController', fmHttpsDemoController);
-        fmHttpsDemoController.$inject = ['fmHttpsDemoFactory', 'fmHttpsFactory'];
-        function fmHttpsDemoController(fmHttpsDemoFactory, fmHttpsFactory) {
+        fmHttpsDemoController.$inject = ['fmHttpsDemoFactory', 'fmHttpsFactory', '$anchorScroll'];
+        function fmHttpsDemoController(fmHttpsDemoFactory, fmHttpsFactory, $anchorScroll) {
             var vm = this;
+
+            $anchorScroll();
 
             fmHttpsDemoFactory.get({ pagina: 1, tamanho: 10 });
             fmHttpsDemoFactory.post({cod: 1}, { data: 'pacote' }, { query: 'lalala' });
             fmHttpsFactory.resolveHttps('get', 'api/test', { pagina: 1 });
             fmHttpsFactory.resolveHttps('post', 'api/test/:pagina', { pagina: 1 }, {tamanho: 10});
-            fmHttpsDemoFactory.get({ pagina: 1, tamanho: 10 });
-            fmHttpsDemoFactory.post({cod: 1}, { data: 'pacote' }, { query: 'lalala' });
         }
     }
 );

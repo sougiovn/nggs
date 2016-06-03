@@ -36,11 +36,158 @@
                 </p>
             </div>
 
+            <div class="alert alert-danger">
+                The <code>fm.https</code> has nothing related to the HTTPS(Hyper Text Transfer Protocol Secure)!
+            </div>
+
             <blockquote>
                 My motivation for this component was the <a href="http://projects.spring.io/spring-data/" target="_blank">Spring Data</a>
-                framework for Java, and it's easy way for generating data access methods by creating an <b>Repository</b> interface with declarative methods, <a href="http://spring.io/guides/gs/accessing-data-jpa/#_create_simple_queries">take a look!</a>
+                framework for Java, and it's easy way for generating data access methods by creating an <b>Repository</b>
+                interface with declarative methods, <a href="http://spring.io/guides/gs/accessing-data-jpa/#_create_simple_queries">take a look!</a>
                 <small>gigio</small>
             </blockquote>
+
+            <div class="panel panel-default">
+                <ol>
+                    <li><a href="#intro">Intro</a>
+                        <ol>
+                            <li><a href="#intro_sintax">Sintax</a></li>
+                            <li><a href="#intro_smart_parameters">Smart parameters</a></li>
+                        </ol>
+                </li>
+                </ol>
+            </div>
+
+            <h2 id="intro">Intro</h2>
+            <p>
+                The <code>fm.https</code> is only a factory(<code>fmHttpsFactory</code>) which is used for create methods for accessing REST APIs.
+                The cool thing about it is that you only need to write a string with the correct sintax for the generation, and then you will have
+                a fast method to access your APIs with smart parameter's treatment.
+                <br />
+                As it uses the angular's <code>$http</code> service, it will return you a promise.
+            </p>
+            <p class="help-block">Example</p>
+<pre>
+var baseUrl = 'http://mydomain.com/api/user'; // A base url for generating the methods
+
+var methods = [
+    'getUserList@get',
+    'getUser@get=/:userId',
+    'newUser@post',
+    'updateUser@put=/:userId',
+    'deleteUser@delete=/:userId',
+    'getUserPosts@get=/:userId/post
+    ];
+
+var api = fmHttpsFactory.resolve(baseUrl, methods);</pre>
+
+        <p>
+            The result will be:
+        </p>
+<pre>
+api.getUserList();
+GET http://mydomain.com/api/user
+
+api.getUser({ userId: 1 });
+GET http://mydomain.com/api/user/1
+
+api.newUser({ name: 'John' });
+POST http://mydomain.com/api/user and { name: 'John' } as request payload
+
+api.updateUser({ userId: 1 }, { height: 1.6 });
+PUT http://mydomain.com/api/user/1 and { height: 1.6 } as request payload
+
+api.deleteUser({ userId: 1 });
+DELETE http://mydomain.com/api/user/1
+
+api.getUserPosts({ userId: 1 });
+GET http://mydomain.com/api/user/1/post
+</pre>
+            <h2 id="intro_sintax">Sintax</h2>
+            <p>
+                The sintax to generate the methods is very simple:
+            </p>
+
+            <h4><code>{methodName}@{httpMethod}={url}</code></h4>
+            <p>
+                The <code>methodName</code> is the name of the method created. <br />
+                The <code>@</code> followed by the <code>httpMethod</code> will define which HTTP method the request will make
+                (@get/@Get/@GET, @post/@Post/@POST, @put/@Put/@PUT and @delete/@Delete/@DELETE). <br />
+                The <code>url</code> will be added to the baseUrl passed as parameter.
+                You may add as many url parameters as you want, like is showed in the previous example by using the character <code>:</code>.
+            </p>
+            <p class="help-block">Example</p>
+            <p>
+                For the url <code>/user/:id</code> will expected that you pass as parameter an object with the
+                attribute <code>id</code> to replate the <code>:id</code> in the url</pre>
+            </p>
+
+            <h2 id="intro_smart_parameters">Smart parameters</h2>
+            <p>
+                The parameters are treated with order of priority that is: url parameter, request payload and query pamareter. <br />
+
+                <h4>Url parameter</h4>
+                <p>
+                    If the url used for generate the method has at least one url parameter, then the first parameter must be an object
+                    with attributes having the same names of the url parameter.
+                </p>
+                <p class="help-block">Example</p>
+<pre>
+// to generate
+'getUser@get=/user/:userId'
+'getUserPost@get=/user/:userId/post/:postId'
+
+// methods
+getUser({ userId: 1 });
+GET /user/1
+
+getUserPost({ userId: 1, postId: 23 });
+GET /user/1/post/23</pre>
+
+                <h4>Request payload</h4>
+                <p>
+                    It's the data you want to send to the requested url. This parameter isn't valid for <code>GET</code>
+                    <code>http methods</code>.
+                </p>
+                <p class="help-block">Example</p>
+<pre>
+// to generate
+'newUser@post=/user'
+'newUserPost@post=/user/:userId/post'
+'updateUserPost@put=/user/:userId/post/:postId'
+'deleteUserPost@delete=/user/:userId/post/:postId'
+
+// methods
+newUser({ name: 'John' });
+POST /user and { name: 'John' } as request payload
+
+newUserPost({ userId: 1 }, { text: 'What a terrible component' });
+POST /user/1/post and { text: 'What a terrible component' } as request payload
+
+updateUserPost({ userId: 1, postId: 25 }, { text: 'Sorry I messed up, I meant "What a terrific component".' });
+PUT /user/1/post/25 and { text: 'Sorry I messed up, I meant "What a terrific component".' } as request payload
+
+deleteUserPost({ userId: 1, postId: 25 }, { justification: 'I messed up everything, I'll make another post.' });
+DELETE /user/1/post/25 and { justification: 'I messed up everything, I'll make another post.' } as request payload</pre>
+
+                <h4>Query parameter</h4>
+                <p>
+                    Passing an object as the last parameter will create query parameters with each one of the attributes of this object.
+                </p>
+                <p class="help-block">Example</p>
+<pre>
+// to generate
+'getUserPosts@get=/user/:userId/post'
+'newUserPost@post=/user/:userId/post'
+
+// methods
+getUserPosts({ userId: 1 }, { page: 1, size: 10 });
+GET /user/1/post?page=1&size=10
+
+newUserPost({ userId: 1 }, { text: 'This component is awesome!' }, { private: false });
+POST /user/1/post?private=false and { text: 'This component is awesome!' } as request payload</pre>
+            </p>
+
         </div>
 
         <script src="../../lib/requirejs/require.min.js"></script>
@@ -50,8 +197,7 @@
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    //'fm.https': '../demo/https/ng-dev-fm-https.min',
-                    'fm.https': '../src/https/https',
+                    'fm.https': '../demo/https/ng-dev-fm-https.min',
                     fmHttpsDemo: '../demo/https/fmHttpsDemo'
                 },
                 shim: {
