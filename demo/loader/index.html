@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+
+        <title>fm.loader - Demo</title>
+    </head>
+    <body ng-cloak>
+        <br />
+        <div class="container" ng-controller="fmLoaderDemoController as vm">
+            <div class="jumbotron">
+                <h1>fm.loader</h1>
+                <p>
+                    fm.loader is a component for loading properties to the application, it works as well as a session object.
+                </p>
+            </div>
+
+            <blockquote>
+                My motivation for this component was try to imitate the loading of properties files on the application's
+                bootstrap just like the backend of my projects with Java. <br />
+                After developing it I realized that it may be used as a Session object between the lifetime of the app.
+                <small>gigio</small>
+            </blockquote>
+
+            <div fm-loader="geral">
+                <i class="fa fa-spinner fa-3x fa-spin"></i>
+            </div>
+
+            <div fm-loader="check">
+                <i class="fa fa-check fa-3x fa-spin"></i>
+            </div>
+        </div>
+
+        <script src="../../assets/lib/requirejs/require.min.js"></script>
+        <script>
+            require.config({
+                baseUrl: '../../assets/lib/',
+                paths: {
+                    jquery: 'jquery/jquery.min',
+                    angular: 'angular/angular.min',
+                    'fm.loader': '../../demo/loader/ng-dev-fm-loader.min',
+                    'fm.https': '../../demo/loader/ng-dev-fm-https.min',
+                    fmLoaderDemo: '../../demo/loader/fmLoaderDemo',
+                },
+                shim: {
+                    jquery: { export: '$' },
+                    angular: { export: 'angular', deps: ['jquery'] },
+                    'fm.loader': { deps: ['angular'] },
+                    'fm.https': { deps: ['angular'] },
+                    fmLoaderDemo: { deps: ['angular', 'fm.loader', 'fm.https'] }
+                }
+            });
+            require(['jquery', 'angular', 'fm.loader', 'fm.https', 'fmLoaderDemo'],
+                function() {
+                    angular.bootstrap(document, ['fmLoaderDemo']);
+                }
+            );
+        </script>
+    </body>
+</html>

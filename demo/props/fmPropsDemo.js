@@ -9,8 +9,10 @@ define([
         var fmPropsDemo = angular.module('fmPropsDemo', ['fm.props']);
 
         fmPropsDemo.config(fmPropsDemoConfig);
-        fmPropsDemoConfig.$inject = ['fmPropsProvider'];
-        function fmPropsDemoConfig(fmPropsProvider) {
+        fmPropsDemoConfig.$inject = ['fmPropsProvider', '$locationProvider'];
+        function fmPropsDemoConfig(fmPropsProvider, $locationProvider) {
+            $locationProvider.html5Mode({ enabled: true, requireBase: false });
+
             var props = {
                 anyProp: 1,
                 anyProps: '23'

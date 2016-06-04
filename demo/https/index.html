@@ -3,26 +3,11 @@
     <head>
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="../../lib/angular/angular-csp.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/font-awesome/css/font-awesome.min.css" />
-
-        <style>
-            ol {
-                counter-reset: item;
-            }
-            ol > li {
-                counter-increment: item;
-            }
-            ol ol > li {
-                display: block;
-            }
-            ol ol > li:before {
-                content: counters(item, ".") ". ";
-                margin-left: -20px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
         <title>fm.https - Demo</title>
     </head>
@@ -48,17 +33,16 @@
             </blockquote>
 
             <div class="panel panel-default">
-                <ol>
-                    <li><a href="#intro">Intro</a>
-                        <ol>
-                            <li><a href="#intro_sintax">Sintax</a></li>
-                            <li><a href="#intro_smart_parameters">Smart parameters</a></li>
-                        </ol>
-                </li>
-                </ol>
+                <div class="panel-body">
+                    <ol>
+                        <li><a href="#intro">Intro</a></li>
+                        <li><a href="#sintax">Sintax</a></li>
+                        <li><a href="#smart_parameters">Smart parameters</a></li>
+                    </ol>
+                </div>
             </div>
 
-            <h2 id="intro">Intro</h2>
+            <h2 id="intro">1. Intro</h2>
             <p>
                 The <code>fm.https</code> is only a factory(<code>fmHttpsFactory</code>) which is used for create methods for accessing REST APIs.
                 The cool thing about it is that you only need to write a string with the correct sintax for the generation, and then you will have
@@ -103,7 +87,7 @@ DELETE http://mydomain.com/api/user/1
 api.getUserPosts({ userId: 1 });
 GET http://mydomain.com/api/user/1/post
 </pre>
-            <h2 id="intro_sintax">Sintax</h2>
+            <h2 id="sintax">2. Sintax</h2>
             <p>
                 The sintax to generate the methods is very simple:
             </p>
@@ -122,7 +106,7 @@ GET http://mydomain.com/api/user/1/post
                 attribute <code>id</code> to replate the <code>:id</code> in the url</pre>
             </p>
 
-            <h2 id="intro_smart_parameters">Smart parameters</h2>
+            <h2 id="smart_parameters">3. Smart parameters</h2>
             <p>
                 The parameters are treated with order of priority that is: url parameter, request payload and query pamareter. <br />
 
@@ -190,15 +174,15 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
 
         </div>
 
-        <script src="../../lib/requirejs/require.min.js"></script>
+        <script src="../../assets/lib/requirejs/require.min.js"></script>
         <script>
             require.config({
-                baseUrl: '../../lib/',
+                baseUrl: '../../assets/lib/',
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    'fm.https': '../demo/https/ng-dev-fm-https.min',
-                    fmHttpsDemo: '../demo/https/fmHttpsDemo'
+                    'fm.https': '../../demo/https/ng-dev-fm-https.min',
+                    fmHttpsDemo: '../../demo/https/fmHttpsDemo'
                 },
                 shim: {
                     jquery: { export: '$' },

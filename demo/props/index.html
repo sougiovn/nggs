@@ -3,26 +3,11 @@
     <head>
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="../../lib/angular/angular-csp.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/font-awesome/css/font-awesome.min.css" />
-
-        <style>
-            ol {
-                counter-reset: item;
-            }
-            ol > li {
-                counter-increment: item;
-            }
-            ol ol > li {
-                display: block;
-            }
-            ol ol > li:before {
-                content: counters(item, ".") ". ";
-                margin-left: -20px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
         <title>fm.props - Demo</title>
     </head>
@@ -43,7 +28,16 @@
                 <small>gigio</small>
             </blockquote>
 
-            <h2>Using as property loader</h2>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ol>
+                        <li><a href="#property_loader">Using as property loader</a></li>
+                        <li><a href="#session">Using as session</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2 id="property_loader">1. Using as property loader</h2>
             <p>
                 To load the properties you may use at 2 ways: setting the properties in a <code>.js</code> file or using <code>.set()</code> in runtime.
             </p>
@@ -89,7 +83,7 @@ fmProps.set(props);</pre>
                 will create a readonly attribute on the <code>fmProps</code>.
             </blockquote>
 
-            <h2>Using as session</h2>
+            <h2 id="session">2. Using as session</h2>
             <p>
                 You just need to set an attribute to the <code>fmProps</code>,
                 but be aware that if there is an attribute with same name it will throw an error
@@ -114,16 +108,16 @@ fmProps.sessionAttr = 'This is for the session';</pre>
 }</pre>
         </div>
 
-        <script src="../../lib/requirejs/require.min.js"></script>
+        <script src="../../assets/lib/requirejs/require.min.js"></script>
         <script>
             require.config({
-                baseUrl: '../../lib/',
+                baseUrl: '../../assets/lib/',
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    'fm.props': '../demo/props/ng-dev-fm-props.min',
-                    fmPropsDemo: '../demo/props/fmPropsDemo',
-                    props: '../demo/props/config-properties'
+                    'fm.props': '../../demo/props/ng-dev-fm-props.min',
+                    fmPropsDemo: '../../demo/props/fmPropsDemo',
+                    props: '../../demo/props/config-properties'
                 },
                 shim: {
                     jquery: { export: '$' },

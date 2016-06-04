@@ -9,7 +9,8 @@ var paths = {
     bower: 'bower_components/',
     node: 'node_modules/',
     dist: 'dist/',
-    demo: 'demo/'
+    demo: 'demo/',
+    assets: 'assets/'
 };
 
 var modules = {
@@ -23,30 +24,30 @@ var modules = {
 gulp.task('imports',
     function() {
         gulp.src(paths.bower+'angular/angular.min.js')
-            .pipe(gulp.dest(paths.demo+'lib/angular'));
+            .pipe(gulp.dest(paths.assets+'lib/angular'));
 
         gulp.src(paths.bower+'angular/angular-csp.css')
             .pipe(cleanCSS())
             .pipe(rename({ extname: '.min.css' }))
-            .pipe(gulp.dest(paths.demo+'lib/angular'));
+            .pipe(gulp.dest(paths.assets+'lib/angular'));
 
         gulp.src(paths.node+'angular-ui-bootstrap/dist/*tpls.js')
             .pipe(uglify())
             .pipe(rename({ extname: '.min.js' }))
-            .pipe(gulp.dest(paths.demo+'lib/angular-ui-bootstrap'));
+            .pipe(gulp.dest(paths.assets+'lib/angular-ui-bootstrap'));
 
         gulp.src(paths.node+'angular-ui-bootstrap/dist/*.css')
             .pipe(cleanCSS())
             .pipe(rename({ extname: '.min.css' }))
-            .pipe(gulp.dest(paths.demo+'lib/angular-ui-bootstrap'));
+            .pipe(gulp.dest(paths.assets+'lib/angular-ui-bootstrap'));
 
         gulp.src(paths.node+'requirejs/require.js')
             .pipe(uglify())
             .pipe(rename({ extname: '.min.js' }))
-            .pipe(gulp.dest(paths.demo+'lib/requirejs'));
+            .pipe(gulp.dest(paths.assets+'lib/requirejs'));
 
         gulp.src(paths.bower+'jquery/dist/jquery.min.js')
-            .pipe(gulp.dest(paths.demo+'lib/jquery'));
+            .pipe(gulp.dest(paths.assets+'lib/jquery'));
 
         gulp.src([
             paths.bower+'bootstrap/dist/*/*.min.css',
@@ -56,7 +57,7 @@ gulp.task('imports',
             paths.bower+'bootstrap/dist/*/*.woff2',
             paths.bower+'bootstrap/dist/*/*.ttf'
         ])
-            .pipe(gulp.dest(paths.demo+'lib/bootstrap'));
+            .pipe(gulp.dest(paths.assets+'lib/bootstrap'));
 
         gulp.src([
                     paths.bower+'font-awesome/*/*.min.css',
@@ -65,7 +66,7 @@ gulp.task('imports',
                     paths.bower+'font-awesome/*/*.woff',
                     paths.bower+'font-awesome/*/*.woff2'
         ])
-            .pipe(gulp.dest(paths.demo+'lib/font-awesome'));
+            .pipe(gulp.dest(paths.assets+'lib/font-awesome'));
     }
 );
 
@@ -79,7 +80,8 @@ gulp.task('demos',
                 prefix: 'ng-dev-fm-',
                 extname: '.min.js'
             }))
-            .pipe(gulp.dest(paths.demo+'https'));
+            .pipe(gulp.dest(paths.demo+'https'))
+            .pipe(gulp.dest(paths.demo+'loader'));
 
         gulp.src(modules.loader)
             .pipe(uglify())

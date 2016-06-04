@@ -3,26 +3,11 @@
     <head>
         <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="../../lib/angular/angular-csp.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/bootstrap/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../lib/font-awesome/css/font-awesome.min.css" />
-
-        <style>
-            ol {
-                counter-reset: item;
-            }
-            ol > li {
-                counter-increment: item;
-            }
-            ol ol > li {
-                display: block;
-            }
-            ol ol > li:before {
-                content: counters(item, ".") ". ";
-                margin-left: -20px;
-            }
-        </style>
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
         <title>fm.modals - Demo</title>
     </head>
@@ -91,7 +76,8 @@
             <button type="button" class="btn btn-danger" ng-click="vm.error()">error()</button>
             <button type="button" class="btn btn-default" ng-click="vm.confirm()">confirm()</button>
             <p class="help-block">
-                The pre-built modals only closes by clicking on their buttons('OK', 'Cancel', 'Confirm').
+                The pre-built modals only closes by clicking on their buttons('OK', 'Cancel', 'Confirm'). <br />
+                The <code>confirm()</code> modal returns <code>true</code> for 'Confirm' and <code>false</code> for 'Cancel'.
             </p>
 
             <h3>There are 4 ways for invoking those methods:</h3>
@@ -298,16 +284,16 @@ fmModalsConfigProvider.confirm.setTitle('string')   // no default
             </div>
         </script>
 
-        <script src="../../lib/requirejs/require.min.js"></script>
+        <script src="../../assets/lib/requirejs/require.min.js"></script>
         <script>
             require.config({
-                baseUrl: '../../lib/',
+                baseUrl: '../../assets/lib/',
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
                     'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
-                    'fm.modals': '../demo/modals/ng-dev-fm-modals.min',
-                    fmModalsDemo: '../demo/modals/fmModalsDemo'
+                    'fm.modals': '../../demo/modals/ng-dev-fm-modals.min',
+                    fmModalsDemo: '../../demo/modals/fmModalsDemo'
                 },
                 shim: {
                     jquery: { export: '$' },

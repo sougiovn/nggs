@@ -58,7 +58,7 @@
                         }
                         url = url.substring(protocol.length, url.length);
                     }
-                    resolve(protocol, method, url, args);
+                    return resolve(protocol, method, url, args);
                 } else {
                     throw Error('Invalid method');
                 }
