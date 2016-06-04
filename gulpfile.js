@@ -14,9 +14,9 @@ var paths = {
 };
 
 var modules = {
-    all: paths.src+'all/all.js',
     https: paths.src+'https/https.js',
     loader: paths.src+'loader/loader.js',
+    loaderCss: paths.src+'loader/loader.css',
     modals: paths.src+'modals/modals.js',
     props: paths.src+'props/props.js'
 };
@@ -74,52 +74,49 @@ gulp.task('demos',
     function() {
         gulp.run('imports');
 
-        gulp.src(modules.https)
+        gulp.src([modules.https, modules.loader, modules.modals, modules.props])
             .pipe(uglify())
-            .pipe(rename({
-                prefix: 'ng-dev-fm-',
-                extname: '.min.js'
-            }))
-            .pipe(gulp.dest(paths.demo+'https'))
+            .pipe(rename(resolveRename('fm-', '.min.js')))
+            .pipe(gulp.dest(paths.demo));
+
+        gulp.src([modules.https])
+            .pipe(uglify())
+            .pipe(rename({ dirname: '', prefix: 'fm-', extname: '.min.js' }))
             .pipe(gulp.dest(paths.demo+'loader'));
 
-        gulp.src(modules.loader)
-            .pipe(uglify())
-            .pipe(rename({
-                prefix: 'ng-dev-fm-',
-                extname: '.min.js'
-            }))
-            .pipe(gulp.dest(paths.demo+'loader'));
-
-        gulp.src(modules.modals)
-            .pipe(uglify())
-            .pipe(rename({
-                prefix: 'ng-dev-fm-',
-                extname: '.min.js'
-            }))
-            .pipe(gulp.dest(paths.demo+'modals'));
-
-        gulp.src(modules.props)
-            .pipe(uglify())
-            .pipe(rename({
-                prefix: 'ng-dev-fm-',
-                extname: '.min.js'
-            }))
-            .pipe(gulp.dest(paths.demo+'props'));
+        gulp.src([modules.loaderCss])
+            .pipe(cleanCSS())
+            .pipe(rename(resolveRename('fm-', '.min.css')))
+            .pipe(gulp.dest(paths.demo));
     }
 );
 
 gulp.task('dist',
     function() {
-        gulp.src([modules.all, modules.https, modules.loader, modules.modals, modules.props])
+        gulp.src([modules.https, modules.loader, modules.modals, modules.props])
+            .pipe(rename(resolveRename('fm-', '.js')))
+            .pipe(gulp.dest(paths.dist));
+
+        gulp.src([modules.https, modules.loader, modules.modals, modules.props])
             .pipe(uglify())
-            .pipe(rename({
-                dirname: '',
-                prefix: 'ng-dev-fm-',
-                extname: '.min.js'
-            }))
-            .pipe(gulp.dest(paths.dist))
-            .pipe(concat('ng-dev-fm-all.min.js'))
+            .pipe(rename(resolveRename('fm-', '.min.js')))
+            .pipe(gulp.dest(paths.dist));
+
+        gulp.src([modules.loaderCss])
+            .pipe(rename(resolveRename('fm-', '.css')))
+            .pipe(gulp.dest(paths.dist));
+
+        gulp.src([modules.loaderCss])
+            .pipe(cleanCSS())
+            .pipe(rename(resolveRename('fm-', '.min.css')))
             .pipe(gulp.dest(paths.dist));
     }
 );
+
+function resolveRename(prefix, extname) {
+    return function(path) {
+        path.dirname = path.basename;
+        path.basename = prefix + path.basename;
+        path.extname = extname;
+    }
+}

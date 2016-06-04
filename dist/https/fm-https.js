@@ -41,7 +41,7 @@
         }
 
         function resolveHttps(method, url) {
-            if(method !== 'undefined' && url !== 'undefined') {
+            if(method !== undefined && url !== undefined) {
                 if(resolveHttpsMethods.test(method.toUpperCase())) {
                     var args = [];
                     for(var i = 2; i < arguments.length; i++) {
@@ -90,9 +90,9 @@
             		parameters[params[param].replace(/:/, '')] = params[param];
             	}
 
-                if(args[0] !== 'undefined') {
+                if(args[0] !== undefined) {
                     for(param in parameters) {
-                        if(args[0][param] !== 'undefined') {
+                        if(args[0][param] !== undefined) {
                             url = url.replace(parameters[param], args[0][param]);
                         } else {
                             throw Error('Url parameter \''+parameters[param]+'\' wasn\'t found');
@@ -102,23 +102,23 @@
                     throw Error('No url parameter was passed as parameter');
                 }
 
-            	if(args[1] !== 'undefined') {
+            	if(args[1] !== undefined) {
             		if(method == 'GET') {
             			url += queryParams(args[1]);
             		} else {
             			config.data = args[1];
-            			if(args[2] !== 'undefined') {
+            			if(args[2] !== undefined) {
             				url += queryParams(args[2]);
             			}
             		}
             	}
             } else {
-            	if(args[0] !== 'undefined') {
+            	if(args[0] !== undefined) {
             		if(method == 'GET') {
             			url += queryParams(args[0]);
             		} else {
             			config.data = args[0];
-            			if(args[1] !== 'undefined') {
+            			if(args[1] !== undefined) {
             				url += queryParams(args[1]);
             			}
             		}
