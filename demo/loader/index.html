@@ -19,7 +19,7 @@
                 <h1>fm.loader</h1>
                 <p>
                     fm.loader is a component that launches a loader automatically by intercepting all http requests made by
-                    angular components(<b>$http</b>, <b>$resource</b>).
+                    angular's <b>$http</b> service.
                 </p>
             </div>
 
@@ -41,11 +41,11 @@
                 </div>
             </div>
 
-            <h2 id="simple_way">The simple way</h2>
+            <h2 id="simple_way">1. The simple way</h2>
             <p>
-                The simple way is easy, you just register the <code>fmLoaderInterceptor</code> into the
+                In the simple way you just register the <code>fmLoaderInterceptor</code> into the
                 <code>$httpProvider</code>, insert the attribute <code>fm-loader</code> into one div/img and then
-                start making yout HTTP requests
+                start making your HTTP requests.
             </p>
             <blockquote>
                 It doesn't have it's own style or image for loading, it just treats the action of show and hide the HTML element. <br />
@@ -65,14 +65,14 @@ $httpProvider.interceptors.push('fmLoaderInterceptor');
                 The <code>fa</code> classes is from the <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> library.
             </blockquote>
 
-            <button type="button" class="btn btn-primary" ng-click="vm.http('general')">Launch HTTP request</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">Launch HTTP request</button>
 
             <br />
 
-            <h2 id="custom_activation">Custom activation</h2>
+            <h2 id="custom_activation">2. Custom activation</h2>
             <p>
-                In the case that you don't want to show up with the loading image in all the HTTP requests
-                or you may want to show up with differents loading images, you should work with the Custom Activation. <br />
+                In the case that you don't want to activate the loading image in all the HTTP requests
+                or you may want to activate different loading images, you should work with the Custom Activation. <br />
                 <br />
                 The custom activation basically uses a query param for activation in your HTTP requests,
                 the default query param is <code>fmloader</code>. <br />
@@ -90,8 +90,9 @@ $httpProvider.interceptors.push('fmLoaderInterceptor');
 fmLoaderConfigProvider.setCustomActivation();
 
 // if you'd like to replace the default query param 'fmloader'
+// you just need to pass the string you want to use for activation as parameter
 fmLoaderConfigProvider.setCustomActivation('coolLoader');
-// Now the expected query param on the HTTP requests will be ?coolLoader</pre>
+// Now the expected query param on the HTTP requests will be 'coolLoader'</pre>
 
             <h4>Selected requests</h4>
             <p>
@@ -137,7 +138,7 @@ HTTP request /api/user/1?coolLoader=leftLoading     will activate the fm-loader=
 HTTP request /api/user/1?coolLoader=rightLoading    will activate the fm-loader="rightLoading"
 </pre>
 
-            <h2 id="manual_activation">Manual activation</h2>
+            <h2 id="manual_activation">3. Manual activation</h2>
             <p>
                 For manual activation you just need to inject the <code>fmLoaderFactory</code> and call the <code>show()</code> and <code>hide()</code> methods. <br />
 
@@ -151,7 +152,7 @@ fmLoaderFactory.hide();                 // will activate the fm-loader loading i
 fmLoaderFactory.hide('leftLoading')     // will activate the fm-loader="leftLoading" loading image
 </pre>
 
-            <h2 id="demo">Demo</h2>
+            <h2 id="demo">4. Demo</h2>
             <p>
                 Here we have 3 fm-loader loading images, one with the basic css classes <code>fm-loader.css</code>
                 brings and the two other with custom style.
