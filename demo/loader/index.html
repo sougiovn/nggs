@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="pt-br">
+    <head>
+        <meta charset="utf-8" />
+
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+        <link rel="stylesheet" type="text/css" href="fm-loader.min.css" />
+
+        <title>fm.loader - Demo</title>
+    </head>
+    <body ng-cloak>
+        <br />
+        <div class="container" ng-controller="fmLoaderDemoController as vm">
+            <div class="jumbotron">
+                <h1>fm.loader</h1>
+                <p>
+                    fm.loader is a component that launches a loader automatically by intercepting all http requests made by
+                    angular's <b>$http</b> service.
+                </p>
+            </div>
+
+            <blockquote>
+                My motivation for this component was to show up a loading image for the user at each HTTP request that I'd make,
+                but eventually I needed more, then I made it respond to parameters on the url for activating it and choosing which loading
+                image/section would be activated.
+                <small>gigio</small>
+            </blockquote>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <ol>
+                        <li><a href="#simple_way">The simple way</a></li>
+                        <li><a href="#custom_activation">Custom activation</a></li>
+                        <li><a href="#manual_activation">Manual activation</a></li>
+                        <li><a href="#demo">Demo</a></li>
+                    </ol>
+                </div>
+            </div>
+
+            <h2 id="simple_way">1. The simple way</h2>
+            <p>
+                In the simple way you just register the <code>fmLoaderInterceptor</code> into the
+                <code>$httpProvider</code>, insert the attribute <code>fm-loader</code> into one div/img and then
+                start making your HTTP requests.
+            </p>
+            <blockquote>
+                It doesn't have it's own style or image for loading, it just treats the action of show and hide the HTML element. <br />
+                But in the <code>fm-loader.css</code> we have classes for basic full screen loading image.
+            </blockquote>
+            <p class="help-block">Example</p>
+<pre>
+// registering interceptor
+$httpProvider.interceptors.push('fmLoaderInterceptor');
+
+// inserting fm-loader attribute into div with icon/image for showing
+&lt;div fm-loader class="fmLoader"&gt;
+    &lt;i class="fa fa-spinner fa-spin fa-3x fmLoaderImage"&gt;&lt;/i&gt;
+&lt;/div&gt;
+</pre>
+            <blockquote>
+                The <code>fa</code> classes is from the <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> library.
+            </blockquote>
+
+            <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">Launch HTTP request</button>
+
+            <br />
+
+            <h2 id="custom_activation">2. Custom activation</h2>
+            <p>
+                In the case that you don't want to activate the loading image in all the HTTP requests
+                or you may want to activate different loading images, you should work with the Custom Activation. <br />
+                <br />
+                The custom activation basically uses a query param for activation in your HTTP requests,
+                the default query param is <code>fmloader</code>. <br />
+                <br />
+                If you want to a HTTP request to activate the loading image you should call it with the query param: <code>api/user/1?fmloader=true</code>. <br />
+                Or if you want to specify which loading image to activate you should call it with the query param plus it's id: <code>api/user/1?&fmloader=leftLoading</code>. <br />
+                <br />
+                The id is set in the attribute <code>fm-loader</code> put in the div/img HTML element: <code>&lt;div fm-loader="leftLoading"&gt;...</code>
+            </p>
+
+            <h4>Configuring</h4>
+<pre>
+$httpProvider.interceptors.push('fmLoaderInterceptor');
+
+fmLoaderConfigProvider.setCustomActivation();
+
+// if you'd like to replace the default query param 'fmloader'
+// you just need to pass the string you want to use for activation as parameter
+fmLoaderConfigProvider.setCustomActivation('coolLoader');
+// Now the expected query param on the HTTP requests will be 'coolLoader'</pre>
+
+            <h4>Selected requests</h4>
+            <p>
+                For the case you don't want to activate with all HTTP requests
+            </p>
+<pre>
+$httpProvider.interceptors.push('fmLoaderInterceptor');
+
+fmLoaderConfigProvider.setCustomActivation('coolLoader');
+
+&lt;div fm-loader class="fmLoader"&gt;
+    &lt;i class="fa fa-spinner fa-spin fa-3x fmLoaderImage"&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+HTTP request /api/user/1                            won't activate
+HTTP request /api/user/1?coolLoader=true            will activate
+HTTP request /api/user/1?coolLoader=false           won't activate
+HTTP request /api/user/1?coolLoader=leftLoading     won't activate
+HTTP request /api/user/1?coolLoader=rightLoading    won't activate
+</pre>
+
+            <h4>Different loading images</h4>
+            <p>
+                For the case you want work with differents loading images
+            </p>
+<pre>
+$httpProvider.interceptors.push('fmLoaderInterceptor');
+
+fmLoaderConfigProvider.setCustomActivation('coolLoader');
+
+&lt;div fm-loader="leftLoading" class="fmLoader text-success"&gt;
+&lt;i class="fa fa-spinner fa-spin fa-3x fmLoaderImage"&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+&lt;div fm-loader="rightLoading" class="fmLoader text-danger"&gt;
+&lt;i class="fa fa-spinner fa-spin fa-3x fmLoaderImage"&gt;&lt;/i&gt;
+&lt;/div&gt;
+
+HTTP request /api/user/1                            won't activate
+HTTP request /api/user/1?coolLoader=true            won't activate
+HTTP request /api/user/1?coolLoader=false           won't activate
+HTTP request /api/user/1?coolLoader=leftLoading     will activate the fm-loader="leftLoading"
+HTTP request /api/user/1?coolLoader=rightLoading    will activate the fm-loader="rightLoading"
+</pre>
+
+            <h2 id="manual_activation">3. Manual activation</h2>
+            <p>
+                For manual activation you just need to inject the <code>fmLoaderFactory</code> and call the <code>show()</code> and <code>hide()</code> methods. <br />
+
+                Attention, if you call <code>show()</code> twice for a loading image you must call <code>hide()</code> twice either.
+            </p>
+            <p class="help-block">Example</p>
+<pre>
+fmLoaderFactory.show()                  // will activate the fm-loader loading image
+fmLoaderFactory.show('leftLoading')     // will activate the fm-loader="leftLoading" loading image
+fmLoaderFactory.hide();                 // will activate the fm-loader loading image
+fmLoaderFactory.hide('leftLoading')     // will activate the fm-loader="leftLoading" loading image
+</pre>
+
+            <h2 id="demo">4. Demo</h2>
+            <p>
+                Here we have 3 fm-loader loading images, one with the basic css classes <code>fm-loader.css</code>
+                brings and the two other with custom style.
+            </p>
+<pre>
+&lt;div fm-loader="fullLoading" class="fmLoader"&gt;
+    &lt;i class="fa fa-spinner fa-3x fa-spin fmLoaderImage"&gt;&lt;/i&gt;
+&lt;/div&gt;
+&lt;div class="row"&gt;
+    &lt;div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"&gt;
+        leftLoading
+        &lt;div fm-loader="leftLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-success text-success"&gt;
+            &lt;i class="fa fa-spinner fa-3x fa-spin"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class="col-lg-6 col-md-6 col-sm-6 col-xs-6"&gt;
+        rightLoading
+        &lt;div fm-loader="rightLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-danger text-danger"&gt;
+            &lt;i class="fa fa-spinner fa-3x fa-spin"&gt;&lt;/i&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+</pre>
+            <p>
+                Test it!
+            </p>
+            <button type="button" class="btn btn-primary" ng-click="vm.manualShow('fullLoading')">Manual fullLoading</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">HTTP request fullLoading</button>
+            <br /><br />
+            <button type="button" class="btn btn-success" ng-click="vm.manualShow('leftLoading')">Manual show() leftLoading</button>
+            <button type="button" class="btn btn-success" ng-click="vm.manualHide('leftLoading')">Manual hide() leftLoading</button>
+            <button type="button" class="btn btn-success" ng-click="vm.http('leftLoading')">HTTP request leftLoading</button>
+            <br /><br />
+            <button type="button" class="btn btn-danger" ng-click="vm.manualShow('rightLoading')">Manual show() rightLoading</button>
+            <button type="button" class="btn btn-danger" ng-click="vm.manualHide('rightLoading')">Manual hide() rightLoading</button>
+            <button type="button" class="btn btn-danger" ng-click="vm.http('rightLoading')">HTTP request rightLoading</button>
+            <br /><br />
+            <div fm-loader="fullLoading" class="fmLoader">
+                <i class="fa fa-spinner fa-3x fa-spin fmLoaderImage"></i>
+            </div>
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="height: 100px;">
+                    leftLoading
+                    <div fm-loader="leftLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-success text-success">
+                        <i class="fa fa-spinner fa-3x fa-spin"></i>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                    rightLoading
+                    <div fm-loader="rightLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-danger text-danger">
+                        <i class="fa fa-spinner fa-3x fa-spin"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script src="../../assets/lib/requirejs/require.min.js"></script>
+        <script>
+            require.config({
+                baseUrl: '../../assets/lib/',
+                paths: {
+                    jquery: 'jquery/jquery.min',
+                    angular: 'angular/angular.min',
+                    'fm.loader': '../../demo/loader/fm-loader.min',
+                    'fm.https': '../../demo/loader/fm-https.min',
+                    fmLoaderDemo: '../../demo/loader/fmLoaderDemo',
+                },
+                shim: {
+                    jquery: { export: '$' },
+                    angular: { export: 'angular', deps: ['jquery'] },
+                    'fm.loader': { deps: ['angular'] },
+                    'fm.https': { deps: ['angular'] },
+                    fmLoaderDemo: { deps: ['angular', 'fm.loader', 'fm.https'] }
+                }
+            });
+            require(['jquery', 'angular', 'fm.loader', 'fm.https', 'fmLoaderDemo'],
+                function() {
+                    angular.bootstrap(document, ['fmLoaderDemo']);
+                }
+            );
+        </script>
+    </body>
+</html>
