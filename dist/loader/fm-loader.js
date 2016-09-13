@@ -21,7 +21,14 @@
         }
         function setCustomActivation(queryP) {
             active = true;
-            queryParam = queryP || queryParam;
+
+            if(typeof queryP !== 'undefined') {
+                if(typeof queryP === 'string') {
+                    queryParam = queryP || queryParam;
+                } else {
+                    throw Error('Invalid custom activation');
+                }
+            }
         }
         function getQueryParamActivation() {
             return queryParam;
@@ -29,8 +36,8 @@
     }
 
     fmLoader.factory('fmLoaderFactory', fmLoaderFactory);
-    fmLoaderFactory.$inject = ['$rootScope'];
-    function fmLoaderFactory($rootScope) {
+    fmLoaderFactory.$inject = ['$rootScope', '$timeout'];
+    function fmLoaderFactory($rootScope, $timeout) {
         var factory = {
             show: show,
             hide: hide
@@ -39,12 +46,16 @@
         return factory;
 
         function show(id) {
-            id = typeof id !== undefined ? '_'+id : '';
-            $rootScope.$broadcast('loader_show'+id);
+            id = typeof id !== 'undefined' ? '_'+id : '';
+            $timeout(function() {
+                $rootScope.$broadcast('loader_show'+id);
+            }, 0);
         }
         function hide(id) {
-            id = typeof id !== undefined ? '_'+id : '';
-            $rootScope.$broadcast('loader_hide'+id);
+            id = typeof id !== 'undefined' ? '_'+id : '';
+            $timeout(function() {
+                $rootScope.$broadcast('loader_hide'+id);
+            }, 0);
         }
     }
 

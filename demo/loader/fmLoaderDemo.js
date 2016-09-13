@@ -36,7 +36,7 @@ define([
             $anchorScroll();
 
             function http(loader) {
-                fmHttpsFactory.resolveHttps('get', 'https://httpbin.org/get', { fmloader: loader })
+                fmHttpsFactory.resolveHttps('get', 'http://jsonplaceholder.typicode.com/users', { fmloader: loader })
                     .then(function(response) { console.log(response); })
                     .catch(function(error) { console.error(error); });
             }
