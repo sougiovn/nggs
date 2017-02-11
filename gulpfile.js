@@ -76,17 +76,17 @@ gulp.task('demos',
 
         gulp.src([modules.https, modules.loader, modules.modals, modules.props])
             .pipe(uglify())
-            .pipe(rename(resolveRename('fm-', '.min.js')))
+            .pipe(rename(resolveRename('nggs-', '.min.js')))
             .pipe(gulp.dest(paths.demo));
 
         gulp.src([modules.https])
             .pipe(uglify())
-            .pipe(rename({ dirname: '', prefix: 'fm-', extname: '.min.js' }))
+            .pipe(rename({ dirname: '', prefix: 'nggs-', extname: '.min.js' }))
             .pipe(gulp.dest(paths.demo+'loader'));
 
         gulp.src([modules.loaderCss])
             .pipe(cleanCSS())
-            .pipe(rename(resolveRename('fm-', '.min.css')))
+            .pipe(rename(resolveRename('nggs-', '.min.css')))
             .pipe(gulp.dest(paths.demo));
     }
 );
@@ -94,21 +94,21 @@ gulp.task('demos',
 gulp.task('dist',
     function() {
         gulp.src([modules.https, modules.loader, modules.modals, modules.props])
-            .pipe(rename(resolveRename('fm-', '.js')))
+            .pipe(rename(resolveRename('nggs-', '.js')))
             .pipe(gulp.dest(paths.dist));
 
         gulp.src([modules.https, modules.loader, modules.modals, modules.props])
             .pipe(uglify())
-            .pipe(rename(resolveRename('fm-', '.min.js')))
+            .pipe(rename(resolveRename('nggs-', '.min.js')))
             .pipe(gulp.dest(paths.dist));
 
         gulp.src([modules.loaderCss])
-            .pipe(rename(resolveRename('fm-', '.css')))
+            .pipe(rename(resolveRename('nggs-', '.css')))
             .pipe(gulp.dest(paths.dist));
 
         gulp.src([modules.loaderCss])
             .pipe(cleanCSS())
-            .pipe(rename(resolveRename('fm-', '.min.css')))
+            .pipe(rename(resolveRename('nggs-', '.min.css')))
             .pipe(gulp.dest(paths.dist));
     }
 );
