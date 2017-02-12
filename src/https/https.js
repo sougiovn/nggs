@@ -18,10 +18,10 @@
     return factory;
 
     function resolveAll(host, funcs, obj) {
-      var api = typeof obj === 'object' ? obj : {};
+      var api = isObject(obj) ? obj : {};
 
       funcs.forEach(function (func) {
-        if (typeof func === 'string') {
+        if (isString(func)) {
           func = func.replace('=', '').split(resolveAllMethods);
           var funcName = func[0];
           var funcMethod = func[1];
@@ -29,7 +29,7 @@
           api[funcName] = function () {
             return resolve(host, funcMethod, funcUrl, arguments);
           };
-        } else if (typeof func === 'object') {
+        } else if (isObject(func)) {
           if (func instanceof Array) {
 
           } else {
@@ -37,7 +37,7 @@
               api[item] = func[item];
             });
           }
-        } else if (typeof func === 'function') {
+        } else if (isFunction(func)) {
           api[func.name] = func;
         }
       });
@@ -46,7 +46,7 @@
     }
 
     function resolveHttps(method, url) {
-      if (method !== 'undefined' && url !== 'undefined') {
+      if (!isUndefined(method) && !isUndefined(url)) {
         if (resolveHttpsMethods.test(method.toUpperCase())) {
           var args = [];
           for (var i = 2; i < arguments.length; i++) {
@@ -95,9 +95,9 @@
           parameters[params[param].replace(/:/, '')] = params[param];
         }
 
-        if (args[0] !== 'undefined') {
+        if (!isUndefined(args[0])) {
           for (param in parameters) {
-            if (args[0][param] !== 'undefined') {
+            if (!isUndefined(args[0][param])) {
               url = url.replace(parameters[param], args[0][param]);
             } else {
               throw Error('Url parameter \'' + parameters[param] + '\' wasn\'t found');
@@ -107,47 +107,69 @@
           throw Error('No url parameter was passed as parameter');
         }
 
-        if (args[1] !== 'undefined') {
-          if (method == 'GET') {
-            config.params  = args[1]
-            // url += queryParams(args[1]);
+        if (!isUndefined(args[1])) {
+          if (isEquals(method, 'GET')) {
+            config.params = args[1]
+            if(!isUndefined(args[2])) {
+              extendsConfig(args[2])
+            }
           } else {
             config.data = args[1];
-            if (args[2] !== 'undefined') {
+            if (!isUndefined(args[2])) {
               config.params  = args[2]
-              // url += queryParams(args[2]);
+            }
+            if(!isUndefined(args[3])) {
+              extendsConfig(args[3])
             }
           }
         }
       } else {
-        if (args[0] !== 'undefined') {
-          if (method == 'GET') {
-            config.params  = args[0]
-            // url += queryParams(args[0]);
+        if (!isUndefined(args[0])) {
+          if (isEquals(method, 'GET')) {
+            config.params = args[0]
+            if(!isUndefined(args[1])) {
+              extendsConfig(args[1])
+            }
           } else {
             config.data = args[0];
-            if (args[1] !== 'undefined') {
-              config.params  = args[1]
-              // url += queryParams(args[1]);
+            if (!isUndefined(args[1])) {
+              config.params = args[1]
+            }
+            if(!isUndefined(args[2])) {
+              extendsConfig(args[2])
             }
           }
         }
       }
 
       config.url = host + url;
-
       return $http(config);
 
-      function queryParams(args) {
-        var prefix = '?';
-        var query = args;
-        var queryParams = '';
-        for (var param in query) {
-          queryParams += prefix + param + '=' + query[param];
-          prefix = '&';
+      function extendsConfig(obj) {
+        if (!isUndefined(obj) && isObject(obj)) {
+          Object.keys(obj).forEach(function(item) {
+            config[item] = obj[item]
+          });
+        } else {
+          throw Error('The configuration parameter must be an object')
         }
-        return queryParams;
       }
     }
+  }
+
+  function isEquals(val1, val2) {
+    return val1 === val2
+  }
+  function isUndefined(val) {
+    return isEquals(val, undefined)
+  }
+  function isString(val) {
+    return isEquals(typeof val, 'string')
+  }
+  function isObject(val) {
+    return isEquals(typeof val, 'object')
+  }
+  function isFunction(val) {
+    return isEquals(typeof val, 'function')
   }
 })();
