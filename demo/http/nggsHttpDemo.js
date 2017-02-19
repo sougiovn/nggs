@@ -42,7 +42,8 @@ define([
       // ];
 
       var urls = {
-        get: ['@get=/test', {headers: ['lalala'], params:{teste:'lalala'}}]
+        get: ['@get=/test', {headers: ['lalala'], params:{teste:'lalala'}}],
+        post: ['@post=/test', {data:'defaultData', params: {teste:'postt'}}]
       }
 
       var factory = ggHttp(baseUrl, urls);
@@ -52,39 +53,22 @@ define([
 
     nggsHttpDemo.controller('nggsHttpDemoController', nggsHttpDemoController);
 
-    nggsHttpDemoController.$inject = ['nggsHttpDemoFactory', 'ggHttp', '$anchorScroll', '$translate'];
+    nggsHttpDemoController.$inject = ['$anchorScroll', '$translate'];
 
-    function nggsHttpDemoController(nggsHttpDemoFactory, ggHttp, $anchorScroll, $translate) {
+    function nggsHttpDemoController($anchorScroll, $translate) {
+      $anchorScroll();
+
       var self = this;
 
       self.currentLanguage = $translate.preferredLanguage();
-      this.setLanguage = function (language) {
+
+      self.setLanguage = function (language) {
         self.currentLanguage = language;
         $translate.use(language);
         if (Storage) {
           localStorage.setItem('nggsLanguage', language);
         }
       }
-
-      $anchorScroll();
-
-      // nggsHttpDemoFactory.get({teste:'lalala é o cacete'}, {headers:['lalala é o cacete']});
-      nggsHttpDemoFactory.get();
-      // nggsHttpDemoFactory.post({
-      //   cod: 1
-      // }, {
-      //   data: 'pacote'
-      // }, {
-      //   query: 'lalala'
-      // });
-      // ggHttp.resolveHttp('get', 'api/test', {
-      //   pagina: 1
-      // });
-      // ggHttp.resolveHttp('post', 'api/test/:pagina', {
-      //   pagina: 1
-      // }, {
-      //   tamanho: 10
-      // });
     }
   }
 );

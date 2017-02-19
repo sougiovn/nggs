@@ -1,3 +1,29 @@
+/**
+ * It's a component to generate http methods easily with really few code
+ *
+ * It only accepts GET, POST, PUT and DELETE HTTP's methods
+ *
+ * Unless GET, all other methods accepts PAYLOAD
+ *
+ * The priority smart parameters order is: URL VARIABLE, PAYLOAD, QUERY PARAMS and $http CONFIG PROPERTIES
+ *
+ * Usage:
+ *
+ * var functions = [
+ *  'getUser@get=/user/:id'
+ *  ['getUsersPage@get=/user', {params:{page:0, size:10}}]
+ * ]
+ *
+ * var functions = {
+ *  getUser: '@get=/user/:id'
+ *  getUsersPage: ['@get=/user', {params:{page:0, size:10}}]
+ * }
+ *
+ * var api = ggHttp(baseUrl, functions, objectToAppendFunctions)
+ *
+ * api.getUser({id: 1})
+ * api.getUsersPage()
+ */
 (function () {
   'use strict';
 
@@ -7,20 +33,14 @@
   ggHttp.$inject = ['$http'];
 
   function ggHttp($http) {
-    var resolveAllMethods = /(@get|@Get|@GET|@post|@Post|@POST|@put|@Put|@PUT|@delete|@Delete|@DELETE|@head|@Head|@HEAD|@connect|@Connect|@CONNECT|@options|@Options|@OPTIONS|@trace|@Trace|@TRACE|@patch|@Patch|@PATCH)/;
+    var resolveAllMethods = /(@get|@Get|@GET|@post|@Post|@POST|@put|@Put|@PUT|@delete|@Delete|@DELETE)/;
 
     var myInterface = resolveAll;
 
     return myInterface;
 
-    /*
-    ['getUser@get=/:id']
-    [['getUser@get=/:id', {params: {teste:'lala'}}]]
-    {getUser:'get=/:id'}
-    */
-
-    function resolveAll(host, funcs, obj) {
-      host = host || '';
+    function resolveAll(baseUrl, funcs, obj) {
+      baseUrl = baseUrl || '';
       var api = isObject(obj) ? obj : {};
 
       if (funcs) {
@@ -45,13 +65,12 @@
       }
 
       function resolveFunction(func) {
-        console.log(func)
         if (isString(func)) {
           var aux = resolveFunctionString(func);
           var funcName = aux[0];
           var funcMethod = aux[1];
           var funcUrl = aux[2];
-          resolveFunctionToApi(api, host, funcName, funcMethod, funcUrl);
+          resolveFunctionToApi(api, baseUrl, funcName, funcMethod, funcUrl);
         } else if (isObject(func)) {
           if (isArray(func)) {
             if (isString(func[0])) {
@@ -59,7 +78,7 @@
               var funcName = aux[0];
               var funcMethod = aux[1];
               var funcUrl = aux[2];
-              resolveFunctionToApi(api, host, funcName, funcMethod, funcUrl, func[1]);
+              resolveFunctionToApi(api, baseUrl, funcName, funcMethod, funcUrl, func[1]);
             } else {
               throw Error('No string method was found');
             }
@@ -77,20 +96,20 @@
         return func.replace('=', '').split(resolveAllMethods);
       }
 
-      function resolveFunctionToApi(api, host, funcName, funcMethod, funcUrl, config) {
+      function resolveFunctionToApi(api, baseUrl, funcName, funcMethod, funcUrl, config) {
         api[funcName] = function () {
-          return resolve(host, funcMethod, funcUrl, arguments, (isObject(config) ? config : {}));
+          return resolve(baseUrl, funcMethod, funcUrl, arguments, (isObject(config) ? config : {}));
         };
       }
     }
 
 
-    function resolve(host, method, url, args, defaultConfig) {
-      host += host.charAt(host.length - 1) != '/' ? url.length > 0 ? url.charAt(0) != '/' ? '/' : '' : '' : '';
+    function resolve(baseUrl, method, url, args, defaultConfig) {
+      baseUrl += baseUrl.charAt(baseUrl.length - 1) != '/' ? url.length > 0 ? url.charAt(0) != '/' ? '/' : '' : '' : '';
       method = method.indexOf('@') > -1 ? method.toUpperCase().substring(1, method.length) : method.toUpperCase();
       var config = {
         method: method,
-        url: host + url
+        url: baseUrl + url
       };
       extendsConfig(defaultConfig)
       if (url.indexOf(':') > -1) {
@@ -156,7 +175,7 @@
         }
       }
 
-      config.url = host + url;
+      config.url = baseUrl + url;
       return $http(config);
 
       function extendsConfig(obj) {

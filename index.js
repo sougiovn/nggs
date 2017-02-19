@@ -30,8 +30,10 @@ define([
 
     function indexController($translate) {
       var self = this;
+
       self.currentLanguage = $translate.preferredLanguage();
-      this.setLanguage = function (language) {
+
+      self.setLanguage = function (language) {
         self.currentLanguage = language;
         $translate.use(language);
         if (Storage) {
