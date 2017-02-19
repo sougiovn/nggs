@@ -5,23 +5,17 @@
   <meta charset="utf-8" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
-  <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap-theme.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
-  <title>nggs.https - Demo</title>
+  <title>nggs.http - Demo</title>
 </head>
 
 <body ng-cloak>
   <br />
-  <div class="container" ng-controller="nggsHttpsDemoController as vm">
+  <div class="container" ng-controller="nggsHttpDemoController as vm">
     <div class="jumbotron">
-      <h1>nggs.https</h1>
-      <p>
-        nggs.https is a component for easy generation of methods for accessing <b>REST APIs</b> using angular's <b>$http</b> service.
-      </p>
-    </div>
-    <div class="alert alert-danger">
-      The <code>nggs.https</code> has nothing related to the HTTPS(Hyper Text Transfer Protocol Secure)!
+      <h1>nggs.http</h1>
+      <p translate="HTTP_TITLE_DESCRIPTION"></p>
     </div>
     <div class="panel panel-default">
       <div class="panel-body">
@@ -34,7 +28,7 @@
     </div>
     <h2 id="intro">1. Intro</h2>
     <p>
-      The <code>nggs.https</code> is only a factory(<code>nggsHttpsFactory</code>) which is used for create methods for accessing REST APIs. The cool thing about it is that you only need to write a string with the correct sintax for the generation, and then you will have a fast method to access your APIs with smart parameter's treatment.
+      The <code>nggs.http</code> is only a factory(<code>ggHttp</code>) which is used for create methods for accessing REST APIs. The cool thing about it is that you only need to write a string with the correct sintax for the generation, and then you will have a fast method to access your APIs with smart parameter's treatment.
       <br /> As it uses the angular's <code>$http</code> service, it will return you a promise.
     </p>
     <p class="help-block">Example</p>
@@ -50,7 +44,7 @@ var methods = [
   'getUserPosts@get=/:userId/post
 ];
 
-var api = nggsHttpsFactory.resolve(baseUrl, methods);</pre>
+var api = ggHttp.resolve(baseUrl, methods);</pre>
     <p>
       The result will be:
     </p>
@@ -147,6 +141,14 @@ newUserPost({ userId: 1 }, { text: 'This component is awesome!' }, { private: fa
 POST /user/1/post?private=false and { text: 'This component is awesome!' } as request payload</pre>
     </p>
   </div>
+  <div id="i18n" class="btn-group-vertical" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('en')" ng-class="{ active: vm.currentLanguage == 'en' }">
+      <img src="../../assets/images/USA.png"></img>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('pt-Br')" ng-class="{ active: vm.currentLanguage == 'pt-Br' }">
+      <img src="../../assets/images/Brazil.png"></img>
+    </button>
+  </div>
   <script src="../../assets/lib/requirejs/require.min.js"></script>
   <script>
     require.config({
@@ -154,9 +156,11 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
       paths: {
         jquery: 'jquery/jquery.min',
         angular: 'angular/angular.min',
-        // 'nggs.https': '../../demo/https/nggs-https.min',
-        'nggs.https': '../../src/https/https',
-        nggsHttpsDemo: '../../demo/https/nggsHttpsDemo'
+        'angular-translate': 'angular-translate/angular-translate.min',
+        'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
+        // 'nggs.http': '../../demo/http/nggs-http.min',
+        'nggs.http': '../../src/http/http',
+        nggsHttpDemo: '../../demo/http/nggsHttpDemo'
       },
       shim: {
         jquery: {
@@ -166,17 +170,23 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
           export: 'angular',
           deps: ['jquery']
         },
-        'nggs.https': {
+        'angular-translate': {
           deps: ['angular']
         },
-        nggsHttpsDemo: {
-          deps: ['angular', 'nggs.https']
+        'angular-translate-loader-static-files': {
+          deps: ['angular', 'angular-translate']
+        },
+        'nggs.http': {
+          deps: ['angular']
+        },
+        nggsHttpDemo: {
+          deps: ['angular', 'nggs.http']
         }
       }
     });
-    require(['jquery', 'angular', 'nggs.https', 'nggsHttpsDemo'],
+    require(['jquery', 'angular', 'nggs.http', 'nggsHttpDemo'],
       function () {
-        angular.bootstrap(document, ['nggsHttpsDemo']);
+        angular.bootstrap(document, ['nggsHttpDemo']);
       }
     );
   </script>

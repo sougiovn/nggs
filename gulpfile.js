@@ -14,7 +14,7 @@ var paths = {
 };
 
 var modules = {
-  https: paths.src + 'https/https.js',
+  http: paths.src + 'http/http.js',
   loader: paths.src + 'loader/loader.js',
   loaderCss: paths.src + 'loader/loader.css',
   modals: paths.src + 'modals/modals.js',
@@ -86,12 +86,12 @@ gulp.task('demos',
   function () {
     gulp.run('imports');
 
-    gulp.src([modules.https, modules.loader, modules.modals, modules.props])
+    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
       .pipe(uglify())
       .pipe(rename(resolveRename('nggs-', '.min.js')))
       .pipe(gulp.dest(paths.demo));
 
-    gulp.src([modules.https])
+    gulp.src([modules.http])
       .pipe(uglify())
       .pipe(rename({
         dirname: '',
@@ -109,11 +109,11 @@ gulp.task('demos',
 
 gulp.task('dist',
   function () {
-    gulp.src([modules.https, modules.loader, modules.modals, modules.props])
+    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
       .pipe(rename(resolveRename('nggs-', '.js')))
       .pipe(gulp.dest(paths.dist));
 
-    gulp.src([modules.https, modules.loader, modules.modals, modules.props])
+    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
       .pipe(uglify())
       .pipe(rename(resolveRename('nggs-', '.min.js')))
       .pipe(gulp.dest(paths.dist));

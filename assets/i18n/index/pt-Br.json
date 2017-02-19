@@ -1,8 +1,0 @@
-{
-  "jumbotron": "nggs é uma coleção de componentes para angular 1.x que eu desenvolvi durante meu dia-a-dia no trabalho, tudo foi feito focado em tornar o desenvolvimento da minha equipe mais rápido e fácil. <br /> Como eu realmente realmente gostei de trabalhar nesses componentes e adorei o resultado. Espero que gostem.",
-  "nggsHttp": "Um componente para fácil geração de métodos que acessem <b>APIs REST</b> usando o serviço <b>$http</b> do angular.",
-  "nggsLoader": "Um componente que dispara um loader automaticamente por interceptar todas as requisições http feitas pelo serviço <b>$http</b> do angular ou manualmente através de um serviço próprio.",
-  "nggsModals": "Um componente que gera modais usando as bibliotecas <b>UI Bootstrap</b>, <b>Bootstrap</b> e <b>Font Awesome</b>.",
-  "nggsProps": "Um componente para carregar propriedades para a aplicação, e também funciona como um objeto de sessão.",
-  "blockquote": "Todo meu código e demos foram escritos baseados no <a href=\"https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Guia de estilo para AngularJS</a> de John Papa's. Caso tenha alguma dúvida do código fonte das demos de uma olhada nele, 'it's a really amazing style guidé um guia muito bom."
-}

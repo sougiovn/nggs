@@ -13,7 +13,7 @@ define([
     config.$injector = ['$translateProvider']
 
     function config($translateProvider) {
-      $translateProvider.useStaticFilesLoader({files: [{prefix: 'assets/i18n/index/',suffix: '.json'}]});
+      $translateProvider.useStaticFilesLoader({files: [{prefix: 'assets/i18n/',suffix: '.json'}]});
       var preferredLanguage = 'en'
       if (Storage) {
         var aux = localStorage.getItem('nggsLanguage');
