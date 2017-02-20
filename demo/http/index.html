@@ -31,40 +31,10 @@
         <h2 id="intro">1. <translate>INTRODUCTION</translate></h2>
         <p translate="HTTP_INFO_DESCRIPTION"></p>
         <p class="help-block" translate="EXAMPLE"></p>
-        <pre>var baseUrl = 'http://mydomain.com/api/user'; // A base url for generating the methods
-
-var methods = [
-  'getUserList@get',
-  'getUser@get=/:userId',
-  'newUser@post',
-  'updateUser@put=/:userId',
-  'deleteUser@delete=/:userId',
-  'getUserPosts@get=/:userId/post
-];
-
-var api = ggHttp(baseUrl, methods);</pre>
-        <p>
-          The result will be:
-        </p>
-        <pre>
-api.getUserList();
-GET http://mydomain.com/api/user
-
-api.getUser({ userId: 1 });
-GET http://mydomain.com/api/user/1
-
-api.newUser({ name: 'John' });
-POST http://mydomain.com/api/user and { name: 'John' } as request payload
-
-api.updateUser({ userId: 1 }, { height: 1.6 });
-PUT http://mydomain.com/api/user/1 and { height: 1.6 } as request payload
-
-api.deleteUser({ userId: 1 });
-DELETE http://mydomain.com/api/user/1
-
-api.getUserPosts({ userId: 1 });
-GET http://mydomain.com/api/user/1/post
-</pre>
+        <pre translate="HTTP_EXAMPLE_1_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_1_RESULT"></p>
+        <pre translate="HTTP_EXAMPLE_1_RESULT_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_1_CONFIG_EXPLANATION"></p>
         <h2 id="sintax">2. Sintax</h2>
         <p>
           The sintax to generate the methods is very simple:
