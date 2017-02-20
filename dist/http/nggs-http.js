@@ -41,10 +41,9 @@
   var https = angular.module('nggs.http', []);
 
   https.factory('ggHttp', ggHttp);
+  ggHttp.$inject = ['$http'];
 
-  ggHttp.$inject = ['$http', '$q'];
-
-  function ggHttp($http, $q) {
+  function ggHttp($http) {
     var resolveAllMethods = /(@get|@Get|@GET|@post|@Post|@POST|@put|@Put|@PUT|@delete|@Delete|@DELETE)/;
 
     var myInterface = resolveAll;
@@ -187,14 +186,8 @@
         }
       }
 
-      var cancelRequest = $q.defer();
       config.url = baseUrl + url;
-      config.timeout = cancelRequest.promise;
-      var request = $http(config);
-      request.cancelRequest = function() {
-        cancelRequest.resolve();
-      }
-      return request;
+      return $http(config);
 
       function extendsConfig(obj) {
         if (!isUndefined(obj) && isObject(obj)) {

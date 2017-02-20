@@ -30,27 +30,6 @@ define([
       $translateProvider.preferredLanguage(preferredLanguage);
     }
 
-    nggsHttpDemo.factory('nggsHttpDemoFactory', nggsHttpDemoFactory);
-
-    nggsHttpDemoFactory.$inject = ['ggHttp'];
-
-    function nggsHttpDemoFactory(ggHttp) {
-      var baseUrl = 'http://localhost:8000/api';
-      // var urls = [
-      //   ['get@get=/test', {headers: ['lalala'], params:{teste:'lalala'}}],
-      //   'post@post=/test/:cod'
-      // ];
-
-      var urls = {
-        get: ['@get=/test', {headers: ['lalala'], params:{teste:'lalala'}}],
-        post: ['@post=/test', {data:'defaultData', params: {teste:'postt'}}]
-      }
-
-      var factory = ggHttp(baseUrl, urls);
-
-      return factory;
-    }
-
     nggsHttpDemo.controller('nggsHttpDemoController', nggsHttpDemoController);
 
     nggsHttpDemoController.$inject = ['$anchorScroll', '$translate'];

@@ -10,30 +10,28 @@
   <title>nggs.http - Demo</title>
 </head>
 
-<body ng-cloak>
+<body ng-cloak ng-controller="nggsHttpDemoController as vm">
   <br />
-  <div class="container" ng-controller="nggsHttpDemoController as vm">
+  <div class="container">
     <div class="jumbotron">
       <h1>nggs.http</h1>
       <p translate="HTTP_TITLE_DESCRIPTION"></p>
     </div>
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <ol>
-          <li><a href="#intro">Intro</a></li>
-          <li><a href="#sintax">Sintax</a></li>
-          <li><a href="#smart_parameters">Smart parameters</a></li>
-        </ol>
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
+        <div class="fixed-to-top" data-margin-top="25">
+          <ol>
+            <li><a href="#intro" translate="INTRODUCTION"></a></li>
+            <li><a href="#sintax">Sintax</a></li>
+            <li><a href="#smart_parameters">Smart parameters</a></li>
+          </ol>
+        </div>
       </div>
-    </div>
-    <h2 id="intro">1. Intro</h2>
-    <p>
-      The <code>nggs.http</code> is only a factory(<code>ggHttp</code>) which is used for create methods for accessing REST APIs. The cool thing about it is that you only need to write a string with the correct sintax for the generation, and then you will have a fast method to access your APIs with smart parameter's treatment.
-      <br /> As it uses the angular's <code>$http</code> service, it will return you a promise.
-    </p>
-    <p class="help-block">Example</p>
-    <pre>
-var baseUrl = 'http://mydomain.com/api/user'; // A base url for generating the methods
+      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+        <h2 id="intro">1. <translate>INTRODUCTION</translate></h2>
+        <p translate="HTTP_INFO_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre>var baseUrl = 'http://mydomain.com/api/user'; // A base url for generating the methods
 
 var methods = [
   'getUserList@get',
@@ -44,11 +42,11 @@ var methods = [
   'getUserPosts@get=/:userId/post
 ];
 
-var api = ggHttp.resolve(baseUrl, methods);</pre>
-    <p>
-      The result will be:
-    </p>
-    <pre>
+var api = ggHttp(baseUrl, methods);</pre>
+        <p>
+          The result will be:
+        </p>
+        <pre>
 api.getUserList();
 GET http://mydomain.com/api/user
 
@@ -67,27 +65,27 @@ DELETE http://mydomain.com/api/user/1
 api.getUserPosts({ userId: 1 });
 GET http://mydomain.com/api/user/1/post
 </pre>
-    <h2 id="sintax">2. Sintax</h2>
-    <p>
-      The sintax to generate the methods is very simple:
-    </p>
-    <h4><code>{methodName}@{httpMethod}={url}</code></h4>
-    <p>
-      The <code>methodName</code> is the name of the method created. <br /> The <code>@</code> followed by the <code>httpMethod</code> will define which HTTP method the request will make (@get/@Get/@GET, @post/@Post/@POST, @put/@Put/@PUT and @delete/@Delete/@DELETE). <br /> The <code>url</code> will be added to the baseUrl passed as parameter. You may add as many url parameters as you want, like is showed in the previous example by using the character <code>:</code>.
-    </p>
-    <p class="help-block">Example</p>
-    <p>
-      For the url <code>/user/:id</code> will expected that you pass as parameter an object with the attribute <code>id</code> to replate the <code>:id</code> in the url</pre>
-    </p>
-    <h2 id="smart_parameters">3. Smart parameters</h2>
-    <p>
-      The parameters are treated with order of priority that is: url parameter, request payload and query pamareter. <br />
-      <h4>Url parameter</h4>
-      <p>
-        If the url used for generate the method has at least one url parameter, then the first parameter must be an object with attributes having the same names of the url parameter.
-      </p>
-      <p class="help-block">Example</p>
-      <pre>
+        <h2 id="sintax">2. Sintax</h2>
+        <p>
+          The sintax to generate the methods is very simple:
+        </p>
+        <h4><code>{methodName}@{httpMethod}={url}</code></h4>
+        <p>
+          The <code>methodName</code> is the name of the method created. <br /> The <code>@</code> followed by the <code>httpMethod</code> will define which HTTP method the request will make (@get/@Get/@GET, @post/@Post/@POST, @put/@Put/@PUT and @delete/@Delete/@DELETE). <br /> The <code>url</code> will be added to the baseUrl passed as parameter. You may add as many url parameters as you want, like is showed in the previous example by using the character <code>:</code>.
+        </p>
+        <p class="help-block">Example</p>
+        <p>
+          For the url <code>/user/:id</code> will expected that you pass as parameter an object with the attribute <code>id</code> to replate the <code>:id</code> in the url</pre>
+        </p>
+        <h2 id="smart_parameters">3. Smart parameters</h2>
+        <p>
+          The parameters are treated with order of priority that is: url parameter, request payload and query pamareter. <br />
+          <h4>Url parameter</h4>
+          <p>
+            If the url used for generate the method has at least one url parameter, then the first parameter must be an object with attributes having the same names of the url parameter.
+          </p>
+          <p class="help-block">Example</p>
+          <pre>
 // to generate
 'getUser@get=/user/:userId'
 'getUserPost@get=/user/:userId/post/:postId'
@@ -98,13 +96,13 @@ GET /user/1
 
 getUserPost({ userId: 1, postId: 23 });
 GET /user/1/post/23</pre>
-      <h4>Request payload</h4>
-      <p>
-        It's the data you want to send to the requested url. This parameter isn't valid for <code>GET</code>
-        <code>http methods</code>.
-      </p>
-      <p class="help-block">Example</p>
-      <pre>
+          <h4>Request payload</h4>
+          <p>
+            It's the data you want to send to the requested url. This parameter isn't valid for <code>GET</code>
+            <code>http methods</code>.
+          </p>
+          <p class="help-block">Example</p>
+          <pre>
 // to generate
 'newUser@post=/user'
 'newUserPost@post=/user/:userId/post'
@@ -123,12 +121,12 @@ PUT /user/1/post/25 and { text: 'Sorry I messed up, I meant "What a terrific com
 
 deleteUserPost({ userId: 1, postId: 25 }, { justification: 'I messed up everything, I'll make another post.' });
 DELETE /user/1/post/25 and { justification: 'I messed up everything, I'll make another post.' } as request payload</pre>
-      <h4>Query parameter</h4>
-      <p>
-        Passing an object as the last parameter will create query parameters with each one of the attributes of this object.
-      </p>
-      <p class="help-block">Example</p>
-      <pre>
+          <h4>Query parameter</h4>
+          <p>
+            Passing an object as the last parameter will create query parameters with each one of the attributes of this object.
+          </p>
+          <p class="help-block">Example</p>
+          <pre>
 // to generate
 'getUserPosts@get=/user/:userId/post'
 'newUserPost@post=/user/:userId/post'
@@ -139,7 +137,9 @@ GET /user/1/post?page=1&size=10
 
 newUserPost({ userId: 1 }, { text: 'This component is awesome!' }, { private: false });
 POST /user/1/post?private=false and { text: 'This component is awesome!' } as request payload</pre>
-    </p>
+        </p>
+      </div>
+    </div>
   </div>
   <div id="i18n" class="btn-group-vertical" role="group" aria-label="...">
     <button type="button" class="btn btn-default" ng-click="vm.setLanguage('en')" ng-class="{ active: vm.currentLanguage == 'en' }">
@@ -155,16 +155,19 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
       baseUrl: '../../assets/lib/',
       paths: {
         jquery: 'jquery/jquery.min',
+        fixedToTop: '../js/fixed-to-top',
         angular: 'angular/angular.min',
         'angular-translate': 'angular-translate/angular-translate.min',
         'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
-        // 'nggs.http': '../../demo/http/nggs-http.min',
-        'nggs.http': '../../src/http/http',
+        'nggs.http': '../../demo/http/nggs-http.min',
         nggsHttpDemo: '../../demo/http/nggsHttpDemo'
       },
       shim: {
         jquery: {
           export: '$'
+        },
+        fixedToTop: {
+          deps: ['jquery']
         },
         angular: {
           export: 'angular',
@@ -184,7 +187,7 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
         }
       }
     });
-    require(['jquery', 'angular', 'nggs.http', 'nggsHttpDemo'],
+    require(['jquery', 'fixedToTop', 'angular', 'nggs.http', 'nggsHttpDemo'],
       function () {
         angular.bootstrap(document, ['nggsHttpDemo']);
       }
