@@ -189,9 +189,9 @@
 
       var cancelRequest = $q.defer();
       config.url = baseUrl + url;
-      config.timeout = cancelRequest.promise;
+      config.timeout = config.timeout || cancelRequest.promise;
       var request = $http(config);
-      request.cancelRequest = function() {
+      request.cancel = function() {
         cancelRequest.resolve();
       }
       return request;

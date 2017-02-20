@@ -30,14 +30,28 @@ define([
       $translateProvider.preferredLanguage(preferredLanguage);
     }
 
+    nggsHttpDemo.factory('nggsHttpDemoFactory', nggsHttpDemoFactory);
+
+    nggsHttpDemoFactory.$inject = ['ggHttp'];
+
+    function nggsHttpDemoFactory(ggHttp) {
+      var methods = {
+        getUsers: '@get=/photos'
+      }
+
+      return ggHttp('https://jsonplaceholder.typicode.com', methods)
+    }
+
     nggsHttpDemo.controller('nggsHttpDemoController', nggsHttpDemoController);
 
-    nggsHttpDemoController.$inject = ['$anchorScroll', '$translate'];
+    nggsHttpDemoController.$inject = ['$anchorScroll', '$translate', 'nggsHttpDemoFactory'];
 
-    function nggsHttpDemoController($anchorScroll, $translate) {
+    function nggsHttpDemoController($anchorScroll, $translate, nggsHttpDemoFactory) {
       $anchorScroll();
 
       var self = this;
+
+      nggsHttpDemoFactory.getUsers().cancel();
 
       self.currentLanguage = $translate.preferredLanguage();
 
