@@ -2,11 +2,7 @@
     <i class="fa fa-times-circle fa-2x text-danger pull-left"></i>
     <h4 class="modal-title">{{ vm.title }}</h4>
 </div>
-<div class="modal-body bg-danger">
-    <p>
-        {{ vm.message }}
-    </p>
-</div>
+<div class="modal-body bg-danger" ng-bind-html="vm.message"></div>
 <div class="modal-footer">
     <button class="btn btn-primary" type="button" ng-click="vm.close()">{{ vm.closeButtonLabel }}</button>
 </div>

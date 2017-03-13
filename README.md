@@ -1,4 +1,4 @@
-# ng-dev-fm
-A framework for helping fast development for angular 1.x applications.
+# nggs
+A collection of components to help you develop angular application faster.
 
-Take a look at the [demos](http://gigiosouza.github.io/ng-dev-fm/)
+Take a look at the [demos](http://gigiosouza.github.io/nggs/)

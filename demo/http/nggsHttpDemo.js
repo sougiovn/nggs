@@ -1,5 +1,5 @@
-define([
     'angular',
+define([
     'angular-translate',
     'angular-translate-loader-static-files',
     'nggs.http'
@@ -10,7 +10,6 @@ define([
     var nggsHttpDemo = angular.module('nggsHttpDemo', ['nggs.http', 'pascalprecht.translate']);
 
     nggsHttpDemo.config(nggsHttpDemoConfig);
-
     nggsHttpDemoConfig.$inject = ['$locationProvider', '$translateProvider'];
 
     function nggsHttpDemoConfig($locationProvider, $translateProvider) {
@@ -31,7 +30,6 @@ define([
     }
 
     nggsHttpDemo.factory('nggsHttpDemoFactory', nggsHttpDemoFactory);
-
     nggsHttpDemoFactory.$inject = ['ggHttp'];
 
     function nggsHttpDemoFactory(ggHttp) {
@@ -43,7 +41,6 @@ define([
     }
 
     nggsHttpDemo.controller('nggsHttpDemoController', nggsHttpDemoController);
-
     nggsHttpDemoController.$inject = ['$anchorScroll', '$translate', 'nggsHttpDemoFactory'];
 
     function nggsHttpDemoController($anchorScroll, $translate, nggsHttpDemoFactory) {
@@ -51,7 +48,7 @@ define([
 
       var self = this;
 
-      nggsHttpDemoFactory.getUsers().cancel();
+      nggsHttpDemoFactory.getUsers(null).cancel();
 
       self.currentLanguage = $translate.preferredLanguage();
 

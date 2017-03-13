@@ -38,13 +38,35 @@
 (function () {
   'use strict';
 
-  var https = angular.module('nggs.http', []);
+  var http = angular.module('nggs.http', []);
 
-  https.factory('ggHttp', ggHttp);
+  http.provider('ggHttpConfig', ggHttpConfigProvider);
 
-  ggHttp.$inject = ['$http', '$q'];
+  function ggHttpConfigProvider() {
+    var provider = this;
 
-  function ggHttp($http, $q) {
+    var defaults = {};
+
+    provider.$get = function () {
+      return provider;
+    };
+
+    provider.setDefaults = setDefaults;
+    provider.getDefaults = getDefaults;
+
+    function setDefaults(config) {
+      extendsObject(defaults, config);
+    }
+
+    function getDefaults() {
+      return defaults;
+    }
+  }
+
+  http.factory('ggHttp', ggHttpFactory);
+  ggHttpFactory.$inject = ['$http', '$q', 'ggHttpConfig'];
+
+  function ggHttpFactory($http, $q, ggHttpConfig) {
     var resolveAllMethods = /(@get|@Get|@GET|@post|@Post|@POST|@put|@Put|@PUT|@delete|@Delete|@DELETE)/;
 
     var myInterface = resolveAll;
@@ -119,10 +141,9 @@
     function resolve(baseUrl, method, url, args, defaultConfig) {
       baseUrl += baseUrl.charAt(baseUrl.length - 1) != '/' ? url.length > 0 ? url.charAt(0) != '/' ? '/' : '' : '' : '';
       method = method.indexOf('@') > -1 ? method.toUpperCase().substring(1, method.length) : method.toUpperCase();
-      var config = {
-        method: method,
-        url: baseUrl + url
-      };
+      var config = extendsObject({}, ggHttpConfig.getDefaults());
+      config.method = method;
+      config.url = baseUrl + url;
       extendsConfig(defaultConfig)
       if (url.indexOf(':') > -1) {
         var parameters = {};
@@ -187,20 +208,23 @@
         }
       }
 
-      var cancelRequest = $q.defer();
       config.url = baseUrl + url;
-      config.timeout = config.timeout || cancelRequest.promise;
-      var request = $http(config);
-      request.cancel = function() {
-        cancelRequest.resolve();
+      var request = null
+      if (isUndefined(config.timeout) || isEquals(config.cancelable, true)) {
+        var cancelRequest = $q.defer();
+        config.timeout = cancelRequest.promise;
+        request = $http(config);
+        request.cancel = function () {
+          cancelRequest.resolve();
+        }
+      } else {
+        request = $http(config);
       }
       return request;
 
       function extendsConfig(obj) {
         if (!isUndefined(obj) && isObject(obj)) {
-          Object.keys(obj).forEach(function (item) {
-            config[item] = obj[item];
-          });
+          extendsObject(config, obj);
         } else {
           throw Error('The configuration parameter must be an object');
         }
@@ -220,6 +244,10 @@
     return isEquals(val, undefined);
   }
 
+  function isDefined(val) {
+    return !isUndefined(val);
+  }
+
   function isString(val) {
     return isEquals(typeof val, 'string');
   }
@@ -230,5 +258,15 @@
 
   function isFunction(val) {
     return isEquals(typeof val, 'function');
+  }
+
+  function extendsObject(dst, src) {
+    if (!isObject(dst) || !isObject(src)) {
+      throw Error('extendsObject only accepts Objects');
+    }
+    Object.keys(src).forEach(function (item) {
+      dst[item] = src[item];
+    });
+    return dst;
   }
 })();

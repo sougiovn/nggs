@@ -19,95 +19,65 @@
     </div>
     <div class="row">
       <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
-        <div class="fixed-to-top" data-margin-top="25">
+        <div class="fixed-to-top" data-margin-top="20">
           <ol>
-            <li><a href="#intro" translate="INTRODUCTION"></a></li>
-            <li><a href="#sintax">Sintax</a></li>
-            <li><a href="#smart_parameters">Smart parameters</a></li>
+            <li>
+              <a href="#intro" translate="INTRODUCTION"></a>
+            </li>
+            <li>
+              <a href="#sintax" translate="SINTAX"></a>
+            </li>
+            <li>
+              <a href="#dynamic_parameters" translate="DYNAMIC_PARAMS"></a>
+            </li>
+            <li>
+              <a href="#canceling_request" translate="HTTP_CANCELING_REQUEST"></a>
+            </li>
+            <li>
+              <a href="#configuration" translate="CONFIGURATION"></a>
+            </li>
           </ol>
         </div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-        <h2 id="intro">1. <translate>INTRODUCTION</translate></h2>
+        <h2 id="intro">1.
+          <translate>INTRODUCTION</translate>
+        </h2>
         <p translate="HTTP_INFO_DESCRIPTION"></p>
         <p class="help-block" translate="EXAMPLE"></p>
         <pre translate="HTTP_EXAMPLE_1_CODE"></pre>
         <p translate="HTTP_EXAMPLE_1_RESULT"></p>
         <pre translate="HTTP_EXAMPLE_1_RESULT_CODE"></pre>
-        <p translate="HTTP_EXAMPLE_1_CONFIG_EXPLANATION"></p>
-        <h2 id="sintax">2. Sintax</h2>
-        <p>
-          The sintax to generate the methods is very simple:
-        </p>
-        <h4><code>{methodName}@{httpMethod}={url}</code></h4>
-        <p>
-          The <code>methodName</code> is the name of the method created. <br /> The <code>@</code> followed by the <code>httpMethod</code> will define which HTTP method the request will make (@get/@Get/@GET, @post/@Post/@POST, @put/@Put/@PUT and @delete/@Delete/@DELETE). <br /> The <code>url</code> will be added to the baseUrl passed as parameter. You may add as many url parameters as you want, like is showed in the previous example by using the character <code>:</code>.
-        </p>
-        <p class="help-block">Example</p>
-        <p>
-          For the url <code>/user/:id</code> will expected that you pass as parameter an object with the attribute <code>id</code> to replate the <code>:id</code> in the url</pre>
-        </p>
-        <h2 id="smart_parameters">3. Smart parameters</h2>
-        <p>
-          The parameters are treated with order of priority that is: url parameter, request payload and query pamareter. <br />
-          <h4>Url parameter</h4>
-          <p>
-            If the url used for generate the method has at least one url parameter, then the first parameter must be an object with attributes having the same names of the url parameter.
-          </p>
-          <p class="help-block">Example</p>
-          <pre>
-// to generate
-'getUser@get=/user/:userId'
-'getUserPost@get=/user/:userId/post/:postId'
-
-// methods
-getUser({ userId: 1 });
-GET /user/1
-
-getUserPost({ userId: 1, postId: 23 });
-GET /user/1/post/23</pre>
-          <h4>Request payload</h4>
-          <p>
-            It's the data you want to send to the requested url. This parameter isn't valid for <code>GET</code>
-            <code>http methods</code>.
-          </p>
-          <p class="help-block">Example</p>
-          <pre>
-// to generate
-'newUser@post=/user'
-'newUserPost@post=/user/:userId/post'
-'updateUserPost@put=/user/:userId/post/:postId'
-'deleteUserPost@delete=/user/:userId/post/:postId'
-
-// methods
-newUser({ name: 'John' });
-POST /user and { name: 'John' } as request payload
-
-newUserPost({ userId: 1 }, { text: 'What a terrible component' });
-POST /user/1/post and { text: 'What a terrible component' } as request payload
-
-updateUserPost({ userId: 1, postId: 25 }, { text: 'Sorry I messed up, I meant "What a terrific component".' });
-PUT /user/1/post/25 and { text: 'Sorry I messed up, I meant "What a terrific component".' } as request payload
-
-deleteUserPost({ userId: 1, postId: 25 }, { justification: 'I messed up everything, I'll make another post.' });
-DELETE /user/1/post/25 and { justification: 'I messed up everything, I'll make another post.' } as request payload</pre>
-          <h4>Query parameter</h4>
-          <p>
-            Passing an object as the last parameter will create query parameters with each one of the attributes of this object.
-          </p>
-          <p class="help-block">Example</p>
-          <pre>
-// to generate
-'getUserPosts@get=/user/:userId/post'
-'newUserPost@post=/user/:userId/post'
-
-// methods
-getUserPosts({ userId: 1 }, { page: 1, size: 10 });
-GET /user/1/post?page=1&size=10
-
-newUserPost({ userId: 1 }, { text: 'This component is awesome!' }, { private: false });
-POST /user/1/post?private=false and { text: 'This component is awesome!' } as request payload</pre>
-        </p>
+        <p translate="HTTP_EXAMPLE_1_EXPLANATION"></p>
+        <h2 id="sintax">2.
+          <translate>SINTAX</translate>
+        </h2>
+        <p translate="HTTP_SINTAX_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre translate="HTTP_EXAMPLE_2_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_2_EXPLANATION_1"></p>
+        <pre translate="HTTP_EXAMPLE_2_RESULT"></pre>
+        <p translate="HTTP_EXAMPLE_2_EXPLANATION_2"></p>
+        <h2 id="dynamic_parameters">3.
+          <translate>DYNAMIC_PARAMS</translate>
+        </h2>
+        <p translate="HTTP_DYNAMIC_PARAMS_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre translate="HTTP_EXAMPLE_3_CODE"></pre>
+        <h2 id="canceling_request">4.
+          <translate>HTTP_CANCELING_REQUEST</translate>
+        </h2>
+        <p translate="HTTP_CANCELING_REQUEST_DESCRIPTION"></p>
+        <pre translate="HTTP_EXAMPLE_4_CODE"></pre>
+        <div class="alert alert-warning" translate="HTTP_CANCELING_REQUEST_ALERT"></div>
+        <p translate="HTTP_EXAMPLE_5_EXPLANATION"></p>
+        <pre translate="HTTP_EXAMPLE_5_CODE"></pre>
+        <h2 id="configuration">5.
+          <translate>CONFIGURATION</translate>
+        </h2>
+        <p translate="HTTP_CONFIGURATION_DESCRIPTION"></p>
+        <pre translate="HTTP_EXAMPLE_6_CODE"></pre>
+        <div class="alert alert-warning" translate="HTTP_CONFIGURATION_ALERT"></div>
       </div>
     </div>
   </div>
@@ -129,7 +99,8 @@ POST /user/1/post?private=false and { text: 'This component is awesome!' } as re
         angular: 'angular/angular.min',
         'angular-translate': 'angular-translate/angular-translate.min',
         'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
-        'nggs.http': '../../demo/http/nggs-http.min',
+        // 'nggs.http': '../../demo/http/nggs-http.min',
+        'nggs.http': '../../src/http/http',
         nggsHttpDemo: '../../demo/http/nggsHttpDemo'
       },
       shim: {

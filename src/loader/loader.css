@@ -1,4 +1,4 @@
-.fmLoader {
+.ggLoader {
    position: fixed;
    top: 0;
    right: 0;
@@ -9,7 +9,7 @@
    opacity: .6;
 }
 
-.fmLoaderImage {
+.ggLoaderImage {
    position: absolute;
    left: 50%;
    top: 50%;

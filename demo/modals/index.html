@@ -8,15 +8,15 @@
         <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
-        <title>fm.modals - Demo</title>
+        <title>nggs.modals - Demo</title>
     </head>
     <body ng-cloak>
         <br />
-        <div class="container" ng-controller="fmModalsDemoController as vm">
+        <div class="container" ng-controller="nggsModalsDemoController as vm">
             <div class="jumbotron">
-                <h1>fm.modals</h1>
+                <h1>nggs.modals</h1>
                 <p>
-                    fm.modals is a component for generating modal using
+                    nggs.modals is a component for generating modal using
                     <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a>,
                     <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> and
                     <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> libraries.
@@ -53,14 +53,14 @@
 
             <h2 id="intro">1. Intro</h2>
             <p>
-                The <code>fm.modal</code> comes with a provider(<code>fmModalsConfigProvider</code>),
-                a factory(<code>fmModalsFactory</code>) and a controller(<code>fmModalsCommonController</code>)
+                The <code>nggs.modals</code> comes with a provider(<code>ggModalsConfigProvider</code>),
+                a factory(<code>ggModals</code>) and a controller(<code>ggModalsCommonController</code>)
                 for common usage of basics templates which comes by default: <code>info</code>,
                 <code>success</code>, <code>warning</code>, <code>error</code> and <code>confirm</code>.
             </p>
 
             <p>
-                The <code>fmModalsFactory</code> offers 6 methods, 5 of them are pre-built modals:
+                The <code>ggModals</code> offers 6 methods, 5 of them are pre-built modals:
                 <code>info()</code>, <code>success()</code>, <code>warning()</code>,
                 <code>error()</code>, <code>confirm()</code> and the other one is where the magic comes: <code>generate()</code>.
             </p>
@@ -84,53 +84,53 @@
             <p>
                 Passing by parameter the <code>title</code>, the <code>message</code> and the <code>options</code> of the modal.
             </p>
-            <h4><code>fmModalsFactory.type('title', 'message', {options});</code></h4>
+            <h4><code>ggModals.type('title', 'message', {options});</code></h4>
             <p class="help-block">Example:</p>
 <pre>
-fmModalsFactory.info('info title', 'info message', { size: 'lg', backdrop: true });
-fmModalsFactory.success('success title', 'success message', { size: 'lg', backdrop: true });
-fmModalsFactory.warning('warning title', 'warning message', { size: 'lg', backdrop: true });
-fmModalsFactory.error('error title', 'error message', { size: 'lg', backdrop: true });
-fmModalsFactory.confirm('confirm title', 'confirm message', { size: 'lg', backdrop: true });</pre>
+ggModals.info('info title', 'info message', { size: 'lg', backdrop: true });
+ggModals.success('success title', 'success message', { size: 'lg', backdrop: true });
+ggModals.warning('warning title', 'warning message', { size: 'lg', backdrop: true });
+ggModals.error('error title', 'error message', { size: 'lg', backdrop: true });
+ggModals.confirm('confirm title', 'confirm message', { size: 'lg', backdrop: true });</pre>
 
             <br />
             <p>
                 Omitting the <code>title</code>, then using the default <code>title</code> set for the type of modal and passing the <code>message</code> and the <code>options</code> of the modal.
             </p>
-            <h4><code>fmModalsFactory.type('message', {options});</code></h4>
+            <h4><code>ggModals.type('message', {options});</code></h4>
             <p class="help-block">Example:</p>
 <pre>
-fmModalsFactory.info('info message', { size: 'lg', backdrop: true });
-fmModalsFactory.success('success message', { size: 'lg', backdrop: true });
-fmModalsFactory.warning('warning message', { size: 'lg', backdrop: true });
-fmModalsFactory.error('error message', { size: 'lg', backdrop: true });
-fmModalsFactory.confirm('confirm message', { size: 'lg', backdrop: true });</pre>
+ggModals.info('info message', { size: 'lg', backdrop: true });
+ggModals.success('success message', { size: 'lg', backdrop: true });
+ggModals.warning('warning message', { size: 'lg', backdrop: true });
+ggModals.error('error message', { size: 'lg', backdrop: true });
+ggModals.confirm('confirm message', { size: 'lg', backdrop: true });</pre>
 
             <br />
             <p>
                 Omitting the <code>options</code>, then using the default <code>options</code> set for the type of modal and passing the <code>title</code> and the <code>message</code> of the modal.
             </p>
-            <h4><code>fmModalsFactory.type('title', 'message');</code></h4>
+            <h4><code>ggModals.type('title', 'message');</code></h4>
             <p class="help-block">Example:</p>
             <pre>
-fmModalsFactory.info('info title', 'info message');
-fmModalsFactory.success('success title', 'success message');
-fmModalsFactory.warning('warning title', 'warning message');
-fmModalsFactory.error('error title', 'error message');
-fmModalsFactory.confirm('confirm title', 'confirm message');</pre>
+ggModals.info('info title', 'info message');
+ggModals.success('success title', 'success message');
+ggModals.warning('warning title', 'warning message');
+ggModals.error('error title', 'error message');
+ggModals.confirm('confirm title', 'confirm message');</pre>
 
             <br />
             <p>
                 Omitting the <code>title</code> and the <code>options</code>, then using the defaults <code>title</code> and <code>options</code> set for the type of modal and passing the <code>message</code> of the modal.
             </p>
-            <h4><code>fmModalsFactory.type('message');</code></h4>
+            <h4><code>ggModals.type('message');</code></h4>
             <p class="help-block">Example:</p>
 <pre>
-fmModalsFactory.info('info message');
-fmModalsFactory.success('success message');
-fmModalsFactory.warning('warning message');
-fmModalsFactory.error('error message');
-fmModalsFactory.confirm('confirm message');</pre>
+ggModals.info('info message');
+ggModals.success('success message');
+ggModals.warning('warning message');
+ggModals.error('error message');
+ggModals.confirm('confirm message');</pre>
 
             <blockquote>
                 The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
@@ -145,7 +145,7 @@ fmModalsFactory.confirm('confirm message');</pre>
                 <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> template, but it's configurable following the options given by the <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library.
             </p>
 
-            <h4><code>fmModalsFactory.generate('template url', 'controller name', {inputs}, {options})</code></h4>
+            <h4><code>ggModals.generate('template url', 'controller name', {inputs}, {options})</code></h4>
             <p>
                 The <code>template url</code> must be a valid path for a <code>.html</code> file or a cached one. <br />
                 The <code>controller name</code> must represent a valid controller already created/loaded on the application. <br />
@@ -172,7 +172,7 @@ var options = {
     size: 'sm',
     backdrop: true
 };
-fmModalsFactory.generate('custom.html', 'fmModalsDemoCustomController', inputs, options);</pre>
+ggModals.generate('custom.html', 'nggsModalsDemoCustomController', inputs, options);</pre>
             <p>
                 Here the template was created using the <code>ng-template</code> directive, but you may use a <code>.html</code> file in your file system either.
             </p>
@@ -192,9 +192,9 @@ fmModalsFactory.generate('custom.html', 'fmModalsDemoCustomController', inputs, 
                 Now the controller responsible for the modal.
             </p>
 <pre>
-fmModalsDemo.controller('fmModalsDemoCustomController', fmModalsDemoCustomController);
-fmModalsDemoCustomController.$inject = ['$uibModalInstance', 'inputs'];
-function fmModalsDemoCustomController($uibModalInstance, inputs) {
+nggsModalsDemo.controller('nggsModalsDemoCustomController', nggsModalsDemoCustomController);
+nggsModalsDemoCustomController.$inject = ['$uibModalInstance', 'inputs'];
+function nggsModalsDemoCustomController($uibModalInstance, inputs) {
     var vm = this;
     vm.message = inputs.message;
 }
@@ -215,7 +215,7 @@ function fmModalsDemoCustomController($uibModalInstance, inputs) {
             </p>
 
 <pre>
-fmModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
+ggModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
     .setBackdrop(true/false/'static')                       // default: true
     .setBackdropClass('string')                             // no default
     .setBindToController(true/false)                        // default: false
@@ -238,37 +238,37 @@ fmModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
 
 <pre>
 // Info
-fmModalsConfigProvider.info.setTitle('string')      // no default
-    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
-    .setControllerName('string')                    // default: 'fmModalsCommonController'
+ggModalsConfigProvider.info.setTitle('string')      // no default
+    .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
+    .setControllerName('string')                    // default: 'ggModalsCommonController'
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCloseButtonLabel('string');                 // default: 'Ok'
 
 // Success
-fmModalsConfigProvider.success.setTitle('string')   // no default
-    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
-    .setControllerName('string')                    // default: 'fmModalsCommonController'
+ggModalsConfigProvider.success.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
+    .setControllerName('string')                    // default: 'ggModalsCommonController'
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCloseButtonLabel('string');                 // default: 'Ok'
 
 // Warning
-fmModalsConfigProvider.warning.setTitle('string')   // no default
-    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
-    .setControllerName('string')                    // default: 'fmModalsCommonController'
+ggModalsConfigProvider.warning.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
+    .setControllerName('string')                    // default: 'ggModalsCommonController'
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCloseButtonLabel('string');                 // default: 'Ok'
 
 // Error
-fmModalsConfigProvider.error.setTitle('string')     // no default
-    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
-    .setControllerName('string')                    // default: 'fmModalsCommonController'
+ggModalsConfigProvider.error.setTitle('string')     // no default
+    .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
+    .setControllerName('string')                    // default: 'ggModalsCommonController'
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCloseButtonLabel('string');                 // default: 'Ok'
 
 // Confirm
-fmModalsConfigProvider.confirm.setTitle('string')   // no default
-    .setTemplateUrl('string')                       // default: 'fm/modals/template/info.html'
-    .setControllerName('string')                    // default: 'fmModalsCommonController'
+ggModalsConfigProvider.confirm.setTitle('string')   // no default
+    .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
+    .setControllerName('string')                    // default: 'ggModalsCommonController'
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCancelButtonLabel('string')                 // default: 'Cancel'
     .setConfirmButtonLabel('string');               // default: 'Confirm'</pre>
@@ -291,20 +291,20 @@ fmModalsConfigProvider.confirm.setTitle('string')   // no default
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
                     'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
-                    'fm.modals': '../../demo/modals/fm-modals.min',
-                    fmModalsDemo: '../../demo/modals/fmModalsDemo'
+                    'nggs.modals': '../../demo/modals/nggs-modals.min',
+                    nggsModalsDemo: '../../demo/modals/nggsModalsDemo'
                 },
                 shim: {
                     jquery: { export: '$' },
                     angular: { export: 'angular', deps: ['jquery'] },
                     'ui.bootstrap': { deps: ['angular'] },
-                    'fm.modals': { deps: ['angular', 'ui.bootstrap'] },
-                    fmModalsDemo: { deps: ['angular', 'ui.bootstrap', 'fm.modals'] }
+                    'nggs.modals': { deps: ['angular', 'ui.bootstrap'] },
+                    nggsModalsDemo: { deps: ['angular', 'ui.bootstrap', 'nggs.modals'] }
                 }
             });
-            require(['jquery', 'angular', 'ui.bootstrap', 'fm.modals', 'fmModalsDemo'],
+            require(['jquery', 'angular', 'ui.bootstrap', 'nggs.modals', 'nggsModalsDemo'],
                 function() {
-                    angular.bootstrap(document, ['fmModalsDemo']);
+                    angular.bootstrap(document, ['nggsModalsDemo']);
                 }
             );
         </script>
