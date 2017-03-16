@@ -24,8 +24,8 @@
     function setCustomActivation(queryP) {
       active = true;
 
-      if (typeof queryP !== 'undefined') {
-        if (typeof queryP === 'string') {
+      if (isDefined(queryP)) {
+        if (isString(queryP)) {
           queryParam = queryP || queryParam;
         } else {
           throw Error('Invalid custom activation');
@@ -50,14 +50,14 @@
     return factory;
 
     function show(id) {
-      id = typeof id !== 'undefined' ? '_' + id : '';
+      id = isDefined(id) ? '_' + id : '';
       $timeout(function () {
         $rootScope.$broadcast('loader_show' + id);
       }, 0);
     }
 
     function hide(id) {
-      id = typeof id !== 'undefined' ? '_' + id : '';
+      id = isDefined(id) ? '_' + id : '';
       $timeout(function () {
         $rootScope.$broadcast('loader_hide' + id);
       }, 0);
@@ -86,7 +86,9 @@
           return show(config, resolveId(config));
         }
       } else {
-        return show(config);
+        if (!hasActivation(config)) {
+          return show(config);
+        }
       }
       return config || $q.when(config);
     }
@@ -97,7 +99,9 @@
           return hideErr(rejection, resolveId(rejection.config));
         }
       } else {
-        return hideErr(rejection);
+        if (!hasActivation(rejection.config)) {
+          return hideErr(rejection);
+        }
       }
       return $q.reject(rejection);
     }
@@ -108,7 +112,9 @@
           return hide(response, resolveId(response.config));
         }
       } else {
-        return hide(response);
+        if (!hasActivation(response.config)) {
+          return hide(response);
+        }
       }
       return response || $q.when(response);
     }
@@ -119,14 +125,16 @@
           return hideErr(rejection, resolveId(rejection.config));
         }
       } else {
-        return hideErr(rejection);
+        if (!hasActivation(rejection.config)) {
+          return hideErr(rejection);
+        }
       }
       return $q.reject(rejection);
     }
 
     function hasActivation(config) {
       var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
-      if (isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
+      if (isDefined(config.params) && isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
         return true;
       } else if (urlQuery.indexOf(queryParamAtivacao) > -1) {
         return true;

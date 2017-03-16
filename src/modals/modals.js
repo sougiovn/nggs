@@ -619,6 +619,10 @@
       inputs = inputs || {};
       optionsP = optionsP || {};
 
+      if (isDefined(optionsP.inputs)) {
+        inputs = extendsObject(inputs, optionsP.inputs)
+      }
+
       var options = {
         animation: optionsP.animation || config.defaults.getAnimation(),
         backdrop: optionsP.backdrop || config.defaults.getBackdrop(),
