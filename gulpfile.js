@@ -18,7 +18,8 @@ var modules = {
   loader: paths.src + 'loader/loader.js',
   loaderCss: paths.src + 'loader/loader.css',
   modals: paths.src + 'modals/modals.js',
-  props: paths.src + 'props/props.js'
+  props: paths.src + 'props/props.js',
+  utils: paths.src + 'commons/utils.js'
 };
 
 gulp.task('imports',
@@ -77,7 +78,9 @@ gulp.task('imports',
       .pipe(gulp.dest(paths.assets + 'lib/font-awesome'));
 
     gulp.src(paths.bower + 'angular-translate*/*.min.js')
-      .pipe(rename({ dirname: '' }))
+      .pipe(rename({
+        dirname: ''
+      }))
       .pipe(gulp.dest(paths.assets + 'lib/angular-translate'))
   }
 );
@@ -86,38 +89,89 @@ gulp.task('demos',
   function () {
     gulp.run('imports');
 
-    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
-      .pipe(uglify())
-      .pipe(rename(resolveRename('nggs-', '.min.js')))
+    gulp.src([modules.http, modules.utils])
+      .pipe(concat('http.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
       .pipe(gulp.dest(paths.demo));
 
-    gulp.src([modules.http])
-      .pipe(uglify())
+    gulp.src([modules.loader, modules.utils])
+      .pipe(concat('loader.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.demo));
+
+    gulp.src([modules.modals, modules.utils])
+      .pipe(concat('modals.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.demo));
+
+    gulp.src([modules.props, modules.utils])
+      .pipe(concat('props.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.demo));
+
+    gulp.src([modules.http, modules.utils])
+      .pipe(concat('http.js'))
       .pipe(rename({
         dirname: '',
         prefix: 'nggs-',
-        extname: '.min.js'
+        extname: '.js'
       }))
       .pipe(gulp.dest(paths.demo + 'loader'));
 
     gulp.src([modules.loaderCss])
-      .pipe(cleanCSS())
-      .pipe(rename(resolveRename('nggs-', '.min.css')))
+      .pipe(rename(resolveRename('nggs-', '.css')))
       .pipe(gulp.dest(paths.demo));
   }
 );
 
 gulp.task('dist',
   function () {
-    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
+    gulp.src([modules.http, modules.utils])
+      .pipe(concat('http.js'))
       .pipe(rename(resolveRename('nggs-', '.js')))
       .pipe(gulp.dest(paths.dist));
 
-    gulp.src([modules.http, modules.loader, modules.modals, modules.props])
+    gulp.src([modules.loader, modules.utils])
+      .pipe(concat('loader.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    gulp.src([modules.modals, modules.utils])
+      .pipe(concat('modals.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    gulp.src([modules.props, modules.utils])
+      .pipe(concat('props.js'))
+      .pipe(rename(resolveRename('nggs-', '.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    // Minificados
+    gulp.src([modules.http, modules.utils])
+      .pipe(concat('http.js'))
       .pipe(uglify())
       .pipe(rename(resolveRename('nggs-', '.min.js')))
       .pipe(gulp.dest(paths.dist));
 
+    gulp.src([modules.loader, modules.utils])
+      .pipe(concat('loader.js'))
+      .pipe(uglify())
+      .pipe(rename(resolveRename('nggs-', '.min.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    gulp.src([modules.modals, modules.utils])
+      .pipe(concat('modals.js'))
+      .pipe(uglify())
+      .pipe(rename(resolveRename('nggs-', '.min.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    gulp.src([modules.props, modules.utils])
+      .pipe(concat('props.js'))
+      .pipe(uglify())
+      .pipe(rename(resolveRename('nggs-', '.min.js')))
+      .pipe(gulp.dest(paths.dist));
+
+    // CSS
     gulp.src([modules.loaderCss])
       .pipe(rename(resolveRename('nggs-', '.css')))
       .pipe(gulp.dest(paths.dist));
