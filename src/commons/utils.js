@@ -7,7 +7,7 @@ function isArray(val) {
 }
 
 function isUndefined(val) {
-  return isEquals(val, undefined);
+  return isEquals(val, undefined) || isEquals(val, null);
 }
 
 function isDefined(val) {
