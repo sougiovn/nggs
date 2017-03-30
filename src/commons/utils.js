@@ -7,11 +7,15 @@ function isArray(val) {
 }
 
 function isUndefined(val) {
-  return isEquals(val, undefined) || isEquals(val, null);
+  return isEquals(val, undefined);
 }
 
 function isDefined(val) {
-  return !isUndefined(val);
+  return !isUndefined(val) && !isNull(val, null);
+}
+
+function isNull(val) {
+  return isEquals(val, null);
 }
 
 function isString(val) {
