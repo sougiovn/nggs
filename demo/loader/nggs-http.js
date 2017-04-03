@@ -246,7 +246,11 @@ function isUndefined(val) {
 }
 
 function isDefined(val) {
-  return !isUndefined(val);
+  return !isUndefined(val) && !isNull(val, null);
+}
+
+function isNull(val) {
+  return isEquals(val, null);
 }
 
 function isString(val) {
