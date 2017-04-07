@@ -24,8 +24,8 @@
     function setCustomActivation(queryP) {
       active = true;
 
-      if (isDefined(queryP)) {
-        if (isString(queryP)) {
+      if (angular.isDefined(queryP) && queryP !== null) {
+        if (angular.isString(queryP)) {
           queryParam = queryP || queryParam;
         } else {
           throw Error('Invalid custom activation');
@@ -50,14 +50,14 @@
     return factory;
 
     function show(id) {
-      id = isDefined(id) ? '_' + id : '';
+      id = angular.isDefined(id) && id !== null ? '_' + id : '';
       $timeout(function () {
         $rootScope.$broadcast('loader_show' + id);
       }, 0);
     }
 
     function hide(id) {
-      id = isDefined(id) ? '_' + id : '';
+      id = angular.isDefined(id) && id !== null ? '_' + id : '';
       $timeout(function () {
         $rootScope.$broadcast('loader_hide' + id);
       }, 0);
@@ -134,7 +134,7 @@
 
     function hasActivation(config) {
       var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
-      if (isDefined(config.params) && isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
+      if (angular.isDefined(config.params) && config.params !== null && angular.isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
         return true;
       } else if (urlQuery.indexOf(queryParamAtivacao) > -1) {
         return true;
@@ -144,7 +144,7 @@
 
     function resolveId(config) {
       var id = null;
-      if (isDefined(config.params) && isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
+      if (angular.isDefined(config.params) && config.params !== null && angular.isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
         id = config.params[ggLoaderConfig.getQueryParamActivation()]
       } else {
         var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
