@@ -1,6 +1,6 @@
 {
   "name": "nggs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A collection of components to help you develop angular application faster.",
   "main": "./dist/*",
   "scripts": {
