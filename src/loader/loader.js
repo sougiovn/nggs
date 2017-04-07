@@ -1,165 +1,211 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    var fmLoader = angular.module('fm.loader', []);
+  var loader = angular.module('nggs.loader', []);
 
-    fmLoader.provider('fmLoaderConfig', fmLoaderConfig);
-    function fmLoaderConfig() {
-        var provider = this;
-        var active = false;
-        var queryParam = 'fmloader';
+  loader.provider('ggLoaderConfig', ggLoaderConfig);
 
-        provider.$get = function() {
-            return provider;
-        };
-        provider.isActive = isActive;
-        provider.setCustomActivation = setCustomActivation;
-        provider.getQueryParamActivation = getQueryParamActivation;
+  function ggLoaderConfig() {
+    var provider = this;
+    var active = false;
+    var queryParam = 'ggloader';
 
-        function isActive() {
-            return active;
-        }
-        function setCustomActivation(queryP) {
-            active = true;
+    provider.$get = function () {
+      return provider;
+    };
+    provider.isActive = isActive;
+    provider.setCustomActivation = setCustomActivation;
+    provider.getQueryParamActivation = getQueryParamActivation;
 
-            if(typeof queryP !== 'undefined') {
-                if(typeof queryP === 'string') {
-                    queryParam = queryP || queryParam;
-                } else {
-                    throw Error('Invalid custom activation');
-                }
-            }
-        }
-        function getQueryParamActivation() {
-            return queryParam;
-        }
+    function isActive() {
+      return active;
     }
 
-    fmLoader.factory('fmLoaderFactory', fmLoaderFactory);
-    fmLoaderFactory.$inject = ['$rootScope', '$timeout'];
-    function fmLoaderFactory($rootScope, $timeout) {
-        var factory = {
-            show: show,
-            hide: hide
-        };
+    function setCustomActivation(queryP) {
+      active = true;
 
-        return factory;
-
-        function show(id) {
-            id = typeof id !== 'undefined' ? '_'+id : '';
-            $timeout(function() {
-                $rootScope.$broadcast('loader_show'+id);
-            }, 0);
+      if (angular.isDefined(queryP) && queryP !== null) {
+        if (angular.isString(queryP)) {
+          queryParam = queryP || queryParam;
+        } else {
+          throw Error('Invalid custom activation');
         }
-        function hide(id) {
-            id = typeof id !== 'undefined' ? '_'+id : '';
-            $timeout(function() {
-                $rootScope.$broadcast('loader_hide'+id);
-            }, 0);
-        }
+      }
     }
 
-    fmLoader.factory('fmLoaderInterceptor', fmLoaderInterceptor);
-    fmLoaderInterceptor.$inject = ['$q', '$rootScope', 'fmLoaderConfig'];
-    function fmLoaderInterceptor($q, $rootScope, fmLoaderConfig) {
-        var isActive = fmLoaderConfig.isActive();
-        var queryParamAtivacao = fmLoaderConfig.getQueryParamActivation() + '=';
+    function getQueryParamActivation() {
+      return queryParam;
+    }
+  }
 
-        var factory = {
-            request: request,
-            response: response,
-            responseError: responseError
-        };
+  loader.factory('ggLoader', ggLoaderFactory);
+  ggLoaderFactory.$inject = ['$rootScope', '$timeout'];
 
-        return factory;
+  function ggLoaderFactory($rootScope, $timeout) {
+    var factory = {
+      show: show,
+      hide: hide
+    };
 
-        function request(config) {
-            if(isActive) {
-                var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
-                if(urlQuery.indexOf(queryParamAtivacao) > -1) {
-                    return show(config, resolveId(urlQuery));
-                }
-            } else {
-                return show(config);
-            }
-            return config || $q.when(config);
-        }
-        function response(response) {
-            if(isActive) {
-                var urlQuery = response.config.url.substring(response.config.url.indexOf('?'), response.config.url.length);
-                if(urlQuery.indexOf(queryParamAtivacao) > -1) {
-                    return hide(response, resolveId(urlQuery));
-                }
-            } else {
-                return hide(response);
-            }
-            return response || $q.when(response);
-        }
-        function responseError(response) {
-            if(isActive) {
-                var urlQuery = response.config.url.substring(response.config.url.indexOf('?'), response.config.url.length);
-                if(urlQuery.indexOf(queryParamAtivacao) > -1) {
-                    return hideErr(response, resolveId(urlQuery));
-                }
-            } else {
-                return hideErr(response);
-            }
-            return $q.reject(response);
-        }
+    return factory;
 
-        function resolveId(urlQuery) {
-            var id = urlQuery.substring(urlQuery.indexOf(queryParamAtivacao)+queryParamAtivacao.length, urlQuery.length);
-            if(id.indexOf('&') > -1) {
-                id = id.substring(0, id.indexOf('&'));
-            }
-            if(id === 'true') {
-                id = '';
-            } else {
-                id = '_'+id;
-            }
-            return id;
-        }
-        function show(config, id) {
-            id = id || '';
-            $rootScope.$broadcast('loader_show'+id);
-            return config || $q.when(config);
-        }
-        function hide(response, id) {
-            id = id || '';
-            $rootScope.$broadcast('loader_hide'+id);
-            return response || $q.when(response);
-        }
-        function hideErr(response, id) {
-            id = id || '';
-            $rootScope.$broadcast('loader_hide'+id);
-            return $q.reject(response);
-        }
+    function show(id) {
+      id = angular.isDefined(id) && id !== null ? '_' + id : '';
+      $timeout(function () {
+        $rootScope.$broadcast('loader_show' + id);
+      }, 0);
     }
 
-    fmLoader.directive('fmLoader', fmLoaderDirective);
-    function fmLoaderDirective() {
-        var directive = {
-            restrict: 'A',
-            scope: {
-                fmLoader: '@'
-            },
-            link: function(scope, element, attrs) {
-                var id = scope.fmLoader;
-                id = id.length > 0 ? '_'+id : '';
-
-                var numLoadings = 0;
-                $(element).hide();
-                scope.$on('loader_show'+id, function (args) {
-                    numLoadings++;
-                    return $(element).show();
-                });
-                scope.$on('loader_hide'+id, function (args) {
-                    if ((--numLoadings) === 0) {
-                        return $(element).hide();
-                    }
-                });
-            }
-        };
-        return directive;
+    function hide(id) {
+      id = angular.isDefined(id) && id !== null ? '_' + id : '';
+      $timeout(function () {
+        $rootScope.$broadcast('loader_hide' + id);
+      }, 0);
     }
+  }
+
+  loader.factory('ggLoaderInterceptor', ggLoaderInterceptor);
+  ggLoaderInterceptor.$inject = ['$q', '$rootScope', 'ggLoaderConfig'];
+
+  function ggLoaderInterceptor($q, $rootScope, ggLoaderConfig) {
+    var isActive = ggLoaderConfig.isActive();
+    var queryParamAtivacao = ggLoaderConfig.getQueryParamActivation() + '=';
+
+    var factory = {
+      request: request,
+      requestError: requestError,
+      response: response,
+      responseError: responseError
+    };
+
+    return factory;
+
+    function request(config) {
+      if (isActive) {
+        if (hasActivation(config)) {
+          return show(config, resolveId(config));
+        }
+      } else {
+        if (!hasActivation(config)) {
+          return show(config);
+        }
+      }
+      return config || $q.when(config);
+    }
+
+    function requestError(rejection) {
+      if (isActive) {
+        if (hasActivation(rejection.config)) {
+          return hideErr(rejection, resolveId(rejection.config));
+        }
+      } else {
+        if (!hasActivation(rejection.config)) {
+          return hideErr(rejection);
+        }
+      }
+      return $q.reject(rejection);
+    }
+
+    function response(response) {
+      if (isActive) {
+        if (hasActivation(response.config)) {
+          return hide(response, resolveId(response.config));
+        }
+      } else {
+        if (!hasActivation(response.config)) {
+          return hide(response);
+        }
+      }
+      return response || $q.when(response);
+    }
+
+    function responseError(rejection) {
+      if (isActive) {
+        if (hasActivation(rejection.config)) {
+          return hideErr(rejection, resolveId(rejection.config));
+        }
+      } else {
+        if (!hasActivation(rejection.config)) {
+          return hideErr(rejection);
+        }
+      }
+      return $q.reject(rejection);
+    }
+
+    function hasActivation(config) {
+      var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
+      if (angular.isDefined(config.params) && config.params !== null && angular.isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
+        return true;
+      } else if (urlQuery.indexOf(queryParamAtivacao) > -1) {
+        return true;
+      }
+      return false;
+    }
+
+    function resolveId(config) {
+      var id = null;
+      if (angular.isDefined(config.params) && config.params !== null && angular.isDefined(config.params[ggLoaderConfig.getQueryParamActivation()])) {
+        id = config.params[ggLoaderConfig.getQueryParamActivation()]
+      } else {
+        var urlQuery = config.url.substring(config.url.indexOf('?'), config.url.length);
+        id = urlQuery.substring(urlQuery.indexOf(queryParamAtivacao) + queryParamAtivacao.length, urlQuery.length);
+        if (id.indexOf('&') > -1) {
+          id = id.substring(0, id.indexOf('&'));
+        }
+      }
+      if (id == 'true') {
+        id = '';
+      } else {
+        id = '_' + id;
+      }
+      return id;
+    }
+
+    function show(config, id) {
+      id = id || '';
+      $rootScope.$broadcast('loader_show' + id);
+      return config || $q.when(config);
+    }
+
+    function hide(response, id) {
+      id = id || '';
+      $rootScope.$broadcast('loader_hide' + id);
+      return response || $q.when(response);
+    }
+
+    function hideErr(rejection, id) {
+      id = id || '';
+      $rootScope.$broadcast('loader_hide' + id);
+      return $q.reject(rejection);
+    }
+  }
+
+  loader.directive('ggLoader', ggLoaderDirective);
+
+  function ggLoaderDirective() {
+    var directive = {
+      restrict: 'A',
+      scope: {
+        ggLoader: '@'
+      },
+      link: function (scope, element, attrs) {
+        var id = scope.ggLoader;
+        id = id.length > 0 ? '_' + id : '';
+
+        var numLoadings = 0;
+        $(element).hide();
+        scope.$on('loader_show' + id, function (args) {
+          numLoadings++;
+          return $(element).show();
+        });
+        scope.$on('loader_hide' + id, function (args) {
+          if ((--numLoadings) === 0) {
+            return $(element).hide();
+          }
+        });
+      }
+    };
+    return directive;
+  }
+
 })();

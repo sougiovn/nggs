@@ -4,7 +4,7 @@
   "description": "A framework for helping fast development for angular applications.",
   "main": "none",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "http-server ."
   },
   "repository": {
     "type": "git",

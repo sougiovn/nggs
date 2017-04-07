@@ -1,13 +1,26 @@
 ol {
-    counter-reset: item;
+  counter-reset: item;
 }
-ol > li {
-    counter-increment: item;
+
+ol>li {
+  counter-increment: item;
 }
-ol ol > li {
-    display: block;
+
+ol ol>li {
+  display: block;
 }
-ol ol > li:before {
-    content: counters(item, ".") ". ";
-    margin-left: -20px;
+
+ol ol>li:before {
+  content: counters(item, ".") ". ";
+  margin-left: -20px;
+}
+
+.container {
+  margin-top: 20px;
+}
+
+#i18n {
+  position: fixed;
+  left: -2px;
+  top: 50px;
 }

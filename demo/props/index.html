@@ -9,15 +9,15 @@
         <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
         <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
-        <title>fm.props - Demo</title>
+        <title>nggs.props - Demo</title>
     </head>
     <body ng-cloak>
         <br />
-        <div class="container" ng-controller="fmPropsDemoController as vm">
+        <div class="container" ng-controller="nggsPropsDemoController as vm">
             <div class="jumbotron">
-                <h1>fm.props</h1>
+                <h1>nggs.props</h1>
                 <p>
-                    fm.props is a component for loading properties to the application, it works as well as a session object.
+                    nggs.props is a component for loading properties to the application, it works as well as a session object.
                 </p>
             </div>
 
@@ -48,20 +48,20 @@
             </p>
             <p class="help-block">Example:</p>
 <pre>
-window.fmProps = {
+window.nggsProps = {
     apiKey: '23HGDRThgvhcgjhjh3123ZghvzgGGkjl',
     anyOtherProp: 'util'
 }</pre>
 
             <blockquote>
-                To load the properties you only need to inject the <code>fmPropsProvider</code> into to your <code>.config()</code>.
+                To load the properties you only need to inject the <code>nggsPropsProvider</code> into to your <code>.config()</code>.
             </blockquote>
 
             <h4>On runtime</h4>
             <p class="help-block">Example:</p>
             <p>
                 On the runtime you just need to use the <code>.set()</code> passing an object,
-                then the attributes will be set on the <code>fmProps</code>.
+                then the attributes will be set on the <code>nggsProps</code>.
             </p>
 <pre>
 // At .config() stage of your app
@@ -69,30 +69,30 @@ var props = {
     anyProp: 1,
     anyProps: '23'
 };
-fmPropsProvider.set(props);
+nggsPropsProvider.set(props);
 
 // At other stages of your app
 var props = {
     anyProp: 1,
     anyProps: '23'
 };
-fmProps.set(props);</pre>
+nggsProps.set(props);</pre>
 
             <blockquote>
                 Loading from a <code>.js</code> file or using the <code>.set()</code> method
-                will create a readonly attribute on the <code>fmProps</code>.
+                will create a readonly attribute on the <code>nggsProps</code>.
             </blockquote>
 
             <h2 id="session">2. Using as session</h2>
             <p>
-                You just need to set an attribute to the <code>fmProps</code>,
+                You just need to set an attribute to the <code>nggsProps</code>,
                 but be aware that if there is an attribute with same name it will throw an error
                 if it was set by loading <code>.js</code> file or <code>.set()</code> method, else if it was
                 created like a session attribute it will be overwritten.
             </p>
             <p class="help-block">Example:</p>
 <pre>
-fmProps.sessionAttr = 'This is for the session';</pre>
+nggsProps.sessionAttr = 'This is for the session';</pre>
 
             <h2>Result</h2>
             <p>
@@ -115,20 +115,20 @@ fmProps.sessionAttr = 'This is for the session';</pre>
                 paths: {
                     jquery: 'jquery/jquery.min',
                     angular: 'angular/angular.min',
-                    'fm.props': '../../demo/props/fm-props.min',
-                    fmPropsDemo: '../../demo/props/fmPropsDemo',
+                    'nggs.props': '../../demo/props/nggs-props',
+                    nggsPropsDemo: '../../demo/props/nggsPropsDemo',
                     props: '../../demo/props/config-properties'
                 },
                 shim: {
                     jquery: { export: '$' },
                     angular: { export: 'angular', deps: ['jquery'] },
-                    'fm.props': { deps: ['angular'] },
-                    fmPropsDemo: { deps: ['angular', 'fm.props', 'props'] }
+                    'nggs.props': { deps: ['angular'] },
+                    nggsPropsDemo: { deps: ['angular', 'nggs.props', 'props'] }
                 }
             });
-            require(['jquery', 'angular', 'fm.props', 'fmPropsDemo', 'props'],
+            require(['jquery', 'angular', 'nggs.props', 'nggsPropsDemo', 'props'],
                 function() {
-                    angular.bootstrap(document, ['fmPropsDemo']);
+                    angular.bootstrap(document, ['nggsPropsDemo']);
                 }
             );
         </script>

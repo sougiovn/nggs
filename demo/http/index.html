@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+  <title>nggs.http - Demo</title>
+</head>
+
+<body ng-cloak ng-controller="nggsHttpDemoController as vm">
+  <br />
+  <div class="container">
+    <div class="jumbotron">
+      <h1>nggs.http</h1>
+      <p translate="HTTP_TITLE_DESCRIPTION"></p>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
+        <div class="fixed-to-top" data-margin-top="20">
+          <ol>
+            <li>
+              <a href="#intro" translate="INTRODUCTION"></a>
+            </li>
+            <li>
+              <a href="#sintax" translate="SINTAX"></a>
+            </li>
+            <li>
+              <a href="#dynamic_parameters" translate="DYNAMIC_PARAMS"></a>
+            </li>
+            <li>
+              <a href="#canceling_request" translate="HTTP_CANCELING_REQUEST"></a>
+            </li>
+            <li>
+              <a href="#configuration" translate="CONFIGURATION"></a>
+            </li>
+          </ol>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+        <h2 id="intro">1.
+          <translate>INTRODUCTION</translate>
+        </h2>
+        <p translate="HTTP_INFO_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre translate="HTTP_EXAMPLE_1_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_1_RESULT"></p>
+        <pre translate="HTTP_EXAMPLE_1_RESULT_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_1_EXPLANATION"></p>
+        <h2 id="sintax">2.
+          <translate>SINTAX</translate>
+        </h2>
+        <p translate="HTTP_SINTAX_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre translate="HTTP_EXAMPLE_2_CODE"></pre>
+        <p translate="HTTP_EXAMPLE_2_EXPLANATION_1"></p>
+        <pre translate="HTTP_EXAMPLE_2_RESULT"></pre>
+        <p translate="HTTP_EXAMPLE_2_EXPLANATION_2"></p>
+        <h2 id="dynamic_parameters">3.
+          <translate>DYNAMIC_PARAMS</translate>
+        </h2>
+        <p translate="HTTP_DYNAMIC_PARAMS_DESCRIPTION"></p>
+        <p class="help-block" translate="EXAMPLE"></p>
+        <pre translate="HTTP_EXAMPLE_3_CODE"></pre>
+        <h2 id="canceling_request">4.
+          <translate>HTTP_CANCELING_REQUEST</translate>
+        </h2>
+        <p translate="HTTP_CANCELING_REQUEST_DESCRIPTION"></p>
+        <pre translate="HTTP_EXAMPLE_4_CODE"></pre>
+        <div class="alert alert-warning" translate="HTTP_CANCELING_REQUEST_ALERT"></div>
+        <p translate="HTTP_EXAMPLE_5_EXPLANATION"></p>
+        <pre translate="HTTP_EXAMPLE_5_CODE"></pre>
+        <h2 id="configuration">5.
+          <translate>CONFIGURATION</translate>
+        </h2>
+        <p translate="HTTP_CONFIGURATION_DESCRIPTION"></p>
+        <pre translate="HTTP_EXAMPLE_6_CODE"></pre>
+        <div class="alert alert-warning" translate="HTTP_CONFIGURATION_ALERT"></div>
+      </div>
+    </div>
+  </div>
+  <div id="i18n" class="btn-group-vertical" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('en')" ng-class="{ active: vm.currentLanguage == 'en' }">
+      <img src="../../assets/images/USA.png"></img>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('pt-Br')" ng-class="{ active: vm.currentLanguage == 'pt-Br' }">
+      <img src="../../assets/images/Brazil.png"></img>
+    </button>
+  </div>
+  <script src="../../assets/lib/requirejs/require.min.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../../assets/lib/',
+      paths: {
+        jquery: 'jquery/jquery.min',
+        fixedToTop: '../js/fixed-to-top',
+        angular: 'angular/angular.min',
+        'angular-translate': 'angular-translate/angular-translate.min',
+        'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
+        'nggs.http': '../../demo/http/nggs-http',
+        nggsHttpDemo: '../../demo/http/nggsHttpDemo'
+      },
+      shim: {
+        jquery: {
+          export: '$'
+        },
+        fixedToTop: {
+          deps: ['jquery']
+        },
+        angular: {
+          export: 'angular',
+          deps: ['jquery']
+        },
+        'angular-translate': {
+          deps: ['angular']
+        },
+        'angular-translate-loader-static-files': {
+          deps: ['angular', 'angular-translate']
+        },
+        'nggs.http': {
+          deps: ['angular']
+        },
+        nggsHttpDemo: {
+          deps: ['angular', 'nggs.http']
+        }
+      }
+    });
+    require(['jquery', 'fixedToTop', 'angular', 'nggs.http', 'nggsHttpDemo'],
+      function () {
+        angular.bootstrap(document, ['nggsHttpDemo']);
+      }
+    );
+  </script>
+</body>
+
+</html>

@@ -1,36 +1,38 @@
-(function() {
-    'use strict';
+(function () {
+  'use strict';
 
-    var props = angular.module('fm.props', []);
+  var props = angular.module('nggs.props', []);
 
-    props.provider('fmProps', fmProps);
-    function fmProps() {
-        var provider = this;
+  props.provider('nggsProps', nggsProps);
 
-        provider.$get = function() {
-            return provider;
-        };
+  function nggsProps() {
+    var provider = this;
 
-        if(angular.isDefined(window.fmProps)) {
-            for(var i in window.fmProps) {
-                Object.defineProperty(provider, i, {
-                    value: window.fmProps[i],
-                    writable: false
-                });
-            }
-            console.log(provider);
-        }
+    provider.$get = function () {
+      return provider;
+    };
 
-        Object.defineProperty(provider, 'set', {
-            value: function(props) {
-                for(var i in props) {
-                    Object.defineProperty(provider, i, {
-                        value: props[i],
-                        writable: false
-                    });
-                }
-            },
-            writable: false
+    if (window.nggsProps !== undefined) {
+      for (var i in window.nggsProps) {
+        Object.defineProperty(provider, i, {
+          value: window.nggsProps[i],
+          writable: false
         });
+      }
+      console.log(provider);
     }
+
+    Object.defineProperty(provider, 'set', {
+      value: function (props) {
+        for (var i in props) {
+          Object.defineProperty(provider, i, {
+            value: props[i],
+            writable: false
+          });
+        }
+      },
+      writable: false
+    });
+  }
+
 })();

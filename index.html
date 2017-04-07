@@ -1,68 +1,83 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/css/bootstrap-theme.min.css" />
-        <link rel="stylesheet" type="text/css" href="assets/lib/font-awesome/css/font-awesome.min.css" />
+<head>
+  <meta charset="utf-8" />
+  <link rel="stylesheet" type="text/css" href="assets/lib/angular/angular-csp.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/lib/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+  <title>nggs</title>
+</head>
 
-        <title>ng-dev-fm</title>
-    </head>
-    <body>
-        <br />
-        <div class="container">
-            <div class="jumbotron">
-                <h1>ng-dev-fm</h1>
-                <p>
-                    ng-dev-fm is a framework for <b>angular 1.x</b> which I developed while working on my day-to-day projects,
-                    everything was made focusing in make my team's development faster and easier. <br />
+<body ng-cloak ng-controller="indexController as vm">
+  <div class="container">
+    <div class="jumbotron">
+      <h1>nggs</h1>
+      <p translate="HOME_DESCRIPTION"></p>
+    </div>
+    <h2>Demos</h2>
+    <div class="list-group">
+      <a class="list-group-item" href="demo/http">
+        <h4 class="list-group-item-heading">nggs.http</h4>
+        <p class="list-group-item-text" translate="HTTP_TITLE_DESCRIPTION"></p>
+      </a>
+      <a class="list-group-item" href="demo/loader">
+        <h4 class="list-group-item-heading">nggs.loader</h4>
+        <p class="list-group-item-text" translate="LOADER_TITLE_DESCRIPTION"></p>
+      </a>
+      <a class="list-group-item" href="demo/modals">
+        <h4 class="list-group-item-heading">nggs.modals</h4>
+        <p class="list-group-item-text" translate="MODALS_TITLE_DESCRIPTION"></p>
+      </a>
+      <a class="list-group-item" href="demo/props">
+        <h4 class="list-group-item-heading">nggs.props</h4>
+        <p class="list-group-item-text" translate="PROPS_TITLE_DESCRIPTION"></p>
+      </a>
+    </div>
+    <blockquote translate="HOME_FOOTER_BLOCKQUOTE"></blockquote>
+  </div>
+  <div id="i18n" class="btn-group-vertical" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('en')" ng-class="{ active: vm.currentLanguage == 'en' }">
+      <img src="assets/images/USA.png"></img>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('pt-Br')" ng-class="{ active: vm.currentLanguage == 'pt-Br' }">
+      <img src="assets/images/Brazil.png"></img>
+    </button>
+  </div>
+  <script src="assets/lib/requirejs/require.min.js"></script>
+  <script>
+    require.config({
+      baseUrl: 'assets/lib/',
+      paths: {
+        jquery: 'jquery/jquery.min',
+        angular: 'angular/angular.min',
+        'angular-translate': 'angular-translate/angular-translate.min',
+        'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
+        indexApp: '../../index'
+      },
+      shim: {
+        jquery: {
+          export: '$'
+        },
+        angular: {
+          export: 'angular',
+          deps: ['jquery']
+        },
+        'angular-translate': {
+          deps: ['angular']
+        },
+        'angular-translate-loader-static-files': {
+          deps: ['angular', 'angular-translate']
+        }
+      }
+    });
+    require(['jquery', 'angular', 'indexApp'],
+      function () {
+        angular.bootstrap(document, ['indexApp']);
+      }
+    );
+  </script>
+</body>
 
-                    As I really enjoyed working on this framework and loved the result I decided to bring it to the community,
-                    I hope you guys appreciate it.
-                </p>
-            </div>
-
-            <h2>Demos</h2>
-            <div class="list-group">
-                <a class="list-group-item" href="demo/https">
-                    <h4 class="list-group-item-heading">fm.https</h4>
-                    <p class="list-group-item-text">
-                        A component for easy generation of methods for accessing <b>REST APIs</b> using angular's
-                        <b>$http</b>.
-                    </p>
-                </a>
-                <a class="list-group-item" href="demo/loader">
-                    <h4 class="list-group-item-heading">fm.loader</h4>
-                    <p class="list-group-item-text">
-                        A component that launches a loader automatically by intercepting all http requests made by
-                        angular's <b>$http</b> service.
-                    </p>
-                </a>
-                <a class="list-group-item" href="demo/modals">
-                    <h4 class="list-group-item-heading">fm.modals</h4>
-                    <p class="list-group-item-text">
-                        A component for generating modal using <b>UI Bootstrap</b>, <b>Bootstrap</b> and
-                        <b>Font Awesome</b> libraries.
-                    </p>
-                </a>
-                <a class="list-group-item" href="demo/props">
-                    <h4 class="list-group-item-heading">fm.props</h4>
-                    <p class="list-group-item-text">
-                        A component for loading properties to the application, it works as well as a session object.
-                    </p>
-                </a>
-            </div>
-
-            <blockquote>
-                All my code and demos are written based on John Papa's
-                <a href="https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md">Angular Style Guide</a>,
-                if you have some doubts about the source code of the demos, take a look on it, it's really amazing style guide.
-            </blockquote>
-
-            <div class="alert alert-info">
-                PS: This is my first open source project, any criticism is welcome!
-            </div>
-        </div>
-    </body>
 </html>
