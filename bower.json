@@ -1,7 +1,13 @@
 {
   "name": "ng-dev-fm",
-  "description": "A framework for helping fast development for angular applications.",
-  "main": "none",
+  "description": "A collection of components to help you develop angular application faster.",
+  "main": [
+    "./dist/http/nggs-http.min.js",
+    "./dist/loader/nggs-loader.min.js",
+    "./dist/loader/nggs-loader.min.css",
+    "./dist/modals/nggs-modals.min.js",
+    "./dist/props/nggs-props.min.js"
+  ],
   "authors": [
     "Giovane Souza"
   ],
@@ -10,8 +16,8 @@
     "angular",
     "framework"
   ],
-  "homepage": "https://github.com/gigioSouza/ng-dev-fm",
-  "private": true,
+  "homepage": "https://github.com/gigioSouza/nggs",
+  "private": false,
   "ignore": [
     "**/.*",
     "node_modules",
