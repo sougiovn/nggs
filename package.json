@@ -1,25 +1,25 @@
 {
-  "name": "ng-dev-fm",
+  "name": "nggs",
   "version": "1.0.0",
-  "description": "A framework for helping fast development for angular applications.",
-  "main": "none",
+  "description": "A collection of components to help you develop angular application faster.",
+  "main": "./dist/*",
   "scripts": {
     "serve": "http-server ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gigioSouza/ng-dev-fm.git"
+    "url": "git+https://github.com/gigioSouza/nggs.git"
   },
   "keywords": [
     "angular",
     "framework"
   ],
   "author": "Giovane Souza",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/gigioSouza/ng-dev-fm/issues"
+    "url": "https://github.com/gigioSouza/nggs/issues"
   },
-  "homepage": "https://github.com/gigioSouza/ng-dev-fm#readme",
+  "homepage": "https://github.com/gigioSouza/nggs#readme",
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-clean-css": "^2.0.8",
