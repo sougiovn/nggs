@@ -193,14 +193,14 @@
         id = id.length > 0 ? '_' + id : '';
 
         var numLoadings = 0;
-        $(element).hide();
+        angular.element(element).hide();
         scope.$on('loader_show' + id, function (args) {
           numLoadings++;
-          return $(element).show();
+          angular.element(element).show();
         });
         scope.$on('loader_hide' + id, function (args) {
           if ((--numLoadings) === 0) {
-            return $(element).hide();
+            angular.element(element).hide();
           }
         });
       }
