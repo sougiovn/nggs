@@ -114,20 +114,17 @@
     }
 
     function show(config, id) {
-      id = id || '';
-      $rootScope.$broadcast('loader_show' + id);
+      if (id) $rootScope.$broadcast('loader_show' + id);
       return config || $q.when(config);
     }
 
     function hide(response, id) {
-      id = id || '';
-      $rootScope.$broadcast('loader_hide' + id);
+      if (id) $rootScope.$broadcast('loader_hide' + id);
       return response || $q.when(response);
     }
 
     function hideErr(rejection, id) {
-      id = id || '';
-      $rootScope.$broadcast('loader_hide' + id);
+      if (id) $rootScope.$broadcast('loader_hide' + id);
       return $q.reject(rejection);
     }
   }
