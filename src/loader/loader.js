@@ -114,17 +114,17 @@
     }
 
     function show(config, id) {
-      if (id) $rootScope.$broadcast('loader_show' + id);
+      if (id !== false) $rootScope.$broadcast('loader_show' + id);
       return config || $q.when(config);
     }
 
     function hide(response, id) {
-      if (id) $rootScope.$broadcast('loader_hide' + id);
+      if (id !== false) $rootScope.$broadcast('loader_hide' + id);
       return response || $q.when(response);
     }
 
     function hideErr(rejection, id) {
-      if (id) $rootScope.$broadcast('loader_hide' + id);
+      if (id !== false) $rootScope.$broadcast('loader_hide' + id);
       return $q.reject(rejection);
     }
   }
