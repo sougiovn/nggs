@@ -151,7 +151,7 @@
           angular.element(element).show();
         });
         scope.$on('loader_hide' + id, function (args) {
-          if ((--numLoadings) === 0) {
+          if (numLoadings > 0 && (--numLoadings) === 0) {
             angular.element(element).hide();
           }
         });
