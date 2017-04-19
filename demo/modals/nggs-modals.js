@@ -72,7 +72,7 @@
       if (typeof backdrop === 'boolean') {
         defaults.backdrop = backdrop;
         return provider.defaults;
-      } else if (isString(backdrop) && backdrop == 'static') {
+      } else if (angular.isString(backdrop) && backdrop == 'static') {
         defaults.backdrop = backdrop;
         return provider.defaults;
       } else {
@@ -85,7 +85,7 @@
     }
 
     function setDefaultBackdropClass(backdropClass) {
-      if (isString(backdropClass)) {
+      if (angular.isString(backdropClass)) {
         defaults.backdropClass = backdropClass;
         return provider.defaults;
       } else {
@@ -111,7 +111,7 @@
     }
 
     function setDefaultControllerAs(controllerAs) {
-      if (isString(controllerAs)) {
+      if (angular.isString(controllerAs)) {
         defaults.controllerAs = controllerAs;
         return provider.defaults;
       } else {
@@ -137,7 +137,7 @@
     }
 
     function setDefaultOpenedClass(openedClass) {
-      if (isString(openedClass)) {
+      if (angular.isString(openedClass)) {
         defaults.openedClass = openedClass;
         return provider.defaults;
       } else {
@@ -150,7 +150,7 @@
     }
 
     function setDefaultSize(size) {
-      if (isString(size)) {
+      if (angular.isString(size)) {
         defaults.size = size;
         return provider.defaults;
       } else {
@@ -163,7 +163,7 @@
     }
 
     function setDefaultWindowClass(windowClass) {
-      if (isString(windowClass)) {
+      if (angular.isString(windowClass)) {
         defaults.windowClass = windowClass;
         return provider.defaults;
       } else {
@@ -176,7 +176,7 @@
     }
 
     function setDefaultWindowTemplateUrl(windowTemplateUrl) {
-      if (isString(windowTemplateUrl)) {
+      if (angular.isString(windowTemplateUrl)) {
         defaults.windowTemplateUrl = windowTemplateUrl;
         return provider.defaults;
       } else {
@@ -189,7 +189,7 @@
     }
 
     function setDefaultWindowTopClass(windowTopClass) {
-      if (isString(windowTopClass)) {
+      if (angular.isString(windowTopClass)) {
         defaults.windowTopClass = windowTopClass;
         return provider.defaults;
       } else {
@@ -433,7 +433,7 @@
     }
 
     function setButtonLabel(configType, buttonLabel, buttonLabelValue) {
-      if (isString(buttonLabelValue)) {
+      if (angular.isString(buttonLabelValue)) {
         config[configType][buttonLabel] = buttonLabelValue;
         return provider[configType];
       } else {
@@ -442,18 +442,18 @@
     }
 
     function setConfig(configType, configP) {
-      if (isObject(configP)) {
-        if (isDefined(configP.templateUrl)) {
+      if (angular.isObject(configP)) {
+        if (angular.isDef(configP.templateUrl)) {
           setTemplateUrl(configType, configP.templateUrl);
         } else {
           throw Error('set() expects an object with an attribute: templateUrl');
         }
-        if (isDefined(configP.controllerName)) {
+        if (angular.isDefined(configP.controllerName) && configP.controllerName !== null) {
           setControllerName(configType, configP.controllerName);
         } else {
           throw Error('set() expects an object with an attribute: controllerName');
         }
-        if (isDefined(configP.title)) {
+        if (angular.isDefined(configP.title) && configP.title !== null) {
           setTitle(configType, configP.title);
         }
       } else {
@@ -466,7 +466,7 @@
     }
 
     function setControllerName(configType, controllerName) {
-      if (isString(controllerName)) {
+      if (angular.isString(controllerName)) {
         config[configType].controllerName = angular.copy(controllerName);
         return provider[configType];
       } else {
@@ -479,7 +479,7 @@
     }
 
     function setTemplateUrl(configType, templateUrl) {
-      if (isString(templateUrl)) {
+      if (angular.isString(templateUrl)) {
         config[configType].templateUrl = angular.copy(templateUrl);
         return provider[configType];
       } else {
@@ -492,7 +492,7 @@
     }
 
     function setOptions(configType, options) {
-      if (isObject(options)) {
+      if (angular.isObject(options)) {
         config[configType].options = angular.copy(options);
         return provider[configType];
       } else {
@@ -505,7 +505,7 @@
     }
 
     function setTitle(configType, title) {
-      if (isString(title)) {
+      if (angular.isString(title)) {
         config[configType].title = angular.copy(title);
         return provider[configType];
       } else {
@@ -552,7 +552,7 @@
           };
           break;
         case 2:
-          if (isObject(args[1])) {
+          if (angular.isObject(args[1])) {
             inputs = {
               title: config[type].getTitle(),
               message: args[0]
@@ -619,7 +619,7 @@
       inputs = inputs || {};
       optionsP = optionsP || {};
 
-      if (isDefined(optionsP.inputs)) {
+      if (angular.isDefined(optionsP.inputs) && optionsP.inputs !== null) {
         inputs = extendsObject(inputs, optionsP.inputs)
       }
 
@@ -674,7 +674,7 @@
     var vm = this;
     extendsObject(vm, inputs);
 
-    if (isDefined(vm.message)) {
+    if (angular.isDefined(vm.message) && vm.message !== null) {
       vm.message = $sce.trustAsHtml(vm.message);
     }
 
@@ -685,45 +685,14 @@
     }
   }
 
-})();
-function isEquals(val1, val2) {
-  return val1 === val2;
-}
-
-function isArray(val) {
-  return val instanceof Array;
-}
-
-function isUndefined(val) {
-  return isEquals(val, undefined);
-}
-
-function isDefined(val) {
-  return !isUndefined(val) && !isNull(val, null);
-}
-
-function isNull(val) {
-  return isEquals(val, null);
-}
-
-function isString(val) {
-  return isEquals(typeof val, 'string');
-}
-
-function isObject(val) {
-  return isEquals(typeof val, 'object');
-}
-
-function isFunction(val) {
-  return isEquals(typeof val, 'function');
-}
-
-function extendsObject(dst, src) {
-  if (!isObject(dst) || !isObject(src)) {
-    throw Error('extendsObject only accepts Objects');
+  function extendsObject(dst, src) {
+    if (typeof dst !== 'object' || typeof src !== 'object') {
+      throw Error('extendsObject only accepts Objects');
+    }
+    Object.keys(src).forEach(function (item) {
+      dst[item] = src[item];
+    });
+    return dst;
   }
-  Object.keys(src).forEach(function (item) {
-    dst[item] = src[item];
-  });
-  return dst;
-}
+
+})();

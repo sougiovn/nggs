@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
-  <link rel="stylesheet" type="text/css" href="nggs-loader.min.css" />
+  <link rel="stylesheet" type="text/css" href="nggs-loader.css" />
 
   <title>nggs.loader - Demo</title>
 </head>
@@ -177,6 +177,9 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
     <button type="button" class="btn btn-danger" ng-click="vm.manualHide('rightLoading')">Manual hide() rightLoading</button>
     <button type="button" class="btn btn-danger" ng-click="vm.http('rightLoading')">HTTP request rightLoading</button>
     <br /><br />
+    <div gg-loader class="ggLoader">
+      <DIV class="ggLoaderImage">UNNAMED</div>
+    </div>
     <div gg-loader="fullLoading" class="ggLoader">
       <i class="fa fa-spinner fa-3x fa-spin ggLoaderImage"></i>
     </div>
