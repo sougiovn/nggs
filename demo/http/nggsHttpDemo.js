@@ -1,5 +1,5 @@
-    'angular',
 define([
+    'angular',
     'angular-translate',
     'angular-translate-loader-static-files',
     'nggs.http'
@@ -18,7 +18,10 @@ define([
         requireBase: false
       });
 
-      $translateProvider.useStaticFilesLoader({prefix: '../../assets/i18n/',suffix: '.json'});
+      $translateProvider.useStaticFilesLoader({
+        prefix: '../../assets/i18n/',
+        suffix: ['.json?bc=', Date.now()].join('')
+      });
       var preferredLanguage = 'en'
       if (Storage) {
         var aux = localStorage.getItem('nggsLanguage');

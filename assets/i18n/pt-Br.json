@@ -33,6 +33,10 @@
 
 
   "LOADER_TITLE_DESCRIPTION": "Um componente que dispara um loader automaticamente por interceptar todas as requisições HTTP feitas pelo serviço <b>$http</b> do angular ou manualmente através de um serviço próprio.",
+  "LOADER_INFO_DESCRIPTION": "A proposta do <code>nggs.loader</code> é ter uma maneira fácil de ativar e desativar loaders: imagens, frases ou ícones que informam ao usuário que algum processamento esta ocorrendo, assim bloqueando a tela, uma porção dela ou apenas um indicador no canto da tela. <br /> Há duas maneiras de usá-lo: via <code>interceptadores</code> e um <code>service</code>.",
+  "LOADER_EXAMPLE_1_CODE": "// Interceptador, dentro do .config() de seu app \n$httpProvider.interceptors.unshift('ggLoaderInterceptor');",
+  "LOADER_DEACTIVATING_TITLE": "Desativando",
+  "LOADER_MULTIPLE_LOADERS_TITLE": "Multiplos loaders",
 
   "MODALS_TITLE_DESCRIPTION": "Um componente que gera modais usando as bibliotecas <b>UI Bootstrap</b>, <b>Bootstrap</b> e <b>Font Awesome</b>.",
 
