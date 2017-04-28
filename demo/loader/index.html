@@ -3,52 +3,79 @@
 
 <head>
   <meta charset="utf-8" />
-
   <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
   <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
-  <link rel="stylesheet" type="text/css" href="nggs-loader.min.css" />
-
+  <link rel="stylesheet" type="text/css" href="nggs-loader.css" />
   <title>nggs.loader - Demo</title>
 </head>
 
-<body ng-cloak>
+<body ng-cloak ng-controller="nggsLoaderDemoController as vm">
   <br />
-  <div class="container" ng-controller="nggsLoaderDemoController as vm">
+  <div class="container">
     <div class="jumbotron">
       <h1>nggs.loader</h1>
-      <p>
-        nggs.loader is a component that launches a loader automatically by intercepting all http requests made by angular's <b>$http</b> service.
-      </p>
+      <p translate="LOADER_TITLE_DESCRIPTION"></p>
     </div>
-
-    <blockquote>
-      My motivation for this component was to show up a loading image for the user at each HTTP request that I'd make, but eventually I needed more, then I made it respond to parameters on the url for activating it and choosing which loading image/section would be activated.
-      <small>gigio</small>
-    </blockquote>
-
-    <div class="panel panel-default">
-      <div class="panel-body">
-        <ol>
-          <li><a href="#simple_way">The simple way</a></li>
-          <li><a href="#custom_activation">Custom activation</a></li>
-          <li><a href="#manual_activation">Manual activation</a></li>
-          <li><a href="#demo">Demo</a></li>
-        </ol>
+    <div class="row">
+      <div class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
+        <div class="fixed-to-top" data-margin-top="20">
+          <ol>
+            <li>
+              <a href="#intro" translate="INTRODUCTION"></a>
+            </li>
+            <li>
+              <a href="#ignoring_interceptor" translate="LOADER_IGNORING_INTERCEPTOR_TITLE"></a>
+            </li>
+            <li>
+              <a href="#multiple_loaders" translate="LOADER_MULTIPLE_LOADERS_TITLE"></a>
+            </li>
+            <li>
+              <a href="#configuration" translate="CONFIGURATION"></a>
+            </li>
+          </ol>
+        </div>
       </div>
-    </div>
+      <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
+        <h2 id="intro">
+          1. <translate>INTRODUCTION</translate>
+        </h2>
+        <p translate="LOADER_INFO_DESCRIPTION"></p>
+        <pre translate="LOADER_EXAMPLE_1_CODE"></pre>
+        <p translate="LOADER_EXAMPLE_1_EXPLANATION"></p>
+        <div class="alert alert-warning" translate="LOADER_EXAMPLE_1_ALERT"></div>
 
-    <h2 id="simple_way">1. The simple way</h2>
-    <p>
-      In the simple way you just register the <code>ggLoaderInterceptor</code> into the
-      <code>$httpProvider</code>, insert the attribute <code>gg-loader</code> into one div/img and then start making your HTTP requests.
-    </p>
-    <blockquote>
-      It doesn't have it's own style or image for loading, it just treats the action of show and hide the HTML element. <br /> But in the <code>nggs-loader.css</code> we have classes for basic full screen loading image.
-    </blockquote>
-    <p class="help-block">Example</p>
-    <pre>
+        <h2 id="ignoring_interceptor">
+          2. <translate>LOADER_IGNORING_INTERCEPTOR_TITLE</translate>
+        </h2>
+        <p translate="LOADER_IGNORING_INTERCEPTOR_DESCRIPTION"></p>
+
+
+        <hr />
+        <hr />
+        <hr />
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <ol>
+              <li><a href="#simple_way">The simple way</a></li>
+              <li><a href="#custom_activation">Custom activation</a></li>
+              <li><a href="#manual_activation">Manual activation</a></li>
+              <li><a href="#demo">Demo</a></li>
+            </ol>
+          </div>
+        </div>
+
+        <h2 id="simple_way">1. The simple way</h2>
+        <p>
+          In the simple way you just register the <code>ggLoaderInterceptor</code> into the
+          <code>$httpProvider</code>, insert the attribute <code>gg-loader</code> into one div/img and then start making your HTTP requests.
+        </p>
+        <blockquote>
+          It doesn't have it's own style or image for loading, it just treats the action of show and hide the HTML element. <br /> But in the <code>nggs-loader.css</code> we have classes for basic full screen loading image.
+        </blockquote>
+        <p class="help-block">Example</p>
+        <pre>
 // registering interceptor
 $httpProvider.interceptors.push('ggLoaderInterceptor');
 
@@ -57,24 +84,24 @@ $httpProvider.interceptors.push('ggLoaderInterceptor');
     &lt;i class="fa fa-spinner fa-spin fa-3x ggLoaderImage"&gt;&lt;/i&gt;
 &lt;/div&gt;
 </pre>
-    <blockquote>
-      The <code>fa</code> classes is from the <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> library.
-    </blockquote>
+        <blockquote>
+          The <code>fa</code> classes is from the <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> library.
+        </blockquote>
 
-    <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">Launch HTTP request</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">Launch HTTP request</button>
 
-    <br />
+        <br />
 
-    <h2 id="custom_activation">2. Custom activation</h2>
-    <p>
-      In the case that you don't want to activate the loading image in all the HTTP requests or you may want to activate different loading images, you should work with the Custom Activation. <br />
-      <br /> The custom activation basically uses a query param for activation in your HTTP requests, the default query param is <code>ggloader</code>. <br />
-      <br /> If you want to a HTTP request to activate the loading image you should call it with the query param: <code>api/user/1?ggloader=true</code>. <br /> Or if you want to specify which loading image to activate you should call it with the query param plus it's id: <code>api/user/1?&ggloader=leftLoading</code>. <br />
-      <br /> The id is set in the attribute <code>gg-loader</code> put in the div/img HTML element: <code>&lt;div gg-loader="leftLoading"&gt;...</code>
-    </p>
+        <h2 id="custom_activation">2. Custom activation</h2>
+        <p>
+          In the case that you don't want to activate the loading image in all the HTTP requests or you may want to activate different loading images, you should work with the Custom Activation. <br />
+          <br /> The custom activation basically uses a query param for activation in your HTTP requests, the default query param is <code>ggloader</code>. <br />
+          <br /> If you want to a HTTP request to activate the loading image you should call it with the query param: <code>api/user/1?ggloader=true</code>. <br /> Or if you want to specify which loading image to activate you should call it with the query param plus it's id: <code>api/user/1?&ggloader=leftLoading</code>. <br />
+          <br /> The id is set in the attribute <code>gg-loader</code> put in the div/img HTML element: <code>&lt;div gg-loader="leftLoading"&gt;...</code>
+        </p>
 
-    <h4>Configuring</h4>
-    <pre>
+        <h4>Configuring</h4>
+        <pre>
 $httpProvider.interceptors.push('ggLoaderInterceptor');
 
 ggLoaderConfigProvider.setCustomActivation();
@@ -84,11 +111,11 @@ ggLoaderConfigProvider.setCustomActivation();
 ggLoaderConfigProvider.setCustomActivation('coolLoader');
 // Now the expected query param on the HTTP requests will be 'coolLoader'</pre>
 
-    <h4>Selected requests</h4>
-    <p>
-      For the case you don't want to activate with all HTTP requests
-    </p>
-    <pre>
+        <h4>Selected requests</h4>
+        <p>
+          For the case you don't want to activate with all HTTP requests
+        </p>
+        <pre>
 $httpProvider.interceptors.push('ggLoaderInterceptor');
 
 ggLoaderConfigProvider.setCustomActivation('coolLoader');
@@ -104,11 +131,11 @@ HTTP request /api/user/1?coolLoader=leftLoading     won't activate
 HTTP request /api/user/1?coolLoader=rightLoading    won't activate
 </pre>
 
-    <h4>Different loading images</h4>
-    <p>
-      For the case you want work with differents loading images
-    </p>
-    <pre>
+        <h4>Different loading images</h4>
+        <p>
+          For the case you want work with differents loading images
+        </p>
+        <pre>
 $httpProvider.interceptors.push('ggLoaderInterceptor');
 
 ggLoaderConfigProvider.setCustomActivation('coolLoader');
@@ -128,23 +155,23 @@ HTTP request /api/user/1?coolLoader=leftLoading     will activate the gg-loader=
 HTTP request /api/user/1?coolLoader=rightLoading    will activate the gg-loader="rightLoading"
 </pre>
 
-    <h2 id="manual_activation">3. Manual activation</h2>
-    <p>
-      For manual activation you just need to inject the <code>ggLoader</code> and call the <code>show()</code> and <code>hide()</code> methods. <br /> Attention, if you call <code>show()</code> twice for a loading image you must call <code>hide()</code> twice either.
-    </p>
-    <p class="help-block">Example</p>
-    <pre>
+        <h2 id="manual_activation">3. Manual activation</h2>
+        <p>
+          For manual activation you just need to inject the <code>ggLoader</code> and call the <code>show()</code> and <code>hide()</code> methods. <br /> Attention, if you call <code>show()</code> twice for a loading image you must call <code>hide()</code> twice either.
+        </p>
+        <p class="help-block">Example</p>
+        <pre>
 ggLoader.show()                  // will activate the gg-loader loading image
 ggLoader.show('leftLoading')     // will activate the gg-loader="leftLoading" loading image
 ggLoader.hide();                 // will activate the gg-loader loading image
 ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" loading image
 </pre>
 
-    <h2 id="demo">4. Demo</h2>
-    <p>
-      Here we have 3 gg-loader loading images, one with the basic css classes <code>gg-loader.css</code> brings and the two other with custom style.
-    </p>
-    <pre>
+        <h2 id="demo">4. Demo</h2>
+        <p>
+          Here we have 3 gg-loader loading images, one with the basic css classes <code>gg-loader.css</code> brings and the two other with custom style.
+        </p>
+        <pre>
 &lt;div gg-loader="fullLoading" class="ggLoader"&gt;
     &lt;i class="fa fa-spinner fa-3x fa-spin ggLoaderImage"&gt;&lt;/i&gt;
 &lt;/div&gt;
@@ -163,37 +190,51 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
     &lt;/div&gt;
 &lt;/div&gt;
 </pre>
-    <p>
-      Test it!
-    </p>
-    <button type="button" class="btn btn-primary" ng-click="vm.manualShow('fullLoading')">Manual fullLoading</button>
-    <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">HTTP request fullLoading</button>
-    <br /><br />
-    <button type="button" class="btn btn-success" ng-click="vm.manualShow('leftLoading')">Manual show() leftLoading</button>
-    <button type="button" class="btn btn-success" ng-click="vm.manualHide('leftLoading')">Manual hide() leftLoading</button>
-    <button type="button" class="btn btn-success" ng-click="vm.http('leftLoading')">HTTP request leftLoading</button>
-    <br /><br />
-    <button type="button" class="btn btn-danger" ng-click="vm.manualShow('rightLoading')">Manual show() rightLoading</button>
-    <button type="button" class="btn btn-danger" ng-click="vm.manualHide('rightLoading')">Manual hide() rightLoading</button>
-    <button type="button" class="btn btn-danger" ng-click="vm.http('rightLoading')">HTTP request rightLoading</button>
-    <br /><br />
-    <div gg-loader="fullLoading" class="ggLoader">
-      <i class="fa fa-spinner fa-3x fa-spin ggLoaderImage"></i>
-    </div>
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="height: 100px;">
-        leftLoading
-        <div gg-loader="leftLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-success text-success">
-          <i class="fa fa-spinner fa-3x fa-spin"></i>
+        <p>
+          Test it!
+        </p>
+        <button type="button" class="btn btn-primary" ng-click="vm.manualShow('fullLoading')">Manual fullLoading</button>
+        <button type="button" class="btn btn-primary" ng-click="vm.http('fullLoading')">HTTP request fullLoading</button>
+        <br /><br />
+        <button type="button" class="btn btn-success" ng-click="vm.manualShow('leftLoading')">Manual show() leftLoading</button>
+        <button type="button" class="btn btn-success" ng-click="vm.manualHide('leftLoading')">Manual hide() leftLoading</button>
+        <button type="button" class="btn btn-success" ng-click="vm.http('leftLoading')">HTTP request leftLoading</button>
+        <br /><br />
+        <button type="button" class="btn btn-danger" ng-click="vm.manualShow('rightLoading')">Manual show() rightLoading</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.manualHide('rightLoading')">Manual hide() rightLoading</button>
+        <button type="button" class="btn btn-danger" ng-click="vm.http('rightLoading')">HTTP request rightLoading</button>
+        <br /><br />
+        <div gg-loader class="ggLoader">
+          <div class="ggLoaderImage">UNNAMED</div>
+        </div>
+        <div gg-loader="fullLoading" class="ggLoader">
+          <i class="fa fa-spinner fa-3x fa-spin ggLoaderImage"></i>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6" style="height: 100px;">
+            leftLoading
+            <div gg-loader="leftLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-success text-success">
+              <i class="fa fa-spinner fa-3x fa-spin"></i>
+            </div>
+          </div>
+          <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+            rightLoading
+            <div gg-loader="rightLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-danger text-danger">
+              <i class="fa fa-spinner fa-3x fa-spin"></i>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-        rightLoading
-        <div gg-loader="rightLoading" style="width: 100%; height: 100px; padding-top: 25px" class="text-center bg-danger text-danger">
-          <i class="fa fa-spinner fa-3x fa-spin"></i>
-        </div>
-      </div>
     </div>
+  </div>
+
+  <div id="i18n" class="btn-group-vertical" role="group" aria-label="...">
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('en')" ng-class="{ active: vm.currentLanguage == 'en' }">
+      <img src="../../assets/images/USA.png"></img>
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.setLanguage('pt-Br')" ng-class="{ active: vm.currentLanguage == 'pt-Br' }">
+      <img src="../../assets/images/Brazil.png"></img>
+    </button>
   </div>
 
   <script src="../../assets/lib/requirejs/require.min.js"></script>
@@ -202,7 +243,10 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
       baseUrl: '../../assets/lib/',
       paths: {
         jquery: 'jquery/jquery.min',
+        fixedToTop: '../js/fixed-to-top',
         angular: 'angular/angular.min',
+        'angular-translate': 'angular-translate/angular-translate.min',
+        'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
         'nggs.loader': '../../demo/loader/nggs-loader',
         'nggs.http': '../../demo/loader/nggs-http',
         nggsLoaderDemo: '../../demo/loader/nggsLoaderDemo',
@@ -211,9 +255,18 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
         jquery: {
           export: '$'
         },
+        fixedToTop: {
+          deps: ['jquery']
+        },
         angular: {
           export: 'angular',
           deps: ['jquery']
+        },
+        'angular-translate': {
+          deps: ['angular']
+        },
+        'angular-translate-loader-static-files': {
+          deps: ['angular', 'angular-translate']
         },
         'nggs.loader': {
           deps: ['angular']
@@ -226,7 +279,7 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
         }
       }
     });
-    require(['jquery', 'angular', 'nggs.loader', 'nggs.http', 'nggsLoaderDemo'],
+    require(['jquery', 'fixedToTop', 'angular', 'nggs.loader', 'nggs.http', 'nggsLoaderDemo'],
       function () {
         angular.bootstrap(document, ['nggsLoaderDemo']);
       }

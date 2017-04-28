@@ -14,11 +14,10 @@ var paths = {
 };
 
 var modules = {
-  http: paths.src + 'http/http.js',
-  loader: paths.src + 'loader/loader.js',
-  loaderCss: paths.src + 'loader/loader.css',
-  modals: paths.src + 'modals/modals.js',
-  props: paths.src + 'props/props.js'
+  http: paths.src + 'http/http',
+  loader: paths.src + 'loader/loader',
+  modals: paths.src + 'modals/modals',
+  props: paths.src + 'props/props'
 };
 
 gulp.task('imports',
@@ -89,7 +88,7 @@ gulp.task('demos',
     gulp.run('imports');
 
     Object.keys(modules).forEach((module) => {
-      gulp.src(module)
+      gulp.src(modules[module] + '.js')
         .pipe(rename(resolveRename('nggs-', '.js')))
         .pipe(gulp.dest(paths.demo));
     });
@@ -102,7 +101,7 @@ gulp.task('demos',
       }))
       .pipe(gulp.dest(paths.demo + 'loader'));
 
-    gulp.src(modules.loaderCss)
+    gulp.src(modules.loader + '.css')
       .pipe(rename(resolveRename('nggs-', '.css')))
       .pipe(gulp.dest(paths.demo));
   }
@@ -112,11 +111,11 @@ gulp.task('dist',
   function () {
 
     Object.keys(modules).forEach((module) => {
-      gulp.src(module)
+      gulp.src(modules[module] + '.js')
         .pipe(rename(resolveRename('nggs-', '.js')))
         .pipe(gulp.dest(paths.dist));
 
-      gulp.src(module)
+      gulp.src(modules[module] + '.js')
         .pipe(uglify())
         .pipe(rename(resolveRename('nggs-', '.min.js')))
         .pipe(gulp.dest(paths.dist));
@@ -124,11 +123,11 @@ gulp.task('dist',
 
 
     // CSS
-    gulp.src([modules.loaderCss])
+    gulp.src(modules.loader + '.css')
       .pipe(rename(resolveRename('nggs-', '.css')))
       .pipe(gulp.dest(paths.dist));
 
-    gulp.src([modules.loaderCss])
+    gulp.src(modules.loader + '.css')
       .pipe(cleanCSS())
       .pipe(rename(resolveRename('nggs-', '.min.css')))
       .pipe(gulp.dest(paths.dist));

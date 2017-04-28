@@ -75,15 +75,15 @@
 
     function resolveAll(baseUrl, funcs, obj) {
       baseUrl = baseUrl || '';
-      var api = isObject(obj) ? obj : {};
+      var api = angular.isObject(obj) ? obj : {};
 
       if (funcs) {
-        if (isObject(funcs)) {
-          if (isArray(funcs)) {
+        if (angular.isObject(funcs)) {
+          if (angular.isArray(funcs)) {
             funcs.forEach(resolveFunction);
           } else {
             Object.keys(funcs).map(function (funcName) {
-                if (isArray(funcs[funcName])) {
+                if (angular.isArray(funcs[funcName])) {
                   funcs[funcName][0] = funcName + funcs[funcName][0];
                   return funcs[funcName];
                 } else {
@@ -99,15 +99,15 @@
       }
 
       function resolveFunction(func) {
-        if (isString(func)) {
+        if (angular.isString(func)) {
           var aux = resolveFunctionString(func);
           var funcName = aux[0];
           var funcMethod = aux[1];
           var funcUrl = aux[2];
           resolveFunctionToApi(api, baseUrl, funcName, funcMethod, funcUrl);
-        } else if (isObject(func)) {
-          if (isArray(func)) {
-            if (isString(func[0])) {
+        } else if (angular.isObject(func)) {
+          if (angular.isArray(func)) {
+            if (angular.isString(func[0])) {
               var aux = resolveFunctionString(func[0]);
               var funcName = aux[0];
               var funcMethod = aux[1];
@@ -121,7 +121,7 @@
               api[item] = func[item];
             });
           }
-        } else if (isFunction(func)) {
+        } else if (angular.isFunction(func)) {
           api[func.name] = func;
         }
       }
@@ -132,7 +132,7 @@
 
       function resolveFunctionToApi(api, baseUrl, funcName, funcMethod, funcUrl, config) {
         api[funcName] = function () {
-          return resolve(baseUrl, funcMethod, funcUrl, arguments, (isObject(config) ? config : {}));
+          return resolve(baseUrl, funcMethod, funcUrl, arguments, (angular.isObject(config) ? config : {}));
         };
       }
     }
@@ -161,9 +161,9 @@
           parameters[params[param].replace(/:/, '')] = params[param];
         }
 
-        if (!isUndefined(args[0])) {
+        if (!angular.isUndefined(args[0])) {
           for (param in parameters) {
-            if (!isUndefined(args[0][param])) {
+            if (!angular.isUndefined(args[0][param])) {
               url = url.replace(parameters[param], args[0][param]);
             } else {
               throw Error('Url parameter \'' + parameters[param] + '\' wasn\'t found');
@@ -173,35 +173,35 @@
           throw Error('No url parameter was passed as parameter');
         }
 
-        if (!isUndefined(args[1])) {
-          if (isEquals(method, 'GET')) {
+        if (!angular.isUndefined(args[1])) {
+          if (method === 'GET') {
             config.params = args[1];
-            if (!isUndefined(args[2])) {
+            if (!angular.isUndefined(args[2])) {
               extendsConfig(args[2]);
             }
           } else {
             config.data = args[1];
-            if (!isUndefined(args[2])) {
+            if (!angular.isUndefined(args[2])) {
               config.params = args[2];
             }
-            if (!isUndefined(args[3])) {
+            if (!angular.isUndefined(args[3])) {
               extendsConfig(args[3]);
             }
           }
         }
       } else {
-        if (!isUndefined(args[0])) {
-          if (isEquals(method, 'GET')) {
+        if (!angular.isUndefined(args[0])) {
+          if (method === 'GET') {
             config.params = args[0];
-            if (!isUndefined(args[1])) {
+            if (!angular.isUndefined(args[1])) {
               extendsConfig(args[1]);
             }
           } else {
             config.data = args[0];
-            if (!isUndefined(args[1])) {
+            if (!angular.isUndefined(args[1])) {
               config.params = args[1];
             }
-            if (!isUndefined(args[2])) {
+            if (!angular.isUndefined(args[2])) {
               extendsConfig(args[2]);
             }
           }
@@ -210,7 +210,7 @@
 
       config.url = baseUrl + url;
       var request = null
-      if (isUndefined(config.timeout) || isEquals(config.cancelable, true)) {
+      if (angular.isUndefined(config.timeout) || isEquals(config.cancelable, true)) {
         var cancelRequest = $q.defer();
         config.timeout = cancelRequest.promise;
         request = $http(config);
@@ -223,54 +223,23 @@
       return request;
 
       function extendsConfig(obj) {
-        if (!isUndefined(obj) && isObject(obj)) {
+        if (!angular.isUndefined(obj) && obj !== null && angular.isObject(obj)) {
           extendsObject(config, obj);
         } else {
           throw Error('The configuration parameter must be an object');
         }
       }
+
+      function extendsObject(dst, src) {
+        if (!angular.isObject(dst) || !angular.isObject(src)) {
+          throw Error('extendsObject only accepts Objects');
+        }
+        Object.keys(src).forEach(function (item) {
+          dst[item] = src[item];
+        });
+        return dst;
+      }
     }
   }
 
 })();
-function isEquals(val1, val2) {
-  return val1 === val2;
-}
-
-function isArray(val) {
-  return val instanceof Array;
-}
-
-function isUndefined(val) {
-  return isEquals(val, undefined);
-}
-
-function isDefined(val) {
-  return !isUndefined(val) && !isNull(val, null);
-}
-
-function isNull(val) {
-  return isEquals(val, null);
-}
-
-function isString(val) {
-  return isEquals(typeof val, 'string');
-}
-
-function isObject(val) {
-  return isEquals(typeof val, 'object');
-}
-
-function isFunction(val) {
-  return isEquals(typeof val, 'function');
-}
-
-function extendsObject(dst, src) {
-  if (!isObject(dst) || !isObject(src)) {
-    throw Error('extendsObject only accepts Objects');
-  }
-  Object.keys(src).forEach(function (item) {
-    dst[item] = src[item];
-  });
-  return dst;
-}
