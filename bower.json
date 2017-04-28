@@ -1,6 +1,6 @@
 {
   "name": "nggs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A collection of components to help you develop angular application faster.",
   "main": [
     "./dist/http/nggs-http.min.js",
