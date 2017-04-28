@@ -231,7 +231,7 @@
       }
 
       function extendsObject(dst, src) {
-        if (typeof dst !== 'object' || typeof src !== 'object') {
+        if (!angular.isObject(dst) || !angular.isObject(src)) {
           throw Error('extendsObject only accepts Objects');
         }
         Object.keys(src).forEach(function (item) {

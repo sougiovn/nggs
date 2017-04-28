@@ -26,7 +26,7 @@
               <a href="#intro" translate="INTRODUCTION"></a>
             </li>
             <li>
-              <a href="#deactivating" translate="LOADER_DEACTIVATING_TITLE"></a>
+              <a href="#ignoring_interceptor" translate="LOADER_IGNORING_INTERCEPTOR_TITLE"></a>
             </li>
             <li>
               <a href="#multiple_loaders" translate="LOADER_MULTIPLE_LOADERS_TITLE"></a>
@@ -38,11 +38,20 @@
         </div>
       </div>
       <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-        <h2 id="introduction">
+        <h2 id="intro">
           1. <translate>INTRODUCTION</translate>
         </h2>
         <p translate="LOADER_INFO_DESCRIPTION"></p>
         <pre translate="LOADER_EXAMPLE_1_CODE"></pre>
+        <p translate="LOADER_EXAMPLE_1_EXPLANATION"></p>
+        <div class="alert alert-warning" translate="LOADER_EXAMPLE_1_ALERT"></div>
+
+        <h2 id="ignoring_interceptor">
+          2. <translate>LOADER_IGNORING_INTERCEPTOR_TITLE</translate>
+        </h2>
+        <p translate="LOADER_IGNORING_INTERCEPTOR_DESCRIPTION"></p>
+
+
         <hr />
         <hr />
         <hr />
@@ -196,7 +205,7 @@ ggLoader.hide('leftLoading')     // will activate the gg-loader="leftLoading" lo
         <button type="button" class="btn btn-danger" ng-click="vm.http('rightLoading')">HTTP request rightLoading</button>
         <br /><br />
         <div gg-loader class="ggLoader">
-          <DIV class="ggLoaderImage">UNNAMED</div>
+          <div class="ggLoaderImage">UNNAMED</div>
         </div>
         <div gg-loader="fullLoading" class="ggLoader">
           <i class="fa fa-spinner fa-3x fa-spin ggLoaderImage"></i>
