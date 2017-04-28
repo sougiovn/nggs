@@ -1,10 +1,11 @@
 {
   "name": "nggs",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A collection of components to help you develop angular application faster.",
   "main": "./dist/*",
   "scripts": {
-    "serve": "http-server ."
+    "serve": "http-server .",
+    "prepare": "gulp demos && gulp dist"
   },
   "repository": {
     "type": "git",
