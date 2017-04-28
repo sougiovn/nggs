@@ -5,7 +5,7 @@
   "main": "./dist/*",
   "scripts": {
     "serve": "http-server .",
-    "publish": "gulp demos && gulp dist"
+    "prepare": "gulp demos && gulp dist"
   },
   "repository": {
     "type": "git",
