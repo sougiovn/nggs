@@ -17,6 +17,7 @@ ol ol>li:before {
 
 .container {
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 #i18n {

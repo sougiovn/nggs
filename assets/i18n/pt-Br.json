@@ -3,6 +3,7 @@
   "HOME_FOOTER_BLOCKQUOTE": "Todo meu código e demos foram escritos baseados no <a href=\"https://github.com.br/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Guia de estilo para AngularJS</a> de John Papa's. Caso tenha alguma dúvida do código fonte das demos de uma olhada nele, 'it's a really amazing style guidé um guia muito bom.",
 
   "INTRODUCTION": "Introdução",
+  "DEMO": "Demonstração",
   "EXAMPLE": "Exemplo(s):",
   "SINTAX": "Sintaxe",
   "DYNAMIC_PARAMS": "Parâmetros dinâmicos",
@@ -37,9 +38,14 @@
   "LOADER_EXAMPLE_1_CODE": "Interceptador, dentro do .config() de seu app \n$httpProvider.interceptors.unshift('ggLoaderInterceptor');\n\nService\nggLoader.show() e ggLoader.hide()\n\nNo html\n&lt;div gg-loader class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;",
   "LOADER_EXAMPLE_1_EXPLANATION": "Quando uma requisição HTTP for feita via <code>$http</code> o elemento com a diretiva <code>gg-loader</code> será ativado e irá aparecer. Note que uso o <code>.unshift()</code> no array de interceptadores do <code>$httpProvider</code>, isso é para que o <code>ggLoaderInterceptor</code> seja o primeiro interceptador a ser executado.<br />Para a ativação manual da diretiva basta invocar os métodos da service <code>ggLoader</code> quando desejar.",
   "LOADER_EXAMPLE_1_ALERT": "As classes <b>ggLoader</b> e <b>ggLoaderImage</b> são exemplos de classes para seu loader, fique a vontade para usar suas próprias classes. O foco do componente é a ativação e desativação automatizada/facilitada.",
+  "LOADER_ALERT": "<strong>Atenção!</strong> Quando ativar o loader manualmente através da service <code>ggLoader</code>, lembre-se de chamar o método <code>.hide()</code> a mesma quantidade de vezes que você chamou o método <code>.show()</code>.",
   "LOADER_IGNORING_INTERCEPTOR_TITLE": "Ignorando o interceptador",
   "LOADER_IGNORING_INTERCEPTOR_DESCRIPTION": "Caso você não queira que o interceptador sua ative a diretiva durante uma requisição HTTP basta apenas passar o seguinte parâmetro na url: <code>ggloader=false</code>",
-  "LOADER_MULTIPLE_LOADERS_TITLE": "Multiplos loaders",
+  "LOADER_MULTIPLE_LOADERS_TITLE": "Múltiplos loaders",
+  "LOADER_MULTIPLE_LOADERS_DESCRIPTION": "O foco da criação desse componente não foi só controlar a ativação de um loader de maneira automática, mas controlar múltiplos loaders mais facilmente. Assim, dando um nome para a diretiva <code>gg-loader</code> torna possível a ativação automatizada dos loaders pelo interceptador, agora passando o nome do loader no parâmetro de url <code>ggloader={nomeDoLoader}</code> ou como parâmetro da service <code>ggLoader.show('nomeDoLoader')</code> e <code>ggLoader.hide('nomeDoLoader')</code>.",
+  "LOADER_EXAMPLE_2_CODE": "// Requisitando com o parâmetro ggloader=loader1 ou \n  usando ggLoader.show('loader1') e ggLoader.hide('loader1')\n&lt;div gg-loader=\"loader1\" class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;\n\n// Requisitando com o parâmetro ggloader=loader2 ou \n  usando ggLoader.show('loader2') e ggLoader.hide('loader2')\n&lt;div gg-loader=\"loader2\" class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;",
+  "LOADER_CONFIGURATION_DESCRIPTION": "Caso você queira usar outra palavra-chave para ativar seus loaders via url, no lugar de <code>ggloader</code>, você pode configurar uma nova palavra-chave através do <code>ggLoaderConfigProvider</code> durante o <code>.config()</code> do seu app.",
+  "LOADER_EXAMPLE_3_CODE": "// No config\nggLoaderConfigProvider.setCustomActivation('palavraChave');",
 
   "MODALS_TITLE_DESCRIPTION": "Um componente que gera modais usando as bibliotecas <b>UI Bootstrap</b>, <b>Bootstrap</b> e <b>Font Awesome</b>.",
 
