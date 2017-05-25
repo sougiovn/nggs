@@ -3,6 +3,7 @@
   "HOME_FOOTER_BLOCKQUOTE": "All my code and demos are written based on John Papa's <a href=\"https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Angular Style Guide</a>, if you have some doubts about the demos's source code, take a look on it, it's a really amazing style guide.",
 
   "INTRODUCTION": "Introduction",
+  "DEMO": "Demo",
   "EXAMPLE": "Example(s):",
   "SINTAX": "Sintax",
   "DYNAMIC_PARAMS": "Dynamic parameters",
@@ -31,7 +32,19 @@
   "HTTP_EXAMPLE_6_CODE": ".config(['ggHttpConfigProvider', function(ggHttpConfigProvider) {\n  ggHttpConfigProvider.setDefaults({ headers: ..., transformRequest: ..., transformResponse: ... });\n}]);",
   "HTTP_CONFIGURATION_ALERT": "The configurations are the ones in the <code>$http</code> API's.",
 
-  "LOADER_TITLE_DESCRIPTION": "A component that launches a loader automatically by intercepting all http requests made by angular's <b>$http</b> service or manually thru a factory.",
+  "LOADER_TITLE_DESCRIPTION": "A component that launches a loader automatically by intercepting all http requests made by angular's <b>$http</b> service or manually thru a service.",
+  "LOADER_INFO_DESCRIPTION": "The proposal of <code>nggs.loader</code> is having an easy way to activate and deactivate loaders: images, phrases or icons that shows the user that some process if happening, blocking the screen, a portion of the screen or at least an indicator in the screen's corner. <br /> There is two ways to use it: thru <code>interceptor</code> and a <code>service</code>.",
+  "LOADER_EXAMPLE_1_CODE": "Interceptor, in your app's .config() \n$httpProvider.interceptors.unshift('ggLoaderInterceptor');\n\nService\nggLoader.show() e ggLoader.hide()\n\nHTML\n&lt;div gg-loader class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;",
+  "LOADER_EXAMPLE_1_EXPLANATION": "When a HTTP request is made thru <code>$http</code> the element with the directive <code>gg-loader</code> will be activated and will appear. Note the usage of <code>.unshift()</code> on the <code>$httpProvider</code>'s interceptors array, this make <code>ggLoaderInterceptor</code> the first interceptor the be executed.<br />To manual activation you just need to invoke the methods <code>.show() and .hide()</code> from <code>ggLoader</code> service",
+  "LOADER_EXAMPLE_1_ALERT": "The classes <b>ggLoader</b> and <b>ggLoaderImage</b> are examples of classes for your loaders, feel free to use your own classes. The focus of this component is the activation and deactivation trigger",
+  "LOADER_ALERT": "<strong>Atention!</strong> When manually activating the loader thru the service <code>ggLoader</code>, remember to call the method <code>.hide()</code> the same amount of times you called <code>.show()</code>",
+  "LOADER_IGNORING_INTERCEPTOR_TITLE": "Ignoring the interceptor",
+  "LOADER_IGNORING_INTERCEPTOR_DESCRIPTION": "If you don't want the interceptor to activate the directive during a HTTP request, just add this query param to your request: <code>ggloader=false</code>",
+  "LOADER_MULTIPLE_LOADERS_TITLE": "Multiple loaders",
+  "LOADER_MULTIPLE_LOADERS_DESCRIPTION": "The focus of this component wasn't just control the activation of a loader, but multiple loaders. Like this,giving a name to the directive <code>gg-loader</code> make possible the automatic activation of the loaders thru the interceptor, now passing the name of the loader as the query param value <code>ggloader={loaderName}</code> or as parameter to the service <code>ggLoader.show('loaderName') and ggLoader.hide('loaderName')</code>.",
+  "LOADER_EXAMPLE_2_CODE": "// Requesting with the parameter ggloader=loader1 or \n  using ggLoader.show('loader1') e ggLoader.hide('loader1')\n&lt;div gg-loader=\"loader1\" class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;\n\n// Requesting with the parameter ggloader=loader2 or \n  using ggLoader.show('loader2') e ggLoader.hide('loader2')\n&lt;div gg-loader=\"loader2\" class=\"ggLoader\"&gt;\n  &lt;img src=\"image.png\" class=\"ggLoaderImage\" /&gt;\n&lt;/div&gt;",
+  "LOADER_CONFIGURATION_DESCRIPTION": "If you want to use other key-word to activate your loaders thru query param, instead of <code>ggloader</code>, you can configure a new key-word thru the <code>ggLoaderConfigProvider</code> in your app's <code>.config()</code>.",
+  "LOADER_EXAMPLE_3_CODE": "// .config()\nggLoaderConfigProvider.setCustomActivation('keyword');",
 
   "MODALS_TITLE_DESCRIPTION": "A component to generate modals using <b>UI Bootstrap</b>, <b>Bootstrap</b> and <b>Font Awesome</b> libraries.",
 
