@@ -21,6 +21,8 @@ define([
 
       $httpProvider.interceptors.unshift('ggLoaderInterceptor');
 
+      ggLoaderConfigProvider.setCustomActivation('custom');
+
       $translateProvider.useStaticFilesLoader({
         prefix: '../../assets/i18n/',
         suffix: ['.json?bc=',Date.now()].join('')
@@ -60,7 +62,7 @@ define([
 
       function http(loader) {
         api.get({
-            ggloader: loader
+            custom: loader
           })
           .then(function (response) {
             console.log(response);
