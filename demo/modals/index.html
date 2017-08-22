@@ -1,170 +1,158 @@
 <!doctype html>
 <html lang="pt-br">
-    <head>
-        <meta charset="utf-8" />
 
-        <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
-        <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
+<head>
+  <meta charset="utf-8" />
 
-        <title>nggs.modals - Demo</title>
-    </head>
-    <body ng-cloak>
-        <br />
-        <div class="container" ng-controller="nggsModalsDemoController as vm">
-            <div class="jumbotron">
-                <h1>nggs.modals</h1>
-                <p>
-                    nggs.modals is a component for generating modal using
-                    <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a>,
-                    <a href="https://getbootstrap.com" target="_blank">Bootstrap</a> and
-                    <a href="http://fontawesome.io/" target="_blank">Font Awesome</a> libraries.
-                </p>
-            </div>
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/angular/angular-csp.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/bootstrap/css/bootstrap.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/lib/font-awesome/css/font-awesome.min.css" />
+  <link rel="stylesheet" type="text/css" href="../../assets/css/style.css" />
 
-            <blockquote>
-                My motivation for this component was facilitate the development between my teammates,
-                who aren't all at the same level of angularjs's understanding. <br />
-                Providing an easy way for using basics modals and such a big help with more customized and complex ones.
-                <small>gigio</small>
-            </blockquote>
+  <title>nggs.modals - Demo</title>
+</head>
 
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <p>
-                        <ol>
-                            <li><a href="#intro">Intro</a>
-                                <ol>
-                                    <li><a href="#intro-prebuilt">Pre-built modals</a></li>
-                                    <li><a href="#intro-generating">Generating modals</a></li>
-                                </ol>
-                            </li>
-                            <li><a href="#configuring">Configuring</a>
-                                <ol>
-                                    <li><a href="#configuring-default-options">Default options</a></li>
-                                    <li><a href="#configuring-pre-built-modals">Pre-built modals</a></li>
-                                </ol>
-                            </li>
-                        </ol>
-                    </p>
-                </div>
-            </div>
+<body ng-cloak>
+  <br />
+  <div class="container" ng-controller="nggsModalsDemoController as vm">
+    <div class="jumbotron">
+      <h1>nggs.modals</h1>
+      <p translate="MODALS_TITLE_DESCRIPTION_WITH_LINKS"></p>
+    </div>
 
-            <h2 id="intro">1. Intro</h2>
-            <p>
-                The <code>nggs.modals</code> comes with a provider(<code>ggModalsConfigProvider</code>),
-                a factory(<code>ggModals</code>) and a controller(<code>ggModalsCommonController</code>)
-                for common usage of basics templates which comes by default: <code>info</code>,
-                <code>success</code>, <code>warning</code>, <code>error</code> and <code>confirm</code>.
-            </p>
+    <blockquote>
+      My motivation for this component was facilitate the development between my teammates, who aren't all at the same level of angularjs's understanding. <br /> Providing an easy way for using basics modals and such a big help with more customized and complex ones.
+      <small>gigio</small>
+    </blockquote>
 
-            <p>
-                The <code>ggModals</code> offers 6 methods, 5 of them are pre-built modals:
-                <code>info()</code>, <code>success()</code>, <code>warning()</code>,
-                <code>error()</code>, <code>confirm()</code> and the other one is where the magic comes: <code>generate()</code>.
-            </p>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <p>
+          <ol>
+            <li><a href="#intro">Intro</a>
+              <ol>
+                <li><a href="#intro-prebuilt">Pre-built modals</a></li>
+                <li><a href="#intro-generating">Generating modals</a></li>
+              </ol>
+            </li>
+            <li><a href="#configuring">Configuring</a>
+              <ol>
+                <li><a href="#configuring-default-options">Default options</a></li>
+                <li><a href="#configuring-pre-built-modals">Pre-built modals</a></li>
+              </ol>
+            </li>
+          </ol>
+        </p>
+      </div>
+    </div>
 
-            <h2 id="intro-prebuilt">1.1 Pre-built modals</h2>
-            <p>
-                Check them out!
-            </p>
-            <button type="button" class="btn btn-info" ng-click="vm.info()">info()</button>
-            <button type="button" class="btn btn-success" ng-click="vm.success()">success()</button>
-            <button type="button" class="btn btn-warning" ng-click="vm.warning()">warning()</button>
-            <button type="button" class="btn btn-danger" ng-click="vm.error()">error()</button>
-            <button type="button" class="btn btn-default" ng-click="vm.confirm()">confirm()</button>
-            <p class="help-block">
-                The pre-built modals only closes by clicking on their buttons('OK', 'Cancel', 'Confirm'). <br />
-                The <code>confirm()</code> modal returns <code>true</code> for 'Confirm' and <code>false</code> for 'Cancel'.
-            </p>
+    <h2 id="intro">1. Intro</h2>
+    <p>
+      The <code>nggs.modals</code> comes with a provider(<code>ggModalsConfigProvider</code>), a factory(<code>ggModals</code>) and a controller(<code>ggModalsCommonController</code>) for common usage of basics templates which comes by default: <code>info</code>,
+      <code>success</code>, <code>warning</code>, <code>error</code> and <code>confirm</code>.
+    </p>
 
-            <h3>There are 4 ways for invoking those methods:</h3>
+    <p>
+      The <code>ggModals</code> offers 6 methods, 5 of them are pre-built modals:
+      <code>info()</code>, <code>success()</code>, <code>warning()</code>,
+      <code>error()</code>, <code>confirm()</code> and the other one is where the magic comes: <code>generate()</code>.
+    </p>
 
-            <p>
-                Passing by parameter the <code>title</code>, the <code>message</code> and the <code>options</code> of the modal.
-            </p>
-            <h4><code>ggModals.type('title', 'message', {options});</code></h4>
-            <p class="help-block">Example:</p>
-<pre>
+    <h2 id="intro-prebuilt">1.1 Pre-built modals</h2>
+    <p>
+      Check them out!
+    </p>
+    <button type="button" class="btn btn-info" ng-click="vm.info()">info()</button>
+    <button type="button" class="btn btn-success" ng-click="vm.success()">success()</button>
+    <button type="button" class="btn btn-warning" ng-click="vm.warning()">warning()</button>
+    <button type="button" class="btn btn-danger" ng-click="vm.error()">error()</button>
+    <button type="button" class="btn btn-default" ng-click="vm.confirm()">confirm()</button>
+    <p class="help-block">
+      The pre-built modals only closes by clicking on their buttons('OK', 'Cancel', 'Confirm'). <br /> The <code>confirm()</code> modal returns <code>true</code> for 'Confirm' and <code>false</code> for 'Cancel'.
+    </p>
+
+    <h3>There are 4 ways for invoking those methods:</h3>
+
+    <p>
+      Passing by parameter the <code>title</code>, the <code>message</code> and the <code>options</code> of the modal.
+    </p>
+    <h4><code>ggModals.type('title', 'message', {options});</code></h4>
+    <p class="help-block">Example:</p>
+    <pre>
 ggModals.info('info title', 'info message', { size: 'lg', backdrop: true });
 ggModals.success('success title', 'success message', { size: 'lg', backdrop: true });
 ggModals.warning('warning title', 'warning message', { size: 'lg', backdrop: true });
 ggModals.error('error title', 'error message', { size: 'lg', backdrop: true });
 ggModals.confirm('confirm title', 'confirm message', { size: 'lg', backdrop: true });</pre>
 
-            <br />
-            <p>
-                Omitting the <code>title</code>, then using the default <code>title</code> set for the type of modal and passing the <code>message</code> and the <code>options</code> of the modal.
-            </p>
-            <h4><code>ggModals.type('message', {options});</code></h4>
-            <p class="help-block">Example:</p>
-<pre>
+    <br />
+    <p>
+      Omitting the <code>title</code>, then using the default <code>title</code> set for the type of modal and passing the <code>message</code> and the <code>options</code> of the modal.
+    </p>
+    <h4><code>ggModals.type('message', {options});</code></h4>
+    <p class="help-block">Example:</p>
+    <pre>
 ggModals.info('info message', { size: 'lg', backdrop: true });
 ggModals.success('success message', { size: 'lg', backdrop: true });
 ggModals.warning('warning message', { size: 'lg', backdrop: true });
 ggModals.error('error message', { size: 'lg', backdrop: true });
 ggModals.confirm('confirm message', { size: 'lg', backdrop: true });</pre>
 
-            <br />
-            <p>
-                Omitting the <code>options</code>, then using the default <code>options</code> set for the type of modal and passing the <code>title</code> and the <code>message</code> of the modal.
-            </p>
-            <h4><code>ggModals.type('title', 'message');</code></h4>
-            <p class="help-block">Example:</p>
-            <pre>
+    <br />
+    <p>
+      Omitting the <code>options</code>, then using the default <code>options</code> set for the type of modal and passing the <code>title</code> and the <code>message</code> of the modal.
+    </p>
+    <h4><code>ggModals.type('title', 'message');</code></h4>
+    <p class="help-block">Example:</p>
+    <pre>
 ggModals.info('info title', 'info message');
 ggModals.success('success title', 'success message');
 ggModals.warning('warning title', 'warning message');
 ggModals.error('error title', 'error message');
 ggModals.confirm('confirm title', 'confirm message');</pre>
 
-            <br />
-            <p>
-                Omitting the <code>title</code> and the <code>options</code>, then using the defaults <code>title</code> and <code>options</code> set for the type of modal and passing the <code>message</code> of the modal.
-            </p>
-            <h4><code>ggModals.type('message');</code></h4>
-            <p class="help-block">Example:</p>
-<pre>
+    <br />
+    <p>
+      Omitting the <code>title</code> and the <code>options</code>, then using the defaults <code>title</code> and <code>options</code> set for the type of modal and passing the <code>message</code> of the modal.
+    </p>
+    <h4><code>ggModals.type('message');</code></h4>
+    <p class="help-block">Example:</p>
+    <pre>
 ggModals.info('info message');
 ggModals.success('success message');
 ggModals.warning('warning message');
 ggModals.error('error message');
 ggModals.confirm('confirm message');</pre>
 
-            <blockquote>
-                The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
-            </blockquote>
-            <blockquote>
-                All the default modals uses the <code>generate()</code> method.
-            </blockquote>
+    <blockquote>
+      The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
+    </blockquote>
+    <blockquote>
+      All the default modals uses the <code>generate()</code> method.
+    </blockquote>
 
-            <h2 id="intro-generating">1.2 Generating modals</h2>
-            <p>
-                The <code>generate()</code> method create a new custom modal from any template you have which follows the
-                <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> template, but it's configurable following the options given by the <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library.
-            </p>
+    <h2 id="intro-generating">1.2 Generating modals</h2>
+    <p>
+      The <code>generate()</code> method create a new custom modal from any template you have which follows the
+      <a href="http://getbootstrap.com" target="_blank">Bootstrap</a> template, but it's configurable following the options given by the <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library.
+    </p>
 
-            <h4><code>ggModals.generate('template url', 'controller name', {inputs}, {options})</code></h4>
-            <p>
-                The <code>template url</code> must be a valid path for a <code>.html</code> file or a cached one. <br />
-                The <code>controller name</code> must represent a valid controller already created/loaded on the application. <br />
-                The <code>inputs</code> object is the object responsible for delivering data from your controller to the modal controller. <br />
-                The <code>options</code> object uses the options set on <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library for modal creation. <br />
-                You may omit the <code>inputs</code> and <code>options</code>, then the default <code>options</code> will be used.
-            </p>
+    <h4><code>ggModals.generate('template url', 'controller name', {inputs}, {options})</code></h4>
+    <p>
+      The <code>template url</code> must be a valid path for a <code>.html</code> file or a cached one. <br /> The <code>controller name</code> must represent a valid controller already created/loaded on the application. <br /> The <code>inputs</code> object is the object responsible for delivering data from your controller to the modal controller. <br /> The <code>options</code> object uses the options set on <a href="https://angular-ui.github.io/bootstrap" target="_blank">UI Bootstrap</a> library for modal creation. <br /> You may omit the <code>inputs</code> and <code>options</code>, then the default <code>options</code> will be used.
+    </p>
 
-            <p>
-                Check it out!
-            </p>
-            <button type="button" class="btn btn-primary" ng-click="vm.custom()">generate()</button>
+    <p>
+      Check it out!
+    </p>
+    <button type="button" class="btn btn-primary" ng-click="vm.custom()">generate()</button>
 
-            <br />
-            <br />
-            <p>
-                Take a look at that custom modal. <br />
-            </p>
-<pre>
+    <br />
+    <br />
+    <p>
+      Take a look at that custom modal. <br />
+    </p>
+    <pre>
 var inputs = {
     message: 'custom message'
 };
@@ -173,10 +161,10 @@ var options = {
     backdrop: true
 };
 ggModals.generate('custom.html', 'nggsModalsDemoCustomController', inputs, options);</pre>
-            <p>
-                Here the template was created using the <code>ng-template</code> directive, but you may use a <code>.html</code> file in your file system either.
-            </p>
-<pre>
+    <p>
+      Here the template was created using the <code>ng-template</code> directive, but you may use a <code>.html</code> file in your file system either.
+    </p>
+    <pre>
 &lt;script type="text/ng-template" id="custom.html"&gt;
     &lt;div class="modal-header"&gt;
         &lt;h4 class="modal-title"&gt;My custom modal&lt;/h4&gt;
@@ -185,13 +173,13 @@ ggModals.generate('custom.html', 'nggsModalsDemoCustomController', inputs, optio
         <code>{{</code> vm.message <code>}}</code>
     &lt;/div&gt;
 &lt;/script&gt;</pre>
-            <blockquote>
-                Using <code>ng-template</code> directive to create template will register the template by it's id to the <code>$templateCache</code> service offered by angular.
-            </blockquote>
-            <p>
-                Now the controller responsible for the modal.
-            </p>
-<pre>
+    <blockquote>
+      Using <code>ng-template</code> directive to create template will register the template by it's id to the <code>$templateCache</code> service offered by angular.
+    </blockquote>
+    <p>
+      Now the controller responsible for the modal.
+    </p>
+    <pre>
 nggsModalsDemo.controller('nggsModalsDemoCustomController', nggsModalsDemoCustomController);
 nggsModalsDemoCustomController.$inject = ['$uibModalInstance', 'inputs'];
 function nggsModalsDemoCustomController($uibModalInstance, inputs) {
@@ -199,22 +187,21 @@ function nggsModalsDemoCustomController($uibModalInstance, inputs) {
     vm.message = inputs.message;
 }
 </pre>
-            <blockquote>
-                The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
-            </blockquote>
+    <blockquote>
+      The <code>options</code> object passed on parameter will overwrite only the attributes present on the parameter and not the full default option object.
+    </blockquote>
 
-            <h2 id="configuring">2. Configuring</h2>
-            <p>
-                There are a few interesting configurations for you.
-            </p>
+    <h2 id="configuring">2. Configuring</h2>
+    <p>
+      There are a few interesting configurations for you.
+    </p>
 
-            <h2 id="configuring-default-options">2.1 Default options</h2>
-            <p>
-                It's possible to configure a bunch of options with default values,
-                any option you pass by parameter in methods willl overwrite it.
-            </p>
+    <h2 id="configuring-default-options">2.1 Default options</h2>
+    <p>
+      It's possible to configure a bunch of options with default values, any option you pass by parameter in methods willl overwrite it.
+    </p>
 
-<pre>
+    <pre>
 ggModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
     .setBackdrop(true/false/'static')                       // default: true
     .setBackdropClass('string')                             // no default
@@ -227,16 +214,12 @@ ggModalsConfigProvider.defaults.setAnimation(true/false)    // default: true
     .setWindowTemplateUrl('string')                         // no default
     .setWindowTopClass('string');                           // no default</pre>
 
-            <h2 id="configuring-pre-built-modals">2.2 Pre-built modals</h2>
-            <p>
-                I thought it'd be nice to let you configure the pre-built modals in the case you need/want to customize one of them, or at least set a default configuration for them.
+    <h2 id="configuring-pre-built-modals">2.2 Pre-built modals</h2>
+    <p>
+      I thought it'd be nice to let you configure the pre-built modals in the case you need/want to customize one of them, or at least set a default configuration for them. It's possible to configure a default title for all info modals you invoke, change the template setting the url to your template, change the controller by changing it's name and even change the label for the close buttons.
+    </p>
 
-                It's possible to configure a default title for all info modals you invoke,
-                change the template setting the url to your template, change the controller by changing it's name and
-                even change the label for the close buttons.
-            </p>
-
-<pre>
+    <pre>
 // Info
 ggModalsConfigProvider.info.setTitle('string')      // no default
     .setTemplateUrl('string')                       // default: 'nggs.modals/template/info.html'
@@ -272,41 +255,65 @@ ggModalsConfigProvider.confirm.setTitle('string')   // no default
     .setOptions({object})                           // default: { backdrop: 'static', controllerAs: 'vm' }
     .setCancelButtonLabel('string')                 // default: 'Cancel'
     .setConfirmButtonLabel('string');               // default: 'Confirm'</pre>
-        </div>
+  </div>
 
-        <script type="text/ng-template" id="custom.html">
-            <div class="modal-header">
-                <h4 class="modal-title">My custom modal</h4>
-            </div>
-            <div class="modal-body">
-                {{ vm.message }}
-            </div>
-        </script>
+  <script type="text/ng-template" id="custom.html">
+    <div class="modal-header">
+      <h4 class="modal-title">My custom modal</h4>
+    </div>
+    <div class="modal-body">
+      {{ vm.message }}
+    </div>
+  </script>
 
-        <script src="../../assets/lib/requirejs/require.min.js"></script>
-        <script>
-            require.config({
-                baseUrl: '../../assets/lib/',
-                paths: {
-                    jquery: 'jquery/jquery.min',
-                    angular: 'angular/angular.min',
-                    'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
-                    'nggs.modals': '../../demo/modals/nggs-modals',
-                    nggsModalsDemo: '../../demo/modals/nggsModalsDemo'
-                },
-                shim: {
-                    jquery: { export: '$' },
-                    angular: { export: 'angular', deps: ['jquery'] },
-                    'ui.bootstrap': { deps: ['angular'] },
-                    'nggs.modals': { deps: ['angular', 'ui.bootstrap'] },
-                    nggsModalsDemo: { deps: ['angular', 'ui.bootstrap', 'nggs.modals'] }
-                }
-            });
-            require(['jquery', 'angular', 'ui.bootstrap', 'nggs.modals', 'nggsModalsDemo'],
-                function() {
-                    angular.bootstrap(document, ['nggsModalsDemo']);
-                }
-            );
-        </script>
-    </body>
+  <script src="../../assets/lib/requirejs/require.min.js"></script>
+  <script>
+    require.config({
+      baseUrl: '../../assets/lib/',
+      paths: {
+        jquery: 'jquery/jquery.min',
+        fixedToTop: '../js/fixed-to-top',
+        angular: 'angular/angular.min',
+        'angular-translate': 'angular-translate/angular-translate.min',
+        'angular-translate-loader-static-files': 'angular-translate/angular-translate-loader-static-files.min',
+        'ui.bootstrap': 'angular-ui-bootstrap/ui-bootstrap-tpls.min',
+        'nggs.modals': '../../demo/modals/nggs-modals',
+        nggsModalsDemo: '../../demo/modals/nggsModalsDemo'
+      },
+      shim: {
+        jquery: {
+          export: '$'
+        },
+        fixedToTop: {
+          deps: ['jquery']
+        },
+        angular: {
+          export: 'angular',
+          deps: ['jquery']
+        },
+        'angular-translate': {
+          deps: ['angular']
+        },
+        'angular-translate-loader-static-files': {
+          deps: ['angular', 'angular-translate']
+        },
+        'ui.bootstrap': {
+          deps: ['angular']
+        },
+        'nggs.modals': {
+          deps: ['angular', 'ui.bootstrap']
+        },
+        nggsModalsDemo: {
+          deps: ['angular', 'ui.bootstrap', 'nggs.modals']
+        }
+      }
+    });
+    require(['jquery', 'fixedToTop', 'angular', 'ui.bootstrap', 'nggs.modals', 'nggsModalsDemo'],
+      function () {
+        angular.bootstrap(document, ['nggsModalsDemo']);
+      }
+    );
+    </script>
+</body>
+
 </html>

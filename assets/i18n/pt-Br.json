@@ -1,5 +1,5 @@
 {
-  "HOME_DESCRIPTION": "nggs é uma coleção de componentes para angular 1.x que eu desenvolvi durante meu dia-a-dia no trabalho, tudo foi feito focado em tornar o desenvolvimento da minha equipe mais rápido e fácil. <br /> Como eu realmente realmente gostei de trabalhar nesses componentes e adorei o resultado. Espero que gostem.",
+  "HOME_DESCRIPTION": "nggs é uma coleção de componentes para angular 1.x que eu desenvolvi durante meu dia-a-dia no trabalho, tudo foi feito focado em tornar o desenvolvimento da minha equipe mais rápido e fácil. <br /> Como eu realmente realmente gostei de trabalhar nesses componentes e adorei o resultado. Espero que gostem. <hr /> Instale via NPM: <code>npm install --save nggs</code>",
   "HOME_FOOTER_BLOCKQUOTE": "Todo meu código e demos foram escritos baseados no <a href=\"https://github.com.br/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Guia de estilo para AngularJS</a> de John Papa's. Caso tenha alguma dúvida do código fonte das demos de uma olhada nele, 'it's a really amazing style guidé um guia muito bom.",
 
   "INTRODUCTION": "Introdução",
