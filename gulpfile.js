@@ -6,8 +6,7 @@ var gulp = require('gulp'),
 
 var paths = {
   src: 'src/',
-  bower: 'bower_components/',
-  node: 'node_modules/',
+  npm: 'node_modules/',
   dist: 'dist/',
   demo: 'demo/',
   assets: 'assets/'
@@ -22,60 +21,60 @@ var modules = {
 
 gulp.task('imports',
   function () {
-    gulp.src(paths.bower + 'angular/angular.min.js')
+    gulp.src(paths.npm + 'angular/angular.min.js')
       .pipe(gulp.dest(paths.assets + 'lib/angular'));
 
-    gulp.src(paths.bower + 'angular/angular-csp.css')
+    gulp.src(paths.npm + 'angular/angular-csp.css')
       .pipe(cleanCSS())
       .pipe(rename({
         extname: '.min.css'
       }))
       .pipe(gulp.dest(paths.assets + 'lib/angular'));
 
-    gulp.src(paths.node + 'angular-ui-bootstrap/dist/*tpls.js')
+    gulp.src(paths.npm + 'angular-ui-bootstrap/dist/*tpls.js')
       .pipe(uglify())
       .pipe(rename({
         extname: '.min.js'
       }))
       .pipe(gulp.dest(paths.assets + 'lib/angular-ui-bootstrap'));
 
-    gulp.src(paths.node + 'angular-ui-bootstrap/dist/*.css')
+    gulp.src(paths.npm + 'angular-ui-bootstrap/dist/*.css')
       .pipe(cleanCSS())
       .pipe(rename({
         extname: '.min.css'
       }))
       .pipe(gulp.dest(paths.assets + 'lib/angular-ui-bootstrap'));
 
-    gulp.src(paths.node + 'requirejs/require.js')
+    gulp.src(paths.npm + 'requirejs/require.js')
       .pipe(uglify())
       .pipe(rename({
         extname: '.min.js'
       }))
       .pipe(gulp.dest(paths.assets + 'lib/requirejs'));
 
-    gulp.src(paths.bower + 'jquery/dist/jquery.min.js')
+    gulp.src(paths.npm + 'jquery/dist/jquery.min.js')
       .pipe(gulp.dest(paths.assets + 'lib/jquery'));
 
     gulp.src([
-        paths.bower + 'bootstrap/dist/*/bootstrap.min.css',
-        '!' + paths.bower + 'bootstrap/dist/*/*.min.css.map',
-        paths.bower + 'bootstrap/dist/*/*.eot',
-        paths.bower + 'bootstrap/dist/*/*.woff',
-        paths.bower + 'bootstrap/dist/*/*.woff2',
-        paths.bower + 'bootstrap/dist/*/*.ttf'
+        paths.npm + 'bootstrap/dist/*/bootstrap.min.css',
+        '!' + paths.npm + 'bootstrap/dist/*/*.min.css.map',
+        paths.npm + 'bootstrap/dist/*/*.eot',
+        paths.npm + 'bootstrap/dist/*/*.woff',
+        paths.npm + 'bootstrap/dist/*/*.woff2',
+        paths.npm + 'bootstrap/dist/*/*.ttf'
       ])
       .pipe(gulp.dest(paths.assets + 'lib/bootstrap'));
 
     gulp.src([
-        paths.bower + 'font-awesome/*/*.min.css',
-        paths.bower + 'font-awesome/*/*.eot',
-        paths.bower + 'font-awesome/*/*.ttf',
-        paths.bower + 'font-awesome/*/*.woff',
-        paths.bower + 'font-awesome/*/*.woff2'
+        paths.npm + 'font-awesome/*/*.min.css',
+        paths.npm + 'font-awesome/*/*.eot',
+        paths.npm + 'font-awesome/*/*.ttf',
+        paths.npm + 'font-awesome/*/*.woff',
+        paths.npm + 'font-awesome/*/*.woff2'
       ])
       .pipe(gulp.dest(paths.assets + 'lib/font-awesome'));
 
-    gulp.src(paths.bower + 'angular-translate*/*.min.js')
+    gulp.src([paths.npm + 'angular-translate/dist/*.min.js', paths.npm + 'angular-translate*/*.min.js'])
       .pipe(rename({
         dirname: ''
       }))

@@ -1,7 +1,6 @@
 {
-  "HOME_DESCRIPTION": "nggs is a collection of components for angular 1.x which I developed while working on my day-to-day projects, everything was made focusing in make my team's development faster and easier. <br /> As I really enjoyed working on these components and loved the result. I hope you guys appreciate it.",
+  "HOME_DESCRIPTION": "nggs is a collection of components for angular 1.x which I developed while working on my day-to-day projects, everything was made focusing in make my team's development faster and easier. <br /> As I really enjoyed working on these components and loved the result. I hope you guys appreciate it. <hr /> Install via NPM: <code>npm install --save nggs</code>",
   "HOME_FOOTER_BLOCKQUOTE": "All my code and demos are written based on John Papa's <a href=\"https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Angular Style Guide</a>, if you have some doubts about the demos's source code, take a look on it, it's a really amazing style guide.",
-
   "INTRODUCTION": "Introduction",
   "DEMO": "Demo",
   "EXAMPLE": "Example(s):",
@@ -47,6 +46,8 @@
   "LOADER_EXAMPLE_3_CODE": "// .config()\nggLoaderConfigProvider.setCustomActivation('keyword');",
 
   "MODALS_TITLE_DESCRIPTION": "A component to generate modals using <b>UI Bootstrap</b>, <b>Bootstrap</b> and <b>Font Awesome</b> libraries.",
+  "MODALS_TITLE_DESCRIPTION_WITH_LINKS": "A component to generate modals using <a href=\"https://angular-ui.github.io/bootstrap\" target=\"_blank\">UI Bootstrap</a>, <a href=\"https://getbootstrap.com\" target=\"_blank\">Bootstrap</a> and <a href=\"http://fontawesome.io/\" target=\"_blank\">Font Awesome</a> libraries.",
+
 
   "PROPS_TITLE_DESCRIPTION": "A component for loading properties to the application, it works as well as a session object."
 
