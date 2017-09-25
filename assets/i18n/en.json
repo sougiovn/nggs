@@ -1,5 +1,5 @@
 {
-  "HOME_DESCRIPTION": "nggs is a collection of components for angular 1.x which I developed while working on my day-to-day projects, everything was made focusing in make my team's development faster and easier. <br /> As I really enjoyed working on these components and loved the result. I hope you guys appreciate it. <hr /> Install via NPM: <code>npm install --save nggs</code>",
+  "HOME_DESCRIPTION": "nggs is a collection of components for angular 1.x which I developed while working on my day-to-day projects, everything was made focusing in make my team's development faster and easier. <br /> As I really enjoyed working on these components and loved the result. I hope you guys appreciate it. <hr /> Install via NPM <code>npm install --save nggs</code> or via bower <code>bower install --save nggs</code>",
   "HOME_FOOTER_BLOCKQUOTE": "All my code and demos are written based on John Papa's <a href=\"https://github.com/johnpapa/angular-styleguide/blob/master/a1/README.md\" target=\"_blank\">Angular Style Guide</a>, if you have some doubts about the demos's source code, take a look on it, it's a really amazing style guide.",
   "INTRODUCTION": "Introduction",
   "DEMO": "Demo",
